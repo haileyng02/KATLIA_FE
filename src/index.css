@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inder&display=swap');
+@import url('https://fonts.googleapis.com/earlyaccess/kopubbatang.css');
 
 * {
   margin: 0;
@@ -20,4 +21,8 @@ body {
 
 html, body {
   scroll-behavior: smooth;
+}
+
+.nav-item {
+  @apply text-28 leading-[35px] text-nav-item mx-8 hover:text-black cursor-pointer
 }
