@@ -30,3 +30,7 @@ html, body {
 .main-title {
   @apply text-[80px] leading-[100px] text-center min-w-[348px] min-h-[134px] items-center flex justify-center
 }
+
+.black-line {
+  @apply border-t-1 border-black absolute
+}
