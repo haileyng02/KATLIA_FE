@@ -26,3 +26,7 @@ html, body {
 .nav-item {
   @apply text-28 leading-[35px] text-nav-item mx-8 hover:text-black cursor-pointer
 }
+
+.main-title {
+  @apply text-[80px] leading-[100px] text-center min-w-[348px] min-h-[134px] items-center flex justify-center
+}

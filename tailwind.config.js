@@ -37,6 +37,9 @@ module.exports = {
       },
       fontFamily:{
         'logo': ['KoPub Batang'] 
+      },
+      borderWidth:{
+        '1': '1px',
       }
     },
   },

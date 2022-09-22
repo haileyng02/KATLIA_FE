@@ -9,16 +9,20 @@ const Home = () => {
       {/* Main */}
       <div className=' h-[763px] relative'>
         {/* Title */}
-        <div className='absolute'>
-          <div className='flex'>
-            <h1>KATLI</h1>
-            <h1>A</h1>
+        <div className='absolute left-[100px]'>
+          <div className='flex gap-[73px]'>
+            <div className='main-title'>
+              <h1>KATLI</h1>
+              <h1 className=' text-[#C85A27]'>A</h1>
+            </div>
+            <div className='main-title'>
+              <h1 className=' text-[#C85A27]'>O</h1>
+              <h1>NLINE</h1>
+            </div>
           </div>
-          <div className='flex'>
-            <h1>O</h1>
-            <h1>NLINE</h1>
+          <div className='main-title absolute -right-[48px]'>
+            <h1>STORE</h1>
           </div>
-          <h1>STORE</h1>
         </div>
         <div className='h-full flex justify-between'>
           {/* IMG */}
