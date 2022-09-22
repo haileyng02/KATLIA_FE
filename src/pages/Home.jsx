@@ -41,6 +41,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <span className=' border-t-1 border-black absolute right-0 w-[46.6%]'/>
     </div>
   )
 }

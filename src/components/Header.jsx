@@ -5,7 +5,7 @@ import Cart from '../images/Cart.svg'
 
 const Header = () => {
   return (
-    <div className=' w-screen h-[110px] bg-header flex'>
+    <div className='w-auto h-[110px] bg-header flex'>
       <div className='mx-[38px] my-auto flex justify-between w-full'>
         <h1 className=' text-[36px] font-logo font-bold leading-[39px]'>KATLIA</h1>
         <ul className='flex'>
