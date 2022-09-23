@@ -4,6 +4,7 @@ import mainPic2 from '../images/main-2.png'
 import mainArrow from '../images/shop-now-arrow.svg'
 import salePic from '../images/home-sale.png'
 import ForMenFeatured from '../components/ForMenFeatured'
+import ForWomenFeatured from '../components/ForWomenFeatured'
 
 const Home = () => {
   return (
@@ -59,6 +60,8 @@ const Home = () => {
       <hr className='black-line w-[40%] mt-[230px]'/>
       {/* For men */}
       <ForMenFeatured/>
+      <hr className='black-line mt-[230px] w-[70%] mr-0 ml-auto'/>
+      <ForWomenFeatured/>
     </div>
   )
 }

@@ -23,7 +23,7 @@ const ForMenFeatured = () => {
             <img
               src= {featuredItems[0].image}
               alt="Men Featured 1"
-              className=" object-cover"
+              className="aspect-[11/15] featured-image"
             />
           </div>
           <h5>{featuredItems[0].title}</h5>
@@ -33,19 +33,19 @@ const ForMenFeatured = () => {
           <img
               src= {featuredItems[1].image}
               alt="Men Featured 2"
-              className=" object-cover"
+              className="aspect-[11/15] featured-image"
             />
           </div>
           <h5>{featuredItems[1].title}</h5>
         </div>
         <div className="basis-[21.5%] self-start">
           <div className="aspect-square rounded-[20px] bg-red-600 overflow-hidden">
-          <img
-              src= {featuredItems[2].image}
-              alt="Men Featured 3"
-              className=" object-cover"
-            />
-          </div>
+            <img
+                src= {featuredItems[2].image}
+                alt="Men Featured 3"
+                className="aspect-square featured-image"
+              />
+            </div>
           <h5>{featuredItems[2].title}</h5>
         </div>
         <div className="basis-[20.4%]">
@@ -53,7 +53,7 @@ const ForMenFeatured = () => {
           <img
               src= {featuredItems[3].image}
               alt="Men Featured 4"
-              className=" object-cover"
+              className="aspect-[11/15] featured-image"
             />
           </div>
           <h5>{featuredItems[3].title}</h5>

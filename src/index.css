@@ -36,5 +36,9 @@ html, body {
 }
 
 .home__for-men {
-  @apply aspect-[11/15] rounded-[20px] bg-red-600
+  @apply rounded-[20px] bg-red-600
+}
+
+.featured-image {
+  @apply object-cover object-center
 }
