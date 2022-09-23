@@ -3,6 +3,7 @@ import mainPic1 from '../images/main-1.png'
 import mainPic2 from '../images/main-2.png'
 import mainArrow from '../images/shop-now-arrow.svg'
 import salePic from '../images/home-sale.png'
+import ForMenFeatured from '../components/ForMenFeatured'
 
 const Home = () => {
   return (
@@ -42,7 +43,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <span className='black-line right-0 w-[46.6%]'/>
+      <hr className='black-line absolute w-[46.6%] right-0'/>
       {/* Sale */}
       <div className='mt-[101px] w-1/2 mx-auto relative'>
         <img src={salePic} alt='Sale' className=' w-full'/>
@@ -55,6 +56,9 @@ const Home = () => {
           </div>         
         </div>
       </div>
+      <hr className='black-line w-[40%] mt-[230px]'/>
+      {/* For men */}
+      <ForMenFeatured/>
     </div>
   )
 }
