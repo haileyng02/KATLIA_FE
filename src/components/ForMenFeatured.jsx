@@ -19,7 +19,7 @@ const ForMenFeatured = () => {
       {/* Featured */}
       <div className="flex justify-between">
         <div className="basis-[20.4%] mt-[132px]">
-          <div className="home__for-men overflow-hidden">
+          <div className="home__for-men">
             <img
               src= {featuredItems[0].image}
               alt="Men Featured 1"
@@ -29,7 +29,7 @@ const ForMenFeatured = () => {
           <h5 className="featured-title">{featuredItems[0].title}</h5>
         </div>
         <div className="basis-[20.4%] mt-[132px]">
-          <div className="home__for-men overflow-hidden">
+          <div className="home__for-men">
           <img
               src= {featuredItems[1].image}
               alt="Men Featured 2"
@@ -39,7 +39,7 @@ const ForMenFeatured = () => {
           <h5 className="featured-title">{featuredItems[1].title}</h5>
         </div>
         <div className="basis-[21.5%] self-start">
-          <div className="aspect-square rounded-[20px] bg-red-600 overflow-hidden">
+          <div className="home__for-men">
             <img
                 src= {featuredItems[2].image}
                 alt="Men Featured 3"
@@ -49,7 +49,7 @@ const ForMenFeatured = () => {
           <h5 className="featured-title">{featuredItems[2].title}</h5>
         </div>
         <div className="basis-[20.4%] mt-[145px]">
-          <div className="home__for-men overflow-hidden">
+          <div className="home__for-men">
           <img
               src= {featuredItems[3].image}
               alt="Men Featured 4"

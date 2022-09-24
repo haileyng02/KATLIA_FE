@@ -38,7 +38,7 @@ html, body {
 }
 
 .home__for-men {
-  @apply rounded-[20px] bg-red-600
+  @apply rounded-[20px] overflow-hidden
 }
 
 .featured-image {
