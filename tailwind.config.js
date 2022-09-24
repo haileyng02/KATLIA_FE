@@ -36,7 +36,8 @@ module.exports = {
         'circle': '0px 0px 10px rgba(0, 0, 0, 0.2)',
       },
       fontFamily:{
-        'logo': ['KoPub Batang'] 
+        'logo': ['KoPub Batang'],
+        'featured': ['Inconsolata'] 
       },
       borderWidth:{
         '1': '1px',

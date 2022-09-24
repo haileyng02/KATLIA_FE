@@ -4,11 +4,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inder&display=swap');
 @import url('https://fonts.googleapis.com/earlyaccess/kopubbatang.css');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-size: 20px;
 }
 
 body {
@@ -41,4 +43,8 @@ html, body {
 
 .featured-image {
   @apply object-cover object-center
+}
+
+.featured-title {
+  @apply break-all leading-[21px] mt-[30px] font-featured
 }
