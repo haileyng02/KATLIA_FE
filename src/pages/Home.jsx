@@ -8,7 +8,7 @@ import ForWomenFeatured from '../components/ForWomenFeatured'
 
 const Home = () => {
   return (
-    <div className='py-[92px]'>
+    <div className='pt-[92px]'>
       {/* Main */}
       <div className='px-[105px] h-[763px] relative'>
         {/* Title */}

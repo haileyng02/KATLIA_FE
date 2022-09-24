@@ -48,3 +48,11 @@ html, body {
 .featured-title {
   @apply break-all leading-[21px] mt-[30px] font-featured
 }
+
+.footer-col-title {
+  @apply leading-6 font-bold
+}
+
+.footer-col-item li {
+  @apply leading-6 opacity-[71%] mt-[38.17px]
+}
