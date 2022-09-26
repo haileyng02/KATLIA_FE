@@ -1,9 +1,8 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom'
 import forMenPic from "../images/home_for-men.png";
+import FeaturedThumbnail from "../components/FeaturedThumbnail"
 
 const ForMenFeatured = () => {
-  const navigate = useNavigate()
 
   const featuredItems = [
     {id: 1,title: 'Leaf print shirt', image: 'https://s3-alpha-sig.figma.com/img/0a13/1a1c/ade33891a43841aa9fde3aecde3febdc?Expires=1664755200&Signature=TgaoM596TOhfFbUGfZHJyMw943L5gbFIY3vEuL~L8wGGYulEy0FJYgXa4vuIYNc3X48VKL-Ep5sKrSk-QRQbvr43xUsACYPMVjl52~UDteT-KfSbkCa0jeB7lgODW3KPMyI~rBRb6eFHyOf7loybytYaAPnWMtlCDsbcy1Q01zfi-gavO75Uwmn-9xublWpCKOrNA4JuA0dw6DbFgV4Hpi2LgvwHpqeGqI4GEaib8Wu4fO2uCwg3tXjmHRiPILlLsITTgm78lbLx0ikr0XTuptT1P~F7vrywAyXtVujGpReEspu5DPaxdXbf~C1Zl~00f5RKTR5aupqbjx3ysRyXFQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'},
@@ -11,10 +10,6 @@ const ForMenFeatured = () => {
     {id: 3,title: 'Crochet hat', image: 'https://s3-alpha-sig.figma.com/img/e3fd/d97f/08416ef6504d0425a3f8811fe5b916e0?Expires=1664755200&Signature=OhQ8~adDS10-TBb3BYbsaPz56edEkYweKLoGJx0tLWm-V7ZXNcLov0ef12dtiYTMi7gOUg8PubDhkkXprITU4Jz~C5PKhX6T89RB8wUvSL~cBEaxqQRuGYBf-T-cJBFgz241NoC-QnBBLZSeMhc4petv90lJkSuRrk6xJ-Wh0WuYdHsWNRZUVZDqSVLrAoYKyrSg97AyNPIqCC0UW8IcrZNcfTu0YzWKccwHxiSD3MGGv1avbq5gL8amRdERIFCr5UjtVLGrcTAvquvAPyzaajO~oUvB9HbsNb6qRgZsc2SXreyyEyfLvDOUqOIV3OlXMaGYiKbR30aWSgO~I7juNQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'},
     {id: 4,title: 'Shirt with comics', image: 'https://s3-alpha-sig.figma.com/img/c896/af0a/d7b6ea9c1757d4dea1faac397b6a1df9?Expires=1664755200&Signature=KUGuL2b1erjWXbwxsK0O6Rtsi4oKGi1eur1hyQbDI~0q2AW8Ge6kZ5bcgkc1Y~97GM6z9Ves3b7RPBD4GEanPvh3FK1Uj1H6J~e0gduALFDIBT3BaGipz6OUFLtnYdq3b7qtQg0fbC4o6c4tfJzAhsc4mlCq9wtrwHtiQ-5AnXLyhsIrOUBdC8Jtzqf5B7GoWvfaJGcMFLwzOnKwOTJJbq9xHh5sQfKemhdBDXpo2wZpnClz4j9GLwbw6dd1mhMGVq8AjqUdkjNSJ56VR7dJdDYqiDCxwPNCXQwSHQ23g3wTMFdKqWydJr-KP12H6aUnETKEeS36STTMZWZmmKOsBA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
   ];
-
-  const handleOnClick = product => {
-    navigate(`/product/${product.id}`,{state: product})
-  }
 
   return (
     <div className="mt-[59px] px-[45px] relative pt-[130px]">
@@ -26,48 +21,22 @@ const ForMenFeatured = () => {
       />
       {/* Featured */}
       <div className="flex justify-between">
-        <div 
-        className="basis-[20.4%] mt-[132px] hover:cursor-pointer" 
-        onClick={() => handleOnClick(featuredItems[0])}>
-          <div className="home__for-men">
-            <img
-              src= {featuredItems[0].image}
-              alt="Men Featured 1"
-              className="aspect-[11/15] featured-image"
-            />
-          </div>
-          <h5 className="featured-title">{featuredItems[0].title}</h5>
-        </div>
-        <div className="basis-[20.4%] mt-[132px]">
-          <div className="home__for-men">
-          <img
-              src= {featuredItems[1].image}
-              alt="Men Featured 2"
-              className="aspect-[11/15] featured-image"
-            />
-          </div>
-          <h5 className="featured-title">{featuredItems[1].title}</h5>
-        </div>
-        <div className="basis-[21.5%] self-start">
-          <div className="home__for-men">
-            <img
-                src= {featuredItems[2].image}
-                alt="Men Featured 3"
-                className="aspect-square featured-image"
-              />
-            </div>
-          <h5 className="featured-title">{featuredItems[2].title}</h5>
-        </div>
-        <div className="basis-[20.4%] mt-[145px]">
-          <div className="home__for-men">
-          <img
-              src= {featuredItems[3].image}
-              alt="Men Featured 4"
-              className="aspect-[11/15] featured-image"
-            />
-          </div>
-          <h5 className="featured-title">{featuredItems[3].title}</h5>
-        </div>
+        <FeaturedThumbnail 
+        item={featuredItems[0]} 
+        container='basis-[20.4%] mt-[132px]'
+        image='aspect-[11/15]'/>
+        <FeaturedThumbnail 
+        item={featuredItems[1]} 
+        container='basis-[20.4%] mt-[132px]'
+        image='aspect-[11/15]'/>
+        <FeaturedThumbnail 
+        item={featuredItems[2]} 
+        container='basis-[21.5%] self-start'
+        image='aspect-square'/>
+        <FeaturedThumbnail 
+        item={featuredItems[3]} 
+        container='basis-[20.4%] mt-[145px]'
+        image='aspect-[11/15]'/>
       </div>
     </div>
   );
