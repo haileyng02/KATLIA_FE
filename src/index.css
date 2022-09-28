@@ -26,7 +26,7 @@ html, body {
 }
 
 .nav-item {
-  @apply text-28 leading-[35px] text-nav-item mx-8 hover:text-black cursor-pointer
+  @apply text-[22px] leading-[28px] text-nav-item mx-8 hover:text-black cursor-pointer
 }
 
 .main-title {
@@ -55,4 +55,8 @@ html, body {
 
 .footer-col-item li {
   @apply leading-6 opacity-[71%] mt-[38.17px]
+}
+
+.quantity-button {
+  @apply w-12 h-12 flex
 }

@@ -15,7 +15,7 @@ module.exports = {
         200: "200px",
       },
       colors: {
-        primary: "#E16246",
+        primary: "#C85A27",
         secondary: "#E83434",
         divider: "#ABABAB",
         'header': '#D9D9D9',

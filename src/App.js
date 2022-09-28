@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import {publicRoutes} from './routes'
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <Header/>
-      <Router>
+      <div className='pt-[73px]'>
         <ScrollToTop/>
         <Routes>
           {publicRoutes.map((route,index) => {
@@ -16,7 +16,7 @@ function App() {
             return <Route key={index} path={route.path} element={<Page/>} />
           })}
         </Routes>
-      </Router>
+      </div>
       <Footer/>
     </div>
   );
