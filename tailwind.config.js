@@ -20,6 +20,7 @@ module.exports = {
         divider: "#ABABAB",
         'header': '#D9D9D9',
         'nav-item': 'rgba(0, 0, 0, 0.42)',
+        'menu-nav': 'rgba(0, 0, 0, 0.46)',
         'placeholder': 'rgba(0, 0, 0, 0.25)',
       },
       fontSize: {

@@ -61,3 +61,7 @@ html, body {
 .quantity-button {
   @apply w-12 h-12 flex
 }
+
+.sort-outline {
+  text-shadow: -0.35px -0.35px 0 #000, 0.35px -0.35px 0 #000, -0.35px 0.35px 0 #000, 0.35px 0.35px 0 #000;
+}

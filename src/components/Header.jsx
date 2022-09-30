@@ -1,10 +1,24 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Search from './Search'
 import Profile from '../images/Profile.svg'
 import Cart from '../images/Cart.svg'
 
 const Header = () => {
+  const navigate = useNavigate();
+  
+  const navData = [
+    'MEN',
+    'WOMEN',
+    'SALE',
+    'CONTACT',
+    'ABOUT'
+  ]
+
+  const handleNavClick = (navItem) => {
+    const path = String(navItem).toLowerCase();
+    navigate('/' + path)
+  }
   return (
     <div className='w-full h-[73px] bg-header flex fixed z-10'>
       <div className='mx-[38px] my-auto flex justify-between w-full'>
@@ -12,11 +26,12 @@ const Header = () => {
           <h1 className=' text-[30px] font-logo font-bold leading-[38px]'>KATLIA</h1>
         </Link>
         <ul className='flex'>
-          <li className='nav-item'>MEN</li>
-          <li className='nav-item'>WOMEN</li>
-          <li className='nav-item'>SALE</li>
-          <li className='nav-item'>CONTACT</li>
-          <li className='nav-item'>ABOUT</li>
+          {navData.map((n,i) => <li 
+          className='nav-item'
+          onClick={() => handleNavClick(n)}
+          >
+          {n}
+          </li>)}
         </ul>
         <Search/>
         <div className='flex'>
