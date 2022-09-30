@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ColorIcon from "../components/ColorIcon";
-import MinusIcon from '../images/MinusIcon.svg';
-import PlusIcon from '../images/PlusIcon.svg';
-import CartIcon from '../images/Cart2.svg'
+import MinusIcon from "../images/MinusIcon.svg";
+import PlusIcon from "../images/PlusIcon.svg";
+import CartIcon from "../images/Cart2.svg";
+import ProductThumbnail from "../components/ProductThumbnail";
 
 const ProductDetail = () => {
   const images = [
@@ -16,12 +17,28 @@ const ProductDetail = () => {
   //   {code: "#000000", name: "Black"}
   // ]
 
-  const sizes = [
-    "S",
-    "M",
-    "L",
-    "XL"
-  ]
+  const sizes = ["S", "M", "L", "XL"];
+
+  const similarItems = [
+    { 
+      image: "https://s3-alpha-sig.figma.com/img/38d3/fdce/84173d0f2c376842c3e595c00a10512a?Expires=1665360000&Signature=dcGoQcBtYdYaHSoICaJFXyjcb4xHb-PEvBbkVmVYW2jZvdUIbkG7qoOzRmUTH7D8f5dUREsj22vQsXu~CG3RVWVTn9EzE3-1kjBNyHMTdVf~VwndL9swtTe0GIKutO4IhjDuuhZvA~QEnfBQYWE2TL6Oe6pmVBKnmXKeYSwKa~aDw-gLNT2Q3YxzZJbCvKODHhGtHPp-UWD0mJa9bAdq9w19Wf8iJQIC7E5L1kluo~XVpTRfOfGZEJB3t0supmteRsvTwrqASO48eN3KHrLki1xmaz1qVz1QPEmCpN84nHuThpfONOyBbKWiaabx~lr82V8D21eQkCaExvZlLQH28w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      colors: 7,
+      name: 'BASIC KNIT SWEATER',
+      price: 27.25
+    },
+    {
+      image: "https://s3-alpha-sig.figma.com/img/5da1/34f4/cd0bc526bdec1121fd820102663b1890?Expires=1665360000&Signature=PuY2r7Me~grtobjfqZddb5jbBxjw7olZkcOLuxzAtKE2W9Wbi6K6f3UyGpadOcC07Pn9S3Rl~GicEisyjzlRyJ9xHLLNJu7VorlhxIELLyX07JEfUDEKDjPTdb~xFw02fJBfZEL2Mw9zBI7gbamKDmRB0zp6ujfAYtuNUk1hWlStWBlCLp7Joq1sRdYwRBtJOn1UxaGwZlgyQUI0MPL8cT-r6SvTtBygamYODN0vHyw8HKNFBigQPjpFyVMoAO6qapwyhieVZ-ArEhmvOnWCPep~nMDnTH~n4oJsbJqdlWzo2EmxGDqTEAuWq~pIHhSHhVbNDjuahFPz9gEy7kR02Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      colors: 3,
+      name: 'ALPACA AND WOOL SWEATER',
+      price: 51.50
+    },
+    {
+      image: "https://s3-alpha-sig.figma.com/img/fda4/4075/938fadd3219b7c2571f7066503304e3a?Expires=1665360000&Signature=D912qMcLyMIqt5TmRvlQgmzUo77KFZ1ZRytu1D0ZuVLtop80EZgLcvat4CDE2bIcL9ImHDUL7nlTAuk3TQ7mSWCCO~uAJ6ybCjv0mtkhtpyS7IidVz6Em9PsyP57pTrCE1h05kYtY3nU6aHjeob51N9Q7~Kf6Qpb2vuzFKdv4yHeDGGy6CKZn32yFVgDCjxkDz2d1039JrtzN0XnzPqD8GDMtfVaBmvfaL70WSQi1Or8ImnNrp~vy2WNYZfWogJ6B70TYAy21OHMzv7aPDsPK4W3I~yzgQ0DA6d3aujT0-FAfMIT334~ayNAWklqULZk7pEWX90Oci2Lj479uSp7Pg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+      colors: 1,
+      name: 'KNIT SWEATER WITH CUT-OUT DETAIL AND RHINESTONE BUTTONS',
+      price: 45.15
+    }
+  ];
 
   const [mainImage, setMainImage] = useState(images[0]);
   const handleOnClick = (image) => {
@@ -29,77 +46,99 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="flex pt-[71px] pl-[71px] pr-[134px] items-start justify-between">
-      {/* Left */}
-      <div className="flex basis-[47%] items-start justify-between">
-        {/* Main Image */}
-        <div className=" basis-[85.5%] bg-gray-400 overflow-hidden aspect-[55/82]">
-          <img
-            src={mainImage}
-            alt="Main"
-            className="object-cover object-center w-full"
-          />
+    <div className=" pt-[71px] font-inter">
+      <div className="px-[150px] flex items-start justify-between">
+        {/* Left */}
+        <div className="flex basis-[47%] items-start justify-between">
+          {/* Main Image */}
+          <div className=" basis-[85.5%] bg-gray-400 overflow-hidden aspect-[55/82]">
+            <img
+              src={mainImage}
+              alt="Main"
+              className="object-cover object-center w-full"
+            />
+          </div>
+          {/* Sub Images */}
+          <div className="flex flex-col basis-[8.5%] gap-y-[6.3px] cursor-pointer">
+            {images.map((image, i) => {
+              return (
+                <div
+                  key={i}
+                  className="overflow-hidden"
+                  style={{ flex: 1 }}
+                  onClick={() => handleOnClick(image)}
+                >
+                  <img
+                    src={image}
+                    alt="Product"
+                    className="object-cover object-center aspect-[55/82]"
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        {/* Sub Images */}
-        <div className="flex flex-col basis-[8.5%] gap-y-[6.3px] cursor-pointer">
-          {images.map((image, i) => {
-            return (
-              <div
-                key={i}
-                className="overflow-hidden"
-                style={{ flex: 1 }}
-                onClick={() => handleOnClick(image)}
-              >
-                <img
-                  src={image}
-                  alt="Product"
-                  className="object-cover object-center aspect-[55/82]"
-                />
-              </div>
-            );
-          })}
+        {/* Right */}
+        <div className=" basis-[36.5%] mt-[82px]">
+          <h1 className=" font-bold">BASIC KNIT SWEATER</h1>
+          <p className=" leading-6 mt-7">
+            Round neck sweater featuring long sleeves, side vents at the hem and
+            ribbed trims.
+          </p>
+          <div className="flex mt-6 gap-x-12">
+            <ColorIcon colorCode="#000000" />
+            <ColorIcon colorCode="#95D5EA" />
+            <ColorIcon colorCode="#60AB4D" />
+            <ColorIcon colorCode="#EDD3AB" />
+            <ColorIcon colorCode="#F81515" />
+            <ColorIcon colorCode="#D9D9D9" />
+          </div>
+          <p className="leading-6 mt-7">Black</p>
+          <p className="leading-6 mt-9">28.58$</p>
+          <div className="flex mt-9 gap-x-[23px]">
+            {sizes.map((s, i) => {
+              return (
+                <div key={i} className="w-[64px] h-[66px] bg-[#D9D9D9] flex">
+                  <h3 className=" text-[35px] leading-[42px] text-nav-item m-auto">
+                    {s}
+                  </h3>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
+            {/* Quantity */}
+            <div className="bg-[#F6F7F8] rounded-[5px] flex items-center">
+              <button className="quantity-button">
+                <img src={MinusIcon} alt="Minus" className="m-auto" />
+              </button>
+              <input
+                value={2}
+                className="w-12 h-12 text-center bg-transparent"
+              />
+              <button className="quantity-button">
+                <img src={PlusIcon} alt="Plus" className="m-auto" />
+              </button>
+            </div>
+            {/* Add To Cart */}
+            <div className="flex bg-[#EBF5FF] rounded-[5px] items-center px-[21px] gap-x-[15px]">
+              <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]" />
+              <h3 className=" text-primary">Add To Cart</h3>
+            </div>
+          </div>
         </div>
       </div>
-      {/* Right */}
-      <div className=" basis-[36.5%] mt-[82px]">
-        <h1 className=" font-bold">BASIC KNIT SWEATER</h1>
-        <p className=" leading-6 mt-7">
-          Round neck sweater featuring long sleeves, side vents at the hem and
-          ribbed trims.
-        </p>
-        <div className="flex mt-6 gap-x-12">
-          <ColorIcon  colorCode="#000000"/>
-          <ColorIcon  colorCode="#95D5EA"/>
-          <ColorIcon  colorCode="#60AB4D"/>
-          <ColorIcon  colorCode="#EDD3AB"/>
-          <ColorIcon  colorCode="#F81515"/>
-          <ColorIcon  colorCode="#D9D9D9"/>
-        </div>
-        <p className="leading-6 mt-7">Black</p>
-        <p className="leading-6 mt-9">28.58$</p>
-        <div className="flex mt-9 gap-x-[23px]">
-          {sizes.map((s,i) => {
-            return <div key={i} className="w-[64px] h-[66px] bg-[#D9D9D9] flex">
-            <h3 className=" text-[35px] leading-[42px] text-nav-item m-auto">{s}</h3>
-          </div>
+      <hr className="black-line w-[50%] mt-[274px]" />
+      {/* SIMILAR ITEMS */}
+      <div className="mt-[141px] px-[150px]">
+        <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
+        <div className="flex flex-nowrap mt-[47px] gap-x-[86px] ">
+          {similarItems.map((item,i) => {
+            return <ProductThumbnail item={item} key={i}/>
           })}
-        </div>
-        <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
-          {/* Quantity */}
-          <div className="bg-[#F6F7F8] rounded-[5px] flex items-center">
-            <button className="quantity-button">
-              <img src={MinusIcon} alt="Minus" className="m-auto"/>
-            </button>
-            <input value={2} className="w-12 h-12 text-center bg-transparent"/>
-            <button className="quantity-button">
-              <img src={PlusIcon} alt="Plus" className="m-auto"/>
-            </button>
-          </div>
-          {/* Add To Cart */}
-          <div className="flex bg-[#EBF5FF] rounded-[5px] items-center px-[21px] gap-x-[15px]">
-            <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]"/>
-            <h3 className=" text-primary">Add To Cart</h3>
-          </div>
+          {similarItems.map((item,i) => {
+            return <ProductThumbnail item={item} key={i}/>
+          })}
         </div>
       </div>
     </div>
