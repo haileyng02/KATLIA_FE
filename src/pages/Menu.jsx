@@ -13,7 +13,7 @@ const Menu = () => {
     "SUITS",
   ];
   return (
-    <div className="flex px-[19px] pt-[62px]">
+    <div className="flex px-[38px] pt-[62px]">
       {/* Sidebar */}
       <aside className="sticky">
         <CategoryBar currCategory={currCategory} categories={categories} />
