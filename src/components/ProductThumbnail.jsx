@@ -1,15 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ProductThumbnail = ({item}) => {
   return (
-    <div>
-        <img src={item.image} alt='Item' className='aspect-[75/113]'/>  
-        <div className='mt-[23px] leading-6'>
-            {item.colors===1||<p>{'+'+(item.colors-1)+' COLOURS'}</p>}
-            <h2>{item.name}</h2>
-            <p>{item.price+' $'}</p>
-        </div>
-    </div>
+    <Link to={`/product/${item.id}`} state={item}>
+      <div>
+          <img src={item.image} alt='Item' className='aspect-[75/113]'/>
+          <div className='mt-[23px] leading-6'>
+              {item.colors===1||<p>{'+'+(item.colors-1)+' COLOURS'}</p>}
+              <h2>{item.name}</h2>
+              <p>{item.price+' $'}</p>
+          </div>
+      </div>
+    </Link>
   )
 }
 

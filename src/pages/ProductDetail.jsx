@@ -21,18 +21,21 @@ const ProductDetail = () => {
 
   const similarItems = [
     { 
+      id: 21,
       image: "https://s3-alpha-sig.figma.com/img/38d3/fdce/84173d0f2c376842c3e595c00a10512a?Expires=1665360000&Signature=dcGoQcBtYdYaHSoICaJFXyjcb4xHb-PEvBbkVmVYW2jZvdUIbkG7qoOzRmUTH7D8f5dUREsj22vQsXu~CG3RVWVTn9EzE3-1kjBNyHMTdVf~VwndL9swtTe0GIKutO4IhjDuuhZvA~QEnfBQYWE2TL6Oe6pmVBKnmXKeYSwKa~aDw-gLNT2Q3YxzZJbCvKODHhGtHPp-UWD0mJa9bAdq9w19Wf8iJQIC7E5L1kluo~XVpTRfOfGZEJB3t0supmteRsvTwrqASO48eN3KHrLki1xmaz1qVz1QPEmCpN84nHuThpfONOyBbKWiaabx~lr82V8D21eQkCaExvZlLQH28w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       colors: 7,
       name: 'BASIC KNIT SWEATER',
       price: 27.25
     },
     {
+      id: 22,
       image: "https://s3-alpha-sig.figma.com/img/5da1/34f4/cd0bc526bdec1121fd820102663b1890?Expires=1665360000&Signature=PuY2r7Me~grtobjfqZddb5jbBxjw7olZkcOLuxzAtKE2W9Wbi6K6f3UyGpadOcC07Pn9S3Rl~GicEisyjzlRyJ9xHLLNJu7VorlhxIELLyX07JEfUDEKDjPTdb~xFw02fJBfZEL2Mw9zBI7gbamKDmRB0zp6ujfAYtuNUk1hWlStWBlCLp7Joq1sRdYwRBtJOn1UxaGwZlgyQUI0MPL8cT-r6SvTtBygamYODN0vHyw8HKNFBigQPjpFyVMoAO6qapwyhieVZ-ArEhmvOnWCPep~nMDnTH~n4oJsbJqdlWzo2EmxGDqTEAuWq~pIHhSHhVbNDjuahFPz9gEy7kR02Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       colors: 3,
       name: 'ALPACA AND WOOL SWEATER',
       price: 51.50
     },
     {
+      id: 23,
       image: "https://s3-alpha-sig.figma.com/img/fda4/4075/938fadd3219b7c2571f7066503304e3a?Expires=1665360000&Signature=D912qMcLyMIqt5TmRvlQgmzUo77KFZ1ZRytu1D0ZuVLtop80EZgLcvat4CDE2bIcL9ImHDUL7nlTAuk3TQ7mSWCCO~uAJ6ybCjv0mtkhtpyS7IidVz6Em9PsyP57pTrCE1h05kYtY3nU6aHjeob51N9Q7~Kf6Qpb2vuzFKdv4yHeDGGy6CKZn32yFVgDCjxkDz2d1039JrtzN0XnzPqD8GDMtfVaBmvfaL70WSQi1Or8ImnNrp~vy2WNYZfWogJ6B70TYAy21OHMzv7aPDsPK4W3I~yzgQ0DA6d3aujT0-FAfMIT334~ayNAWklqULZk7pEWX90Oci2Lj479uSp7Pg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       colors: 1,
       name: 'KNIT SWEATER WITH CUT-OUT DETAIL AND RHINESTONE BUTTONS',
@@ -133,9 +136,6 @@ const ProductDetail = () => {
       <div className="mt-[141px] px-[150px]">
         <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
         <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
-          {similarItems.map((item,i) => {
-            return <ProductThumbnail item={item} key={i}/>
-          })}
           {similarItems.map((item,i) => {
             return <ProductThumbnail item={item} key={i}/>
           })}
