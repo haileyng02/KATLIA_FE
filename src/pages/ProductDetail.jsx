@@ -132,7 +132,7 @@ const ProductDetail = () => {
       {/* SIMILAR ITEMS */}
       <div className="mt-[141px] px-[150px]">
         <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
-        <div className="flex flex-nowrap mt-[47px] gap-x-[86px] ">
+        <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
           {similarItems.map((item,i) => {
             return <ProductThumbnail item={item} key={i}/>
           })}
