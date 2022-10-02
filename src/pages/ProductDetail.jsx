@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import ColorIcon from "../components/ColorIcon";
-import MinusIcon from "../images/MinusIcon.svg";
-import PlusIcon from "../images/PlusIcon.svg";
-import CartIcon from "../images/Cart2.svg";
 import ProductThumbnail from "../components/ProductThumbnail";
+import Quantity from "../components/Quantity";
+import ColorIcon from "../components/ColorIcon";
+import CartIcon from "../images/Cart2.svg";
 
 const ProductDetail = () => {
   const images = [
@@ -111,22 +110,11 @@ const ProductDetail = () => {
           </div>
           <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
             {/* Quantity */}
-            <div className="bg-[#F6F7F8] rounded-[5px] flex items-center">
-              <button className="quantity-button">
-                <img src={MinusIcon} alt="Minus" className="m-auto" />
-              </button>
-              <input
-                value={2}
-                className="w-12 h-12 text-center bg-transparent"
-              />
-              <button className="quantity-button">
-                <img src={PlusIcon} alt="Plus" className="m-auto" />
-              </button>
-            </div>
+            <Quantity custom="w-36"/>
             {/* Add To Cart */}
             <div className="flex bg-[#EBF5FF] rounded-[5px] items-center px-[21px] gap-x-[15px]">
               <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]" />
-              <h3 className=" text-primary">Add To Cart</h3>
+              <h3 className=" text-secondary">Add To Cart</h3>
             </div>
           </div>
         </div>

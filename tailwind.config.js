@@ -15,8 +15,8 @@ module.exports = {
         200: "200px",
       },
       colors: {
-        primary: "#C85A27",
-        secondary: "#E83434",
+        primary: 'rgba(200, 90, 39, 0.57)',
+        secondary: "#C85A27",
         divider: "#ABABAB",
         'header': '#D9D9D9',
         'nav-item': 'rgba(0, 0, 0, 0.42)',

@@ -35,8 +35,8 @@ const Header = () => {
         </ul>
         <Search/>
         <div className='flex'>
-          <img src={Profile} alt='Profile icon' className=' w-7'/>
-          <img src={Cart} alt='Cart icon' className=' w-8 ml-[15px]'/>
+          <img src={Profile} alt='Profile icon' className=' w-[27px]'/>
+          <Link to='/cart' className='ml-[15px]'><img src={Cart} alt='Cart icon' className=' w-7'/></Link>
         </div>
       </div>
     </div>
