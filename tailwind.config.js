@@ -19,8 +19,10 @@ module.exports = {
         secondary: "#C85A27",
         divider: "#ABABAB",
         'header': '#D9D9D9',
+        'account-divider': 'rgba(0, 0, 0, 0.40)',
         'nav-item': 'rgba(0, 0, 0, 0.42)',
         'menu-nav': 'rgba(0, 0, 0, 0.46)',
+        'account-nav': 'rgba(0, 0, 0, 0.47)',
         'placeholder': 'rgba(0, 0, 0, 0.25)',
       },
       fontSize: {
