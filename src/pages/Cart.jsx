@@ -17,7 +17,7 @@ const Cart = () => {
         "https://s3-alpha-sig.figma.com/img/ea3b/179c/39ed87623ac25c793007f5edca37cd55?Expires=1665360000&Signature=GMg3~IKkKNaSjmq75wX4lZ8ruXl4H~y4y8CG~IqNYvMSnOFd8xG2QElysd6iNuKVPXIUH~odvmYf~vClpXSDYuxzrMunHy93ngziyRoEq5PFX0LYzaRswL7QYW02lD69UMBlv7fwP2suHB9SHd4aXb5j15pbRkR78kKEIB-1XkmeWww-trLqROffasc1pIHer3eNm2ubedDWyBWsD0OFDY2FxmFU9luK-wtnRVK7ktY08hJN6HFwr~hBA0WOlMdEkRFF3yLFKFvyuLZFgrgMkaiibAfP4fM1bVOcU9VwAFU~XiDEru-C2U-MxNskE1sQt9mOS~~~jEFcfI7CRFZ1aQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       name: "TULLE TOP WITH GATHERING",
       unitPrice: 52.5,
-      quantity: 2,
+      quantity: 3,
       price: 105,
     },
   ];
@@ -67,10 +67,11 @@ const Cart = () => {
                 </div>
               </td>
               <td className="cart-item">{"$" + item.unitPrice}</td>
+              {/* Quantity */}
               <td className="w-[125px]">
-                <Quantity custom="text-[18px] h-[46px]" />
+                <Quantity custom="text-[18px] h-[46px]" quantity={item.quantity}/>
               </td>
-              <td className="cart-item text-right">{"$" + item.price}</td>
+              <td className="cart-item text-right">{"$" + item.unitPrice*item.quantity}</td>
             </tr>
           </React.Fragment>
         ))}
