@@ -34,7 +34,7 @@ const Header = () => {
           src={Profile} 
           alt="Profile icon" 
           className=" w-[27px] cursor-pointer" 
-          onClick={() => handleNavClick('account')}/>
+          onClick={() => handleNavClick('account/profile')}/>
           <Link to="/cart" className="ml-[15px]">
             <img src={Cart} alt="Cart icon" className=" w-7" />
           </Link>
