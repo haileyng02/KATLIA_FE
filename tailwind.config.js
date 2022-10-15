@@ -41,7 +41,8 @@ module.exports = {
       fontFamily:{
         'logo': ['KoPub Batang'],
         'featured': ['Inconsolata'],
-        'inter': ['Inter'] 
+        'inter': ['Inter'],
+        'poppins' : ['Poppins']
       },
       borderWidth:{
         '1': '1px',

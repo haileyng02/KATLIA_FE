@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import Address from "./Address";
 import Order from "./Order";
-import ChangePassword from "./ChangePassword"
+import ChangePassword from "./ChangePassword";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -39,23 +39,25 @@ const Account = () => {
   };
 
   return (
-    <div className="px-[155px] py-[49px]">
-      <h1 className=" font-bold text-[30px]">Account</h1>
+    <div className="px-[150px] pt-16">
       <div className="flex">
-        {/* Nav */}
-        <ul className="">
-          {navData.map((n, i) => (
-            <li
-              className=" mt-12 text-28 text-account-nav cursor-pointer"
-              onClick={() => handleNavClick(n)}
-            >
-              {n}
-            </li>
-          ))}
-        </ul>
-        <div className=" w-[1px] bg-account-divider ml-[60px] mt-12"></div>
+        <div className="w-1/4">
+          <h1 className="font-inter font-bold text-[30px]">Account</h1>
+          {/* Nav */}
+          <ul className="">
+            {navData.map((n, i) => (
+              <li
+                className=" mt-12 text-[25px] text-account-nav cursor-pointer"
+                onClick={() => handleNavClick(n)}
+              >
+                {n}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className=" w-[1px] bg-account-divider ml-[75px]"></div>
         {/* Container*/}
-        <div className="mt-12 ml-[71px]">{getCurrentContainer()}</div>
+        <div className="ml-[71px] w-full">{getCurrentContainer()}</div>
       </div>
     </div>
   );
