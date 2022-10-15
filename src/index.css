@@ -107,3 +107,11 @@ th {
 .account-title {
   @apply text-[30px] font-inter font-bold
 }
+
+.order-detail-title {
+  @apply text-[#223263] opacity-50
+}
+
+.order-detail-value {
+  @apply text-[#223263]
+}
