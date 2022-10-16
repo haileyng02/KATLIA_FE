@@ -123,3 +123,7 @@ th {
 .light-blue-border {
   @apply border-[1.72px] border-[#EBF0FF] rounded-[8.6px] p-[27px]
 }
+
+.changepassword-input {
+  @apply mt-[19px] border-1 border-black rounded-[10px] h-[53px] p-4
+}
