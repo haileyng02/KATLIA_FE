@@ -115,3 +115,11 @@ th {
 .order-detail-value {
   @apply text-[#223263]
 }
+
+.order-detail-heading {
+  @apply text-[#223263] font-bold text-[24px]
+}
+
+.light-blue-border {
+  @apply border-[1.72px] border-[#EBF0FF] rounded-[8.6px] p-[27px]
+}

@@ -39,7 +39,7 @@ const OrderItem = ({ item }) => {
       </div>
       <div className="flex justify-between">
         <h3 className="order-detail-title">Price</h3>
-        <p className="text-[#F9AF5E]">{"$" + item.price}</p>
+        <p className="text-[#F9AF5E]">{"$" + item.totalPrice}</p>
       </div>
     </div>
   );

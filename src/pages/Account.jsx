@@ -35,8 +35,8 @@ const Account = () => {
         return <Address />;
       case "order":
         return <Order />;
-      // case initNav.match(/order\//)?.input:
-        // return <OrderDetail />;
+      case initNav.match(/^order/)?.input:
+        return <OrderDetail />;
       case "change-password":
         return <ChangePassword />;
       default:
@@ -47,7 +47,7 @@ const Account = () => {
   return (
     <div className="px-[150px] pt-16">
       <div className="flex">
-        <div className="w-1/4">
+        <div className="w-1/3">
           <h1 className="font-inter font-bold text-[30px]">Account</h1>
           {/* Nav */}
           <ul className="">
@@ -63,7 +63,7 @@ const Account = () => {
         </div>
         <div className=" w-[1px] bg-account-divider ml-[75px]"></div>
         {/* Container*/}
-        <div className="ml-[71px] w-full">{getCurrentContainer()}</div>
+        <div className="ml-[75px] w-full">{getCurrentContainer()}</div>
       </div>
     </div>
   );

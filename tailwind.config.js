@@ -24,6 +24,8 @@ module.exports = {
         'menu-nav': 'rgba(0, 0, 0, 0.46)',
         'account-nav': 'rgba(0, 0, 0, 0.47)',
         'placeholder': 'rgba(0, 0, 0, 0.25)',
+        'kaliablue' : "#223263",
+        'kaliayellow' : "#F9AF5E"
       },
       fontSize: {
         '13': ['13px', '13px'],
