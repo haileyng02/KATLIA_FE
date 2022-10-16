@@ -17,6 +17,7 @@ const privateRoutes = [
     { path: '/account/profile', component: Account },
     { path: '/account/address', component: Account },
     { path: '/account/order', component: Account },
+    { path: '/account/order/:orderID', component: Account },
     { path: '/account/change-password', component: Account },
 ];
 

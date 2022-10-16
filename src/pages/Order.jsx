@@ -6,14 +6,14 @@ const Order = () => {
     {
       id: 'LQNSU346JK',
       date: 'September 27, 2022',
-      orderStatus: 'Shipping',
+      statusID: 2,
       totalQty : 2,
       price: 101.84
     },
     {
       id: 'SDG1345KJD',
       date: 'September 28, 2022',
-      orderStatus: 'Shipping',
+      statusID: 2,
       totalQty : 1,
       price: 41.50  
     }

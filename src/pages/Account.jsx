@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import Address from "./Address";
 import Order from "./Order";
 import ChangePassword from "./ChangePassword";
+import OrderDetail from "./OrderDetail";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ const Account = () => {
   };
 
   const getCurrentContainer = () => {
+    // if (initNav.includes('order/') && initNav.length>6) {
+    //   return <OrderDetail/>
+    // }
     switch (initNav) {
       case "profile":
         return <Profile />;
@@ -31,6 +35,8 @@ const Account = () => {
         return <Address />;
       case "order":
         return <Order />;
+      // case initNav.match(/order\//)?.input:
+        // return <OrderDetail />;
       case "change-password":
         return <ChangePassword />;
       default:
