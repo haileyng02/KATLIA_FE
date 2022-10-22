@@ -127,3 +127,27 @@ th {
 .changepassword-input {
   @apply mt-[19px] border-1 border-black rounded-[10px] h-[53px] p-4
 }
+
+.auth-input {
+  @apply border-1 border-account-nav rounded-[10px] w-full h-[52px] px-4 text-20
+}
+
+.auth-line {
+  @apply h-[1px] bg-account-nav flex-1
+}
+
+.auth-button {
+  @apply flex items-center justify-center gap-x-[13px]
+}
+
+.auth-border {
+  @apply flex flex-col items-center border-1 border-black35 rounded-[5px]
+}
+
+.auth-primary-button {
+  @apply bg-primary text-white w-full rounded-[10px] h-[52px] border-1 border-account-nav
+}
+
+.auth-prefix {
+  @apply mr-3
+}
