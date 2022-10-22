@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
 import VerifyCode from './pages/VerifyCode';
+import NewPassword from './pages/NewPassword';
 
 //Public routes
 const publicRoutes = [
@@ -17,7 +18,8 @@ const publicRoutes = [
     { path: 'signin', component: SignIn },
     { path: '/signup', component: SignUp },
     { path: '/reset-password', component: ResetPassword },
-    {path: '/reset-password/verify-code', component: VerifyCode}
+    { path: '/reset-password/verify-code', component: VerifyCode },
+    { path: '/reset-password/new-password', component: NewPassword }
 ];
 
 //Private routes
