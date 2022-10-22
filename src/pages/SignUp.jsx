@@ -11,7 +11,7 @@ const SignUp = () => {
     navigate("/signin");
   };
   return (
-    <div className="auth-border mx-[150px] my-8 px-[189px] py-[116px]">
+    <div className="auth-border items-center w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
       <h1 className="text-[45px]">Let's Get Started</h1>
       <p className="mt-[2px]">Create an new account.</p>
       <div className="mt-[50px] flex flex-col gap-y-7 w-full">

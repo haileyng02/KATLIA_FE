@@ -5,6 +5,7 @@ import Cart from './pages/Cart';
 import Account from './pages/Account';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import ResetPassword from './pages/ResetPassword';
 
 //Public routes
 const publicRoutes = [
@@ -13,7 +14,8 @@ const publicRoutes = [
     { path: '/men', component: Menu },
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },
-    { path: '/signup', component: SignUp }
+    { path: '/signup', component: SignUp },
+    { path: '/reset-password', component: ResetPassword }
 ];
 
 //Private routes

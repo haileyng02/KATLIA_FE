@@ -141,7 +141,7 @@ th {
 }
 
 .auth-border {
-  @apply flex flex-col items-center border-1 border-black35 rounded-[5px]
+  @apply flex flex-col border-1 border-black35 rounded-[5px]
 }
 
 .auth-primary-button {

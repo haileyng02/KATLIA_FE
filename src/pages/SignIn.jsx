@@ -9,12 +9,12 @@ import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
     const navigate = useNavigate()
-    const handleSignUp = () => {
-        navigate('/signup');
+    const handleOnClick = (path) => {
+        navigate('/'+path);
     }
   return (
     <div className='px-[150px] py-8 flex'>
-        <div className='auth-border px-[89px] py-[50px]  w-[58%]'>
+        <div className='auth-border items-center px-[89px] py-[50px]  w-[58%]'>
             <h1 className='text-[45px]'>Welcome To Katlia!</h1>
             <p className='mt-[9px]'>Sign in to continue.</p>
             <Input
@@ -32,7 +32,9 @@ const SignIn = () => {
                     <input type={"checkbox"} name="remember" className='accent-black w-[18px] h-[18px] mr-[6px]'/>
                     <label for="remember" className='text-[14px]'>Remember for 30 days</label>
                 </div>
-                <p className='underline text-[14px]'>Forgot password</p>
+                <p 
+                onClick={() => handleOnClick('reset-password')}
+                className='underline text-[14px] cursor-pointer'>Forgot password</p>
             </div>
             <button className='mt-[23px] auth-primary-button'>SIGN IN</button>
             <div className='flex mt-8 items-center justify-between w-full'>
@@ -48,7 +50,7 @@ const SignIn = () => {
             className='mt-[26px] auth-input auth-button'>Sign in with Facebook</Button>
             <p className='mt-[34px] text-black70'>Don't have an account? 
             <span 
-            onClick={handleSignUp}
+            onClick={() => handleOnClick('signup')}
             className='text-primary cursor-pointer'> Sign up for free</span></p>
         </div>
         <img src={authGif} alt='Fashion' className='w-[42%] object-cover rounded-[5px]'/>
