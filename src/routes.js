@@ -6,6 +6,7 @@ import Account from './pages/Account';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
+import VerifyCode from './pages/VerifyCode';
 
 //Public routes
 const publicRoutes = [
@@ -15,7 +16,8 @@ const publicRoutes = [
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },
     { path: '/signup', component: SignUp },
-    { path: '/reset-password', component: ResetPassword }
+    { path: '/reset-password', component: ResetPassword },
+    {path: '/reset-password/verify-code', component: VerifyCode}
 ];
 
 //Private routes
