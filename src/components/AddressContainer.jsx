@@ -25,6 +25,20 @@ const addressData = [
     address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
     isDefault: false,
   },
+  {
+    id: 4,
+    name: "Nguyen Huu Trung Kien",
+    phoneNumber: 975305060,
+    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    isDefault: false,
+  },
+  {
+    id: 5,
+    name: "Nguyen Huu Trung Kien",
+    phoneNumber: 975305060,
+    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    isDefault: false,
+  },
 ];
 
 const AddressContainer = ({ type, custom }) => {
@@ -63,7 +77,7 @@ const AddressContainer = ({ type, custom }) => {
   return (
     <>
       {type === 2 ? (
-        <div className="flex gap-x-[29px]">
+        <div className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4">
           {addressBook.map((a, i) => {
             return (
               <AddressItem2
