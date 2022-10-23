@@ -6,7 +6,7 @@ import Cart from "../images/Cart.svg";
 
 const Header = () => {
   const navigate = useNavigate();
-  const currentUser = false;
+  const currentUser = true;
 
   const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 

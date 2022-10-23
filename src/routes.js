@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
 import VerifyCode from './pages/VerifyCode';
 import NewPassword from './pages/NewPassword';
+import DeliveryInformation from './pages/DeliveryInformation';
 
 //Public routes
 const publicRoutes = [
@@ -29,6 +30,7 @@ const privateRoutes = [
     { path: '/account/order', component: Account },
     { path: '/account/order/:orderID', component: Account },
     { path: '/account/change-password', component: Account },
+    { path: '/delivery-information', component: DeliveryInformation }
 ];
 
 export { publicRoutes, privateRoutes }

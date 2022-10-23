@@ -151,3 +151,27 @@ th {
 .auth-prefix {
   @apply mr-3
 }
+
+.deli-info h2 {
+  @apply text-[21px]
+}
+
+.black-rounded-border {
+  @apply border-1 border-black rounded-[10px]
+}
+
+.deli-button {
+  @apply bg-primary text-white font-poppins font-bold w-full drop-shadow-[0_17px_51px_rgba(64,191,255,0.24)]
+}
+
+.edit-button {
+  @apply px-6 py-4 text-[14px] deli-button rounded-[5px]
+}
+
+.address-phone {
+  @apply text-[#9098B1] font-poppins
+}
+
+.address-modify-container {
+  @apply flex items-center justify-between
+}

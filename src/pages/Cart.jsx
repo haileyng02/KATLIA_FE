@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Quantity from "../components/Quantity";
 import DeleteIcon from "../images/Delete.svg";
 
 const Cart = () => {
+  const navigate = useNavigate()
   const cartItems = [
     {
       image:
@@ -27,6 +29,9 @@ const Cart = () => {
     discount: "No",
     total: 208.04,
   };
+  const handleCheckOut = () => {
+    navigate('/delivery-information')
+  }
   return (
     <div className="px-[150px] pt-[77px] text-[#22262A] ">
       <h1 className="text-[30px] leading-9 font-inter font-bold">
@@ -95,7 +100,9 @@ const Cart = () => {
           <p className="text-[30px]">{"$" + data.total}</p>
         </div>
         {/* Check out */}
-        <button className="bg-primary text-white w-full rounded-[5px] h-[60px] mt-[31px]">
+        <button
+        onClick={handleCheckOut}
+        className="bg-primary text-white w-full rounded-[5px] h-[60px] mt-[31px]">
           Check out
         </button>
       </div>

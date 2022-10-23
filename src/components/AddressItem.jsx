@@ -12,14 +12,14 @@ const AddressItem = ({data,editAddress}) => {
       <div className="flex gap-x-[26px] items-center">
         <h2 className="text-[#223263]">{data.name}</h2>
         <div className="w-[1px] h-[23px] bg-black"></div>
-        <p className="text-[#9098B1] font-poppins">
+        <p className="address-phone">
           {"(+84) " + data.phoneNumber}
         </p>
       </div>
       <p className="mt-8 text-[#9098B1] max-w-[85%]">
         {data.address}
       </p>
-      <div className="flex mt-[54px] items-center justify-between">
+      <div className="mt-[54px] address-modify-container">
         <div 
         className={`border-1 ${theme.style} px-[10px] rounded-[5px]`}>
           <p>{theme.text}</p>
@@ -28,7 +28,7 @@ const AddressItem = ({data,editAddress}) => {
           <img src={deleteIcon} alt="Delete" />
           <button 
           onClick={editAddress}
-          className="bg-primary px-6 py-4 rounded-[5px] text-white text-[14px] font-bold font-poppins">
+          className="edit-button">
             Edit
           </button>
         </div>
