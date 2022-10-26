@@ -1,7 +1,7 @@
 import React from "react";
 import AccountInput from "../components/AccountInput";
 import AddressForm from "./AddressForm";
-import { Modal, Switch } from "antd";
+import { Modal } from "antd";
 
 const AddAddressModal = ({isModalOpen,handleCancel,currItem}) => {
   return (
@@ -20,13 +20,7 @@ const AddAddressModal = ({isModalOpen,handleCancel,currItem}) => {
     >
       <h1 className="text-[30px] font-bold">{currItem ? 'Edit Address' : 'Add Address'}</h1>
       <div className="flex flex-col space-y-[21px] mt-[9px]">
-        <AccountInput label={"Full name"} value={currItem?.name}/>
-        <AccountInput label={"Contact number"} value={currItem?.phoneNumber}/>
-        <AddressForm />
-      </div>
-      <div className="flex mt-6 justify-between">
-        <p>Set as Default Address</p>
-        <Switch className="bg-gray-300" />
+        <AddressForm currItem={currItem || ''}/>
       </div>
       <div className="flex gap-x-[162px] mt-6 justify-between h-[71px] text-[36px]">
         <button 

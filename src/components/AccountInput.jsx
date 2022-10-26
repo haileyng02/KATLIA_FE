@@ -1,11 +1,11 @@
 import React from "react";
 
-const AccountInput = ({ label, custom, value }) => {
+const AccountInput = ({ label, custom, value, handleChange, name }) => {
   return (
     <div className={custom}>
       <label className="input-label">
         {label}
-        <input className="default-input" value={value}/>
+        <input name={name} className="default-input" value={value} onChange={handleChange}/>
       </label>
     </div>
   );

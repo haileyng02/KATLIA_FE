@@ -17,7 +17,7 @@ const AddressItem = ({data,editAddress}) => {
         </p>
       </div>
       <p className="mt-8 text-[#9098B1] max-w-[85%]">
-        {data.address}
+        {data.fullAddress}
       </p>
       <div className="mt-[54px] address-modify-container">
         <div 

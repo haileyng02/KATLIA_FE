@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Switch } from "antd";
 import AccountInput from "../components/AccountInput";
 import DefaultSelect from "../components/DefaultSelect";
 import provinceApi from "../api/provinceApi";
@@ -6,16 +7,58 @@ import handleApiCallError from "../utils/handleApiCallError";
 import sortByName from "../utils/sortByName";
 import normalizeText from "../utils/normalizeText";
 
-const AddressForm = () => {
+const AddressForm = ({ currItem }) => {
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [ward, setWard] = useState([]);
-  const [isDistrictSelected, setDistrictSelected] = useState(null);
-  const [isWardSelected, setWardSelected] = useState(null);
+  const [address, setAddress] = useState({
+    name: "",
+    phoneNumber: "",
+    address: "",
+    province: "",
+    district: "",
+    ward: "",
+    note: "",
+    isDefault: false,
+  });
 
   useEffect(() => {
     fetchProvinces();
-  }, []);
+    if (currItem) setCurrAddress(currItem);
+    else
+      setCurrAddress({
+        address: "",
+        province: "",
+        district: "",
+        ward: "",
+        note: "",
+        isDefault: false,
+      });
+  }, [currItem]);
+
+  const setCurrAddress = async (currItem) => {
+    setAddress((prev) => ({
+      ...prev,
+      name: currItem.name,
+      phoneNumber: currItem.phoneNumber,
+      address: currItem.address,
+      note: currItem.note,
+      province: currItem.province,
+      isDefault : currItem.isDefault
+    }));
+
+    await fetchDistricts(currItem.province);
+    setAddress((prev) => ({
+      ...prev,
+      district: currItem.district,
+    }));
+
+    await fetchWards(currItem.district);
+    setAddress((prev) => ({
+      ...prev,
+      ward: currItem.ward,
+    }));
+  };
 
   // Fetch province at first render\
   const fetchProvinces = async () => {
@@ -37,8 +80,6 @@ const AddressForm = () => {
           depth: 2,
         },
       });
-      setDistrictSelected(false);
-      setWardSelected(false);
       setDistrict(sortByName(normalizeText(response.data.districts)));
       setWard([]);
     } catch (err) {
@@ -57,7 +98,6 @@ const AddressForm = () => {
         },
       });
 
-      setWardSelected(false);
       setWard(sortByName(normalizeText(response.data.wards)));
     } catch (err) {
       handleApiCallError(err);
@@ -65,37 +105,77 @@ const AddressForm = () => {
   };
 
   // Handle user's changes in input
-  const handleChange = e => {
-    const key = e.target.name
-    const value = e.target.value
-    console.log(value)
+  const handleChange = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    console.log(key);
+    console.log(value);
 
-    if (key === 'province' && value !== 'default') {
-      fetchDistricts(value)
-      return
+    if (key === "province" && value !== "default") {
+      setAddress({
+        ...address,
+        province: value,
+        district: "",
+        ward: "",
+      });
+      fetchDistricts(value);
+      return;
     }
 
-    if (key === 'district' && value !== 'default') {
-      setDistrictSelected(true)
-      fetchWards(value)
-      return
+    if (key === "district" && value !== "default") {
+      setAddress({
+        ...address,
+        district: value,
+        ward: "",
+      });
+      fetchWards(value);
+      return;
     }
 
-    if (key === 'ward' && value !== 'ward') {
-      setWardSelected(true)
+    if (key === "ward" && value !== "ward") {
     }
-  }
 
-  
+    if (e.target.name === "phone") {
+      setAddress({
+        ...address,
+        phone: e.target.value.replace(/\D/g, ""),
+      });
+      return;
+    }
+
+    setAddress({
+      ...address,
+      [key]: value,
+    });
+  };
+
   return (
     <>
-      <AccountInput label={"Your address"} />
+      <AccountInput
+        name="name"
+        label={"Full name"}
+        value={address.name || ""}
+        handleChange={handleChange}
+      />
+      <AccountInput
+        name="phoneNumber"
+        label={"Contact number"}
+        value={address.phoneNumber || ""}
+        handleChange={handleChange}
+      />
+      <AccountInput
+        name="address"
+        label={"Your address"}
+        value={address.address || ""}
+        handleChange={handleChange}
+      />
       <div className="flex gap-x-[74px]">
         <DefaultSelect
           name="province"
           custom={"flex-1"}
           label="Province"
           items={province}
+          value={address.province}
           handleChange={handleChange}
         />
         <DefaultSelect
@@ -103,6 +183,7 @@ const AddressForm = () => {
           custom={"flex-1"}
           label="District"
           items={district}
+          value={address.district}
           handleChange={handleChange}
         />
       </div>
@@ -112,9 +193,20 @@ const AddressForm = () => {
           custom={"flex-1"}
           label="Ward"
           items={ward}
+          value={address.ward}
           handleChange={handleChange}
         />
-        <AccountInput custom={"flex-1"} label="Note" />
+        <AccountInput
+          name="note"
+          custom={"flex-1"}
+          label="Note"
+          value={address.note || ""}
+          handleChange={handleChange}
+        />
+      </div>
+      <div className="flex mt-6 justify-between">
+        <p>Set as Default Address</p>
+        <Switch className="bg-gray-300" checked={address.isDefault}/>
       </div>
     </>
   );

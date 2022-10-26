@@ -11,7 +11,7 @@ const AddressItem2 = ({ data,editAddress }) => {
   return (
     <div className="border-1 border-black mt-6 p-[26px] w-[370px] flex flex-col justify-between">
       <h3 className="text-[#223263]">{data.name}</h3>
-      <p className="text-[#9098B1] mt-[17px]">{data.address}</p>
+      <p className="text-[#9098B1] mt-[17px]">{data.fullAddress}</p>
       <p className="address-phone mt-4">{'(+84) '+data.phoneNumber}</p>
       <div className="address-modify-container mt-5">
         <div 

@@ -8,35 +8,56 @@ const addressData = [
     id: 1,
     name: "Nguyen Huu Trung Kien",
     phoneNumber: 975305060,
-    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    address: '56, August Revolution',
+    ward: '25195_Phuong Tan Phu',
+    district: '689_Thanh pho Dong Xoai',
+    province: '70_Tinh Binh Phuoc',
+    note: 'hihi',
     isDefault: false,
   },
   {
     id: 2,
-    name: "Nguyen Huu Trung Kien",
-    phoneNumber: 975305060,
-    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    name: "Nguyen Tran Cam Tien",
+    phoneNumber: 528325771,
+    fullAddress: "164, Phan Dinh Phung, phuong 2, Phu Nhuan, TP.HCM",
+    address: '164, Phan Dinh Phung',
+    ward: '27061_Phuong 02',
+    district: '768_Quan Phu Nhuan',
+    province: '79_Thanh pho Ho Chi Minh',
     isDefault: true,
   },
   {
     id: 3,
     name: "Nguyen Huu Trung Kien",
     phoneNumber: 975305060,
-    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    address: '56, August Revolution',
+    ward: '25195_Phuong Tan Phu',
+    district: '689_Thanh pho Dong Xoai',
+    province: '70_Tinh Binh Phuoc',
     isDefault: false,
   },
   {
     id: 4,
     name: "Nguyen Huu Trung Kien",
     phoneNumber: 975305060,
-    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    address: '56, August Revolution',
+    ward: '25195_Phuong Tan Phu',
+    district: '689_Thanh pho Dong Xoai',
+    province: '70_Tinh Binh Phuoc',
     isDefault: false,
   },
   {
     id: 5,
     name: "Nguyen Huu Trung Kien",
     phoneNumber: 975305060,
-    address: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
+    address: '56, August Revolution',
+    ward: '25195_Phuong Tan Phu',
+    district: '689_Thanh pho Dong Xoai',
+    province: '70_Tinh Binh Phuoc',
     isDefault: false,
   },
 ];
@@ -62,6 +83,7 @@ const AddressContainer = ({ type, custom }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setCurrItem(null);
   };
 
   const getDefaultIndex = () =>
