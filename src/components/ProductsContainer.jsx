@@ -657,7 +657,7 @@ const ProductsContainer = () => {
       {/* Products */}
       <div className=" grid grid-cols-4 mt-[74px] gap-x-[76px] gap-y-[78px]">
         {currentItems.map((item, i) => (
-          <ProductThumbnail item={item} />
+          <ProductThumbnail item={item} key={i}/>
         ))}
       </div>
       {/* Pagination */}

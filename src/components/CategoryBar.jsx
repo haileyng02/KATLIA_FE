@@ -1,20 +1,6 @@
 import React from 'react'
 
-const CategoryBar = ({ currCategory, categories, hide }) => {
-  const categoryClick = (c, i) => {
-    var element = document.getElementById(`menu${i}`)
-    const headerOffset = 120;
-    var offsetTop = element.getBoundingClientRect().top + window.pageYOffset - headerOffset
-    window.scrollTo({
-      top: offsetTop,
-      behavior: 'smooth'
-    })
-    // Hide if category bar is showing (on small devices)
-    if (hide) {
-      hide()
-    }
-  }
-
+const CategoryBar = ({ currCategory, categories, categoryClick }) => {
   return (
     <div className=''>
       {/* Menu Title */}
@@ -22,11 +8,11 @@ const CategoryBar = ({ currCategory, categories, hide }) => {
 
       {/* Side category bar */}
       <nav>
-        <ul className={`mt-[59px] space-y-[63px] text-menu-nav`}>
+        <ul className={`mt-[59px] space-y-[63px]`}>
           {categories.map((c, i) => <li
-            className={currCategory === c ? 'cursor-pointer' : 'cursor-pointer'}
+            className={`cursor-pointer hover:text-black ${currCategory === c ? 'text-black' : 'text-menu-nav'}`}
             key={i}
-            onClick={() => categoryClick(c, i)}>
+            onClick={() => categoryClick(c)}>
             {c}
           </li>)}
         </ul>

@@ -16,7 +16,7 @@ const Profile = () => {
       <h1 className="account-title">Profile</h1>
       <div className="flex flex-col space-y-[21px] mt-1">
         <div className="flex">
-          <div className="mx-auto relative">
+          <div className="mx-auto relative cursor-pointer">
             <img src={defaultAvatar} alt="Avatar" />
             <img src={changeAvatar} alt="Change avatar" className="absolute right-1 bottom-1"/>
           </div>
