@@ -14,8 +14,7 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
-  const createNewAccount = async () => {
+  const signUpByEmailAndOTP = async () => {
     try {
       await api.post(
         routes.SIGN_UP, 

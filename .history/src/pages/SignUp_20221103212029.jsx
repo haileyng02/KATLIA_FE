@@ -14,7 +14,7 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
+  //verifyEmail
   const createNewAccount = async () => {
     try {
       await api.post(

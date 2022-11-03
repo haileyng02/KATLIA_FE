@@ -9,7 +9,7 @@ const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
 const Header = () => {
   const navigate = useNavigate();
-  const currentUser = false;
+  const currentUser = true;
   const [currItem, setCurrItem] = useState("");
 
   const handleNavClick = (navItem) => {

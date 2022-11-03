@@ -14,14 +14,13 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
-  const createNewAccount = async () => {
+  const signUpByEmailAndOTP = async () => {
+    cons
     try {
       await api.post(
         routes.SIGN_UP, 
-        routes.getSignupBody("saovayta2131@gmail.com", "Kien", "123456")
+        routes.getSignupBody('saovayta2131@gmail.com', 'Kien', '123456')
         );
-      console.log('Success');
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -32,6 +31,11 @@ const SignUp = () => {
       }
     }
   };
+
+  useEffect(()=>{
+    signUpByEmailAndOTP()
+  },[]);
+
   return (
     <div className="auth-border items-center w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
       <h1 className="text-[45px]">Let's Get Started</h1>

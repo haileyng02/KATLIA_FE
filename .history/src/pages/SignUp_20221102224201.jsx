@@ -14,8 +14,7 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
-  const createNewAccount = async () => {
+  const signUpByEmailAndOTP = async () => {
     try {
       await api.post(
         routes.SIGN_UP, 
@@ -32,6 +31,7 @@ const SignUp = () => {
       }
     }
   };
+
   return (
     <div className="auth-border items-center w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
       <h1 className="text-[45px]">Let's Get Started</h1>

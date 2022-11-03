@@ -14,8 +14,7 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
-  const createNewAccount = async () => {
+  const signUpByEmailAndOTP = async () => {
     try {
       await api.post(
         routes.SIGN_UP, 
@@ -54,7 +53,7 @@ const SignUp = () => {
           placeholder='Password Again'
           className='auth-input'/>
       </div>
-      <button className="mt-[37px] auth-primary-button">SIGN UP</button>
+      <button onClick={signUpByEmailAndOTP} className="mt-[37px] auth-primary-button">SIGN UP</button>
       <p className="mt-[33px] text-black70">
         Already have an account?
         <span onClick={handleSignIn} className="text-primary cursor-pointer">

@@ -6,7 +6,6 @@ import emailIcon from '../images/emailIcon.svg'
 import lockIcon from '../images/lock2.svg'
 import api from '../api/appApi'
 import * as routes from '../api/apiRoutes'
-import { useEffect } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,14 +13,9 @@ const SignUp = () => {
     navigate("/signin");
   };
 
-  //verifyEmailForSignUp
-  const createNewAccount = async () => {
+  const signUpByEmailAndOTP = async () => {
     try {
-      await api.post(
-        routes.SIGN_UP, 
-        routes.getSignupBody("saovayta2131@gmail.com", "Kien", "123456")
-        );
-      console.log('Success');
+      api.post(routes.SIGN_UP, routes.getSignupBody('saovayta2131@gmail.com', '0'))
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -31,7 +25,10 @@ const SignUp = () => {
         console.log(err.message)
       }
     }
-  };
+  }
+
+
+
   return (
     <div className="auth-border items-center w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
       <h1 className="text-[45px]">Let's Get Started</h1>
