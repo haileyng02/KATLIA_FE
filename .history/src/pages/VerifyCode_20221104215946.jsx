@@ -26,7 +26,7 @@ const VerifyCode = () => {
         console.log(err.message)
       }
     }
-  }
+  };
 
   useEffect(() => {
     signUpByEmailAndOTP();
