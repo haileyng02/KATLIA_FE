@@ -5,9 +5,8 @@ import lockIcon from '../images/lock2.svg'
 import googleIcon  from "../images/google_icon.svg"
 import facebookIcon from '../images/facebook_icon.svg'
 import authGif from '../images/auth-gif.gif'
-import { useNavigate } from 'react-router-dom'
+import { Routes, useNavigate } from 'react-router-dom'
 import appApi from '../api/appApi'
-import * as routes from '../api/apiRoutes'
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -18,7 +17,7 @@ const SignIn = () => {
     const signInWithEmailAndPassword = async () => {
         try {
             await appApi.post(
-                routes.SIGN_IN,
+                routes.SignIn,
                 routes.getSigninBody("saovayta2131@gmail.com", "123456")
             );
             console.log('Success');
