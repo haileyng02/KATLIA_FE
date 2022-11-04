@@ -2,7 +2,6 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import appApi from '../api/appApi';
-import * as routes from '../api/apiRoutes'
 
 const VerifyCode = () => {
   const navigate = useNavigate();
@@ -14,8 +13,8 @@ const VerifyCode = () => {
     try {
       await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody("saovayta2131@gmail.com", "817731")
-      )
+        routes.getSignupOTPBody("saovayta2131@gmail.com", "0")
+      );
       console.log('Success');
     } catch (err) {
       if (err.response) {
@@ -26,11 +25,11 @@ const VerifyCode = () => {
         console.log(err.message)
       }
     }
-  }
+  };
 
   useEffect(() => {
     signUpByEmailAndOTP();
-  }, []);
+  }, );
 
   return (
     <div className='auth-border mt-[170px] mx-auto w-[728px] px-[53px] py-16'>

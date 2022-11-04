@@ -13,3 +13,12 @@ export const getSignupOTPBody = (email, otp) => ({
   otp: otp
 })
 
+//SIGN IN WITH EMAIL AND PASSWORD
+export const SIGN_IN = '/auth/signInWithEmailAndPassword'
+export const getSigninBody
+
+//GET PRODUCT BY GENDER
+export const PRODUCT_BY_GENDER = '/product/getProductByGender/{gender}'
+export const getProductByGender = (gender) => ({
+  gender: gender
+})

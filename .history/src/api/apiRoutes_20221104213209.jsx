@@ -13,3 +13,8 @@ export const getSignupOTPBody = (email, otp) => ({
   otp: otp
 })
 
+//GET PRODUCT BY GENDER
+export const PRODUCT_BY_GENDER = '/product/getProductByGender/{gender}'
+export const getProductByGender = (gender) => ({
+  gender: gender
+})

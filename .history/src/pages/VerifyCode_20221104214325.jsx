@@ -14,8 +14,8 @@ const VerifyCode = () => {
     try {
       await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody("saovayta2131@gmail.com", "817731")
-      )
+        routes.getSignupOTPBody("saovayta2131@gmail.com", "0")
+      );
       console.log('Success');
     } catch (err) {
       if (err.response) {
@@ -26,7 +26,7 @@ const VerifyCode = () => {
         console.log(err.message)
       }
     }
-  }
+  };
 
   useEffect(() => {
     signUpByEmailAndOTP();

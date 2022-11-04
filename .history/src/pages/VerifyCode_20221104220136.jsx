@@ -28,10 +28,7 @@ const VerifyCode = () => {
     }
   }
 
-  useEffect(() => {
-    signUpByEmailAndOTP();
-  }, []);
-
+  
   return (
     <div className='auth-border mt-[170px] mx-auto w-[728px] px-[53px] py-16'>
       <h1 className='text-40'>Verify Code</h1>

@@ -1,37 +1,12 @@
 import React from 'react'
-import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import appApi from '../api/appApi';
-import * as routes from '../api/apiRoutes'
 
 const VerifyCode = () => {
   const navigate = useNavigate();
   const handleOnClick = () => {
     navigate('/reset-password/new-password')
   }
-  //signUpByEmailAndOTP
-  const signUpByEmailAndOTP = async () => {
-    try {
-      await appApi.post(
-        routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody("saovayta2131@gmail.com", "817731")
-      )
-      console.log('Success');
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } else {
-        console.log(err.message)
-      }
-    }
-  }
-
-  useEffect(() => {
-    signUpByEmailAndOTP();
-  }, []);
-
+  //signUp
   return (
     <div className='auth-border mt-[170px] mx-auto w-[728px] px-[53px] py-16'>
       <h1 className='text-40'>Verify Code</h1>
