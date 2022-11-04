@@ -6,8 +6,6 @@ import googleIcon  from "../images/google_icon.svg"
 import facebookIcon from '../images/facebook_icon.svg'
 import authGif from '../images/auth-gif.gif'
 import { useNavigate } from 'react-router-dom'
-import appApi from '../api/appApi'
-import * as routes from '../api/apiRoutes'
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -16,21 +14,7 @@ const SignIn = () => {
     }
     //Sign in with email and password
     const signInWithEmailAndPassword = async () => {
-        try {
-            await appApi.post(
-                routes.SIGN_IN,
-                routes.getSigninBody("saovayta2131@gmail.com", "123456")
-            );
-            console.log('Success');
-        } catch (err) {
-            if (err.response) {
-                console.log(err.response.data)
-                console.log(err.response.status)
-                console.log(err.response.headers)
-              } else {
-                console.log(err.message)
-              }
-        }
+        tr
     }
 
   return (
@@ -57,7 +41,7 @@ const SignIn = () => {
                 onClick={() => handleOnClick('reset-password')}
                 className='underline text-[14px] cursor-pointer'>Forgot password</p>
             </div>
-            <button onClick={signInWithEmailAndPassword} className='mt-[23px] auth-primary-button'>SIGN IN</button>
+            <button className='mt-[23px] auth-primary-button'>SIGN IN</button>
             <div className='flex mt-8 items-center justify-between w-full'>
                 <span className='auth-line'></span>
                 <p className='mx-2'>or</p>
