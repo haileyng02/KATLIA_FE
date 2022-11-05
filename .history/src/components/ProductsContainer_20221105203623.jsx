@@ -636,22 +636,10 @@ const ProductsContainer = () => {
     try {
       await appApi.get(routes.GET_PRODUCT_BY_GENDER, routes.getProductByGender('Men'));
       console.log('Success')
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } 
-      else {
-        console.log(err.message)
-      }
-    } 
+    } catch (error) {
+      
+    }
   }
-
-  useEffect(() => {
-    getProductByGender()
-  }, [])
-  
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}

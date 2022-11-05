@@ -21,7 +21,7 @@ export const getSigninBody = (email, password) => ({
 })
 
 //GET PRODUCT BY GENDER
-export const GET_PRODUCT_BY_GENDER = '/product/getProductByGender/{gender}'
+export const PRODUCT_BY_GENDER = '/product/getProductByGender/{gender}'
 export const getProductByGender = (gender) => ({
   gender: gender
 })
