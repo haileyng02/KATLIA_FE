@@ -1,31 +1,13 @@
-import React, { useEffect } from 'react'
-import appApi from '../api/appApi'
-import * as routes from '../api/apiRoutes'
+import React from 'react'
 
 const CategoryBar = ({ currCategory, categories, categoryClick }) => {
   const getProductByCategoryId = async () => {
     try {
-      await appApi.get(
-        routes.GET_PRODUCT_BY_CATEGORY_ID, 
-        routes.getProductByCategoryId()
-        )
-      console.log('Success')
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } 
-      else {
-        console.log(err.message)
-      }
-    } 
+      
+    } catch (error) {
+      
+    }
   }
-  
-  useEffect(() => {
-    getProductByCategoryId()
-  }, [])
-
   return (
     <div className=''>
       {/* Menu Title */}
