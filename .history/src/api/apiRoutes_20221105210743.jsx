@@ -29,5 +29,5 @@ export const getProductByGender = (gender) => ({
 //GET PRODUCT BY CATEGORY ID
 export const GET_PRODUCT_BY_CATEGORY_ID = '/product/getProductByCategoryId/{categoryId}'
 export const getProductByCategoryId = (category_id) => ({
-  category_id: category_id
+  categoryid: categoryid
 })

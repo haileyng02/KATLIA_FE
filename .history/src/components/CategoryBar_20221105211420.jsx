@@ -5,10 +5,7 @@ import * as routes from '../api/apiRoutes'
 const CategoryBar = ({ currCategory, categories, categoryClick }) => {
   const getProductByCategoryId = async () => {
     try {
-      await appApi.get(
-        routes.GET_PRODUCT_BY_CATEGORY_ID, 
-        routes.getProductByCategoryId()
-        )
+      await appApi.get(routes.GET_PRODUCT_BY_CATEGORY_ID, routes.getProductByCategoryId())
       console.log('Success')
     } catch (err) {
       if (err.response) {

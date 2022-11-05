@@ -7,8 +7,7 @@ const CategoryBar = ({ currCategory, categories, categoryClick }) => {
     try {
       await appApi.get(
         routes.GET_PRODUCT_BY_CATEGORY_ID, 
-        routes.getProductByCategoryId()
-        )
+        routes.getProductByCategoryId())
       console.log('Success')
     } catch (err) {
       if (err.response) {
