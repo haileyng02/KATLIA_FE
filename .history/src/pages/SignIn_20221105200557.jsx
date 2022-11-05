@@ -5,7 +5,7 @@ import lockIcon from '../images/lock2.svg'
 import googleIcon  from "../images/google_icon.svg"
 import facebookIcon from '../images/facebook_icon.svg'
 import authGif from '../images/auth-gif.gif'
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import appApi from '../api/appApi'
 import * as routes from '../api/apiRoutes'
 
@@ -32,7 +32,7 @@ const SignIn = () => {
               }
         }
     }
-
+    console resu
   return (
     <div className='px-[150px] py-8 flex'>
         <div className='auth-border items-center px-[89px] py-[50px]  w-[58%]'>

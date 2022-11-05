@@ -648,9 +648,6 @@ const ProductsContainer = () => {
     } 
   }
 
-  useEffect(() => {
-    getProductByGender()
-  }, [])
   
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
