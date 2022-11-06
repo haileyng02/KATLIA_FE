@@ -636,7 +636,7 @@ const ProductsContainer = () => {
     try {
       await appApi.get(
         routes.GET_PRODUCT_BY_GENDER, 
-        routes.getProductByGender("Men")
+        routes.getProductByGender("")
         );
       console.log('Success')
     } catch (err) {
