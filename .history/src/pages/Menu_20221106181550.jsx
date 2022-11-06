@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import appApi from "../api/appApi";
 import CategoryBar from "../components/CategoryBar";
 import ProductsContainer from "../components/ProductsContainer";
-import * as routes from '../api/apiRoutes'
 
 const categories = [
   "VIEW ALL",
@@ -40,7 +39,7 @@ const Menu = () => {
   }
 
   useEffect(() => {
-    getCategoryByGender()
+    getProductByGender()
   }, [])
 
   return (

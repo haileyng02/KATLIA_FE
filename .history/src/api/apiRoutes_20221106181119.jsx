@@ -40,6 +40,4 @@ export const getTop4 = (gender) => ({
 
 //GET CATEGORY BY GENDER
 export const GET_CATEGORY_BY_GENDER = '/category/getCategoryByGender/{gender}'
-export const getCategoryByGender = (gender) => ({
-  gender: gender
-})
+export const 

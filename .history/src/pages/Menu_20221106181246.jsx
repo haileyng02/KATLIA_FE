@@ -1,8 +1,6 @@
-import React, {useState, useEffect} from "react";
-import appApi from "../api/appApi";
+import React, {useState} from "react";
 import CategoryBar from "../components/CategoryBar";
 import ProductsContainer from "../components/ProductsContainer";
-import * as routes from '../api/apiRoutes'
 
 const categories = [
   "VIEW ALL",
@@ -20,28 +18,7 @@ const Menu = () => {
     setCategory(c);
   }
   //Get category by gender
-  const getCategoryByGender = async () => {
-    try {
-      await appApi.get(
-        routes.GET_CATEGORY_BY_GENDER,
-        routes.getCategoryByGender("Men")
-      )
-      console.log('Success')
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } 
-      else {
-        console.log(err.message)
-      }
-    } 
-  }
-
-  useEffect(() => {
-    getCategoryByGender()
-  }, [])
+  const 
 
   return (
     <div className="flex px-[38px] pt-[62px]">
