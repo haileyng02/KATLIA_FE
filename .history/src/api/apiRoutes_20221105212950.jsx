@@ -34,6 +34,4 @@ export const getProductByCategoryId = (category_id) => ({
 
 //GET TOP 4
 export const GET_TOP4 = '/product/getTop4/{gender}'
-export const getTop4 = (gender) => ({
-  gender: gender
-})
+export const getTop

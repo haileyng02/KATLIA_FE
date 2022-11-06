@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import forMenPic from "../images/home_for-men.png";
 import FeaturedThumbnail from "../components/FeaturedThumbnail"
-import appApi from "../api/appApi";
-import * as routes from '../api/apiRoutes'
 
 const ForMenFeatured = () => {
 
@@ -12,29 +10,7 @@ const ForMenFeatured = () => {
     {id: 3,title: 'Crochet hat', image: 'https://s3-alpha-sig.figma.com/img/e3fd/d97f/08416ef6504d0425a3f8811fe5b916e0?Expires=1664755200&Signature=OhQ8~adDS10-TBb3BYbsaPz56edEkYweKLoGJx0tLWm-V7ZXNcLov0ef12dtiYTMi7gOUg8PubDhkkXprITU4Jz~C5PKhX6T89RB8wUvSL~cBEaxqQRuGYBf-T-cJBFgz241NoC-QnBBLZSeMhc4petv90lJkSuRrk6xJ-Wh0WuYdHsWNRZUVZDqSVLrAoYKyrSg97AyNPIqCC0UW8IcrZNcfTu0YzWKccwHxiSD3MGGv1avbq5gL8amRdERIFCr5UjtVLGrcTAvquvAPyzaajO~oUvB9HbsNb6qRgZsc2SXreyyEyfLvDOUqOIV3OlXMaGYiKbR30aWSgO~I7juNQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'},
     {id: 4,title: 'Shirt with comics', image: 'https://s3-alpha-sig.figma.com/img/c896/af0a/d7b6ea9c1757d4dea1faac397b6a1df9?Expires=1664755200&Signature=KUGuL2b1erjWXbwxsK0O6Rtsi4oKGi1eur1hyQbDI~0q2AW8Ge6kZ5bcgkc1Y~97GM6z9Ves3b7RPBD4GEanPvh3FK1Uj1H6J~e0gduALFDIBT3BaGipz6OUFLtnYdq3b7qtQg0fbC4o6c4tfJzAhsc4mlCq9wtrwHtiQ-5AnXLyhsIrOUBdC8Jtzqf5B7GoWvfaJGcMFLwzOnKwOTJJbq9xHh5sQfKemhdBDXpo2wZpnClz4j9GLwbw6dd1mhMGVq8AjqUdkjNSJ56VR7dJdDYqiDCxwPNCXQwSHQ23g3wTMFdKqWydJr-KP12H6aUnETKEeS36STTMZWZmmKOsBA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'}
   ];
-
-  // Get top 4 
-  const getTop4 = async () => {
-    try {
-      await appApi.get(
-        routes.GET_TOP4,
-        routes.getTop4('Men')
-      )
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } 
-      else {
-        console.log(err.message)
-      }
-    } 
-  }
-
-  useEffect(() => {
-    getTop4()
-  }, [])
+  
 
   return (
     <div className="mt-[59px] px-[45px] relative pt-[130px]">

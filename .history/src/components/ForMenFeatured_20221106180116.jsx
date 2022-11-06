@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import forMenPic from "../images/home_for-men.png";
 import FeaturedThumbnail from "../components/FeaturedThumbnail"
 import appApi from "../api/appApi";
@@ -31,11 +31,6 @@ const ForMenFeatured = () => {
       }
     } 
   }
-
-  useEffect(() => {
-    getTop4()
-  }, [])
-
   return (
     <div className="mt-[59px] px-[45px] relative pt-[130px]">
       {/* Title */}

@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import forMenPic from "../images/home_for-men.png";
 import FeaturedThumbnail from "../components/FeaturedThumbnail"
 import appApi from "../api/appApi";
-import * as routes from '../api/apiRoutes'
 
 const ForMenFeatured = () => {
 
@@ -17,8 +16,7 @@ const ForMenFeatured = () => {
   const getTop4 = async () => {
     try {
       await appApi.get(
-        routes.GET_TOP4,
-        routes.getTop4('Men')
+        routes.
       )
     } catch (err) {
       if (err.response) {
@@ -31,11 +29,6 @@ const ForMenFeatured = () => {
       }
     } 
   }
-
-  useEffect(() => {
-    getTop4()
-  }, [])
-
   return (
     <div className="mt-[59px] px-[45px] relative pt-[130px]">
       {/* Title */}
