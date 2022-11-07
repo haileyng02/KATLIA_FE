@@ -19,7 +19,7 @@ const SignIn = () => {
         try {
             await appApi.post(
                 routes.SIGN_IN,
-                routes.getSigninBody("saovayta2131@gmail.com", "123456")
+                routes.getSigninBody(currentUser.email, currentUser.password)
             );
             console.log('Success');
         } catch (err) {

@@ -13,7 +13,7 @@ const VerifyCode = () => {
     try {
       await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody("saovayta2131@gmail.com", "0")
+        routes.getSignupOTPBody(currentUser.email, currentUser.otp)
       );
       console.log('Success');
     } catch (err) {
