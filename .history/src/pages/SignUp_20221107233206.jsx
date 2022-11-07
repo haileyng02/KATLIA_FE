@@ -18,7 +18,7 @@ const SignUp = () => {
     try {
       await api.post(
         routes.SIGN_UP, 
-        routes.getSignupBody(currentUser.email, currentUser.name, currentUser.password)
+        routes.getSignupBody("saovayta2131@gmail.com", "Kien", "123456")
         );
       console.log('Success');
     } catch (err) {
