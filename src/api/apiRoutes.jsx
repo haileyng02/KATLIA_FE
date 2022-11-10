@@ -56,7 +56,7 @@ export const getCategoryByGender = (gender) => ({
 })
 
 //GET PRODUCT DETAIL
-export const GET_PRODUCT_DETAIL = '/product/getProductDetail/{id}'
+export const GET_PRODUCT_DETAIL = '/product/getProductDetail/579857'
 export const getProductDetail = (id) => ({
   params: {
     id: id
