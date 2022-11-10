@@ -47,7 +47,8 @@ export const getTop4Body = (gender) => ({
 })
 
 //GET CATEGORY BY GENDER
-export const GET_CATEGORY_BY_GENDER = '/category/getCategoryByGender/{gender}'
+export const GET_CATEGORY_BY_GENDER_MEN = '/category/getCategoryByGender/men'
+export const GET_CATEGORY_BY_GENDER_WOMEN = '/category/getCategoryByGender/women'
 export const getCategoryByGender = (gender) => ({
   params: {
     gender: gender
@@ -55,8 +56,16 @@ export const getCategoryByGender = (gender) => ({
 })
 
 //GET PRODUCT DETAIL
-export const GET_PRODUCT_DETAIL = '/product/getProductDetail/{id}'
+export const GET_PRODUCT_DETAIL = '/product/getProductDetail/579857'
 export const getProductDetail = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+//GET 4 SIMILAR ITEMS 
+export const GET_4SIMILAR_ITEMS = '/product/get4SimilarItems/579857'
+export const get4SimilarItems = (id) => ({
   params: {
     id: id
   }

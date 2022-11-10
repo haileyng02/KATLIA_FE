@@ -3,6 +3,8 @@ import ProductThumbnail from "../components/ProductThumbnail";
 import Quantity from "../components/Quantity";
 import ColorIcon from "../components/ColorIcon";
 import CartIcon from "../images/Cart2.svg";
+import * as routes from '../api/apiRoutes'
+import appApi from "../api/appApi";
 
 const ProductDetail = () => {
   const images = [
@@ -47,6 +49,45 @@ const ProductDetail = () => {
     setMainImage(image);
   };
 
+  //Get Product Detail
+  const getProductDetail = async () => {
+    try {
+      const data = await appApi.get(
+        routes.GET_PRODUCT_DETAIL,
+        routes.getProductDetail("579857")
+      )
+      console.log(data)
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } 
+      else {
+        console.log(err.message)
+      }
+    } 
+  }
+
+  //Get 4 Similar Items
+  const get4SimilarItems = async () => {
+    try {
+      const data = await appApi.get(
+        routes.GET_4SIMILAR_ITEMS,
+        routes.get4SimilarItems("579857")
+      )
+      console.log(data)
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } 
+      else {
+        console.log(err.message)
+      }
+    } 
+  }
   return (
     <div className=" pt-[71px] font-inter">
       <div className="px-[150px] flex items-start justify-between">
@@ -82,7 +123,7 @@ const ProductDetail = () => {
         </div>
         {/* Right */}
         <div className=" basis-[36.5%] mt-[82px]">
-          <h1 className=" font-bold">BASIC KNIT SWEATER</h1>
+          <h1 onClick={getProductDetail} className=" font-bold">BASIC KNIT SWEATER</h1>
           <p className=" leading-6 mt-7">
             Round neck sweater featuring long sleeves, side vents at the hem and
             ribbed trims.
@@ -122,7 +163,7 @@ const ProductDetail = () => {
       <hr className="black-line w-[50%] mt-[274px]" />
       {/* SIMILAR ITEMS */}
       <div className="mt-[141px] px-[150px]">
-        <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
+        <h2 onClick={get4SimilarItems} className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
         <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
           {similarItems.map((item,i) => {
             return <ProductThumbnail item={item} key={i}/>
