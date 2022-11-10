@@ -62,3 +62,11 @@ export const getProductDetail = (id) => ({
     id: id
   }
 })
+
+//GET 4 SIMILAR ITEMS 
+export const GET_4SIMILAR_ITEMS = '/product/get4SimilarItems/579857'
+export const get4SimilarItems = (id) => ({
+  params: {
+    id: id
+  }
+})
