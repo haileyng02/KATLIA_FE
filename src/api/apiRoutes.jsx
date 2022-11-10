@@ -47,7 +47,8 @@ export const getTop4Body = (gender) => ({
 })
 
 //GET CATEGORY BY GENDER
-export const GET_CATEGORY_BY_GENDER = '/category/getCategoryByGender/{gender}'
+export const GET_CATEGORY_BY_GENDER_MEN = '/category/getCategoryByGender/men'
+export const GET_CATEGORY_BY_GENDER_WOMEN = '/category/getCategoryByGender/women'
 export const getCategoryByGender = (gender) => ({
   params: {
     gender: gender
