@@ -634,11 +634,11 @@ const ProductsContainer = () => {
   //getProductByGender
   const getProductByGender = async () => {
     try {
-      await appApi.get(
-        routes.GET_PRODUCT_BY_GENDER, 
-        routes.getProductByGender("Men")
+      const data = await appApi.get(
+        routes.GET_PRODUCT_BY_GENDER_MEN, 
+        routes.getProductByGender("men")
         );
-      console.log('Success')
+      console.log(data)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -650,13 +650,8 @@ const ProductsContainer = () => {
       }
     } 
   }
-
-  useEffect(() => {
-    getProductByGender()
-  }, [])
-
   return (
-    <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
+    <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]" onClick={getProductByGender}>
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
         <p className="">22 items found</p>
