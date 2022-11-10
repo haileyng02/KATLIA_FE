@@ -38,8 +38,9 @@ export const getProductByCategoryId = (categoryId) => ({
 })
 
 //GET TOP 4
-export const GET_TOP4 = '/product/getTop4/{gender}'
-export const getTop4 = (gender) => ({
+export const GET_TOP4_MEN = '/product/getTop4/men'
+export const GET_TOP4_WOMEN = '/product/getTop4/women'
+export const getTop4Body = (gender) => ({
   params: {
     gender: gender
   }
