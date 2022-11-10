@@ -30,7 +30,7 @@ export const getProductByGender = (gender) => ({
 })
 
 //GET PRODUCT BY CATEGORY ID
-export const GET_PRODUCT_BY_CATEGORY_ID = '/product/getProductByCategoryId/{categoryId}'
+export const GET_PRODUCT_BY_CATEGORY_ID = '/product/getProductByCategoryId/1'
 export const getProductByCategoryId = (categoryId) => ({
   params: {
     categoryId: categoryId

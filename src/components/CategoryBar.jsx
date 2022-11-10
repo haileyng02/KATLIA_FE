@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import appApi from '../api/appApi'
 import * as routes from '../api/apiRoutes'
 
 const CategoryBar = ({ currCategory, categories, categoryClick }) => {
   const getProductByCategoryId = async () => {
     try {
-      await appApi.get(
+      const data = await appApi.get(
         routes.GET_PRODUCT_BY_CATEGORY_ID, 
-        routes.getProductByCategoryId()
-        )
-      console.log('Success')
+        routes.getProductByCategoryId("1")
+        );
+      console.log(data)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -22,14 +22,12 @@ const CategoryBar = ({ currCategory, categories, categoryClick }) => {
     } 
   }
   
-  useEffect(() => {
-    getProductByCategoryId()
-  }, [])
+  
 
   return (
     <div className=''>
       {/* Menu Title */}
-      <h1 className=' text-[35px] leading-[44px] font-bold'>Men</h1>
+      <h1 onClick={getProductByCategoryId} className=' text-[35px] leading-[44px] font-bold'>Men</h1>
 
       {/* Side category bar */}
       <nav>
