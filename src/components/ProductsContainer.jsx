@@ -33,11 +33,11 @@ const ProductsContainer = ({items}) => {
   //getProductByGender
   const getProductByGender = async () => {
     try {
-      const data = await appApi.get(
-        routes.GET_PRODUCT_BY_GENDER_MEN, 
-        routes.getProductByGender("men")
-        );
-      console.log(data)
+      // const data = await appApi.get(
+      //   routes.GET_PRODUCT_BY_GENDER_MEN, 
+      //   routes.getProductByGender("men")
+      //   );
+      // console.log(data)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
@@ -76,7 +76,7 @@ const ProductsContainer = ({items}) => {
       </div>
       {/* Products */}
       <div className=" grid grid-cols-4 mt-[74px] gap-x-[76px] gap-y-[78px]">
-        {currentItems.map((item, i) => (
+        {items.map((item, i) => (
           <ProductThumbnail item={item} key={i}/>
         ))}
       </div>

@@ -16,11 +16,11 @@ const ForMenFeatured = () => {
   // Get top 4 
   const getTop4 = async () => {
     try {
-      const data = await appApi.get(
-        routes.GET_TOP4_MEN,
-        routes.getTop4Body('men')
-      )
-      console.log(data)
+      // const data = await appApi.get(
+      //   routes.GET_TOP4_MEN,
+      //   routes.getTop4Body('men')
+      // )
+      // console.log(data)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data)
