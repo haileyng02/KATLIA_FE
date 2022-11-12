@@ -21,7 +21,7 @@ export const getSigninBody = (email, password) => ({
 })
 
 //GET PRODUCT BY GENDER
-export const GET_PRODUCT_BY_GENDER = `/product/getProductByGender/${gender}`
+export const GET_PRODUCT_BY_GENDER = (gender) => `/product/getProductByGender/${gender}`
 export const getProductByGender = (gender) => ({
   params: {
     gender: gender
@@ -37,7 +37,7 @@ export const getProductByCategoryId = (categoryId) => ({
 })
 
 //GET TOP 4
-export const GET_TOP4 = `/product/getTop4/${gender}`
+export const GET_TOP4 = (gender) => `/product/getTop4/${gender}`
 export const getTop4Body = (gender) => ({
   params: {
     gender: gender
@@ -45,7 +45,7 @@ export const getTop4Body = (gender) => ({
 })
 
 //GET CATEGORY BY GENDER
-export const GET_CATEGORY_BY_GENDER = `/category/getCategoryByGender/${gender}`
+export const GET_CATEGORY_BY_GENDER = (gender) => `/category/getCategoryByGender/${gender}`
 export const getCategoryByGender = (gender) => ({
   params: {
     gender: gender
