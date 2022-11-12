@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
-const CategoryBar = ({}) => {
+const CategoryBar = ({categoryClick,currCategory}) => {
   const [categories, setCategories] = useState([]);
-  const [currCategory, setCategory] = useState("VIEW ALL");
 
   //Get category by gender
   const getCategoryByGender = async () => {
@@ -36,33 +35,10 @@ const CategoryBar = ({}) => {
     getCategoryByGender();
   }, []);
 
-  const getProductByCategoryId = async () => {
-    try {
-      const data = await appApi.get(
-        routes.GET_PRODUCT_BY_CATEGORY_ID,
-        routes.getProductByCategoryId("1")
-      );
-      console.log(data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
-
-  const categoryClick = (c) => {
-    setCategory(c);
-  };
-
   return (
     <div className="">
       {/* Menu Title */}
       <h1
-        onClick={getProductByCategoryId}
         className=" text-[35px] leading-[44px] font-bold"
       >
         Men
