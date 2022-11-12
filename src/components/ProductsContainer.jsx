@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+import { Skeleton } from "antd";
 import DropDownBox from "./DropDownBox";
 import ProductThumbnail from "./ProductThumbnail";
 import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
 import appApi from "../api/appApi";
-import * as routes from '../api/apiRoutes'
+import * as routes from "../api/apiRoutes";
+import SkeletonAvatar from "antd/lib/skeleton/Avatar";
 
-const ProductsContainer = ({items}) => {
+const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -26,31 +28,16 @@ const ProductsContainer = ({items}) => {
     setItemOffset(newOffset);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(items);
-  },[items])
+  }, [items]);
 
-  //getProductByGender
-  const getProductByGender = async () => {
-    try {
-      // const data = await appApi.get(
-      //   routes.GET_PRODUCT_BY_GENDER_MEN, 
-      //   routes.getProductByGender("men")
-      //   );
-      // console.log(data)
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
-      } 
-      else {
-        console.log(err.message)
-      }
-    } 
-  }
+  
   return (
-    <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]" onClick={getProductByGender}>
+    <div
+      style={{ flex: 1 }}
+      className="leading-[25px] ml-[67px]"
+    >
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
         <p className="">22 items found</p>
@@ -76,25 +63,45 @@ const ProductsContainer = ({items}) => {
       </div>
       {/* Products */}
       <div className=" grid grid-cols-4 mt-[74px] gap-x-[76px] gap-y-[78px]">
-        {items.map((item, i) => (
-          <ProductThumbnail item={item} key={i}/>
-        ))}
+        {loading
+          ? Array(12)
+              .fill()
+              .map((i) => (
+                <div key={i}>
+                  <Skeleton.Image
+                    style={{ width: "100%", height: "100%" }}
+                    active={true}
+                    className="aspect-[2/3] w-full"
+                  />
+                  <Skeleton className="mt-8"/>
+                </div>
+              ))
+          : items.map((item, i) => <ProductThumbnail item={item} key={i} />)}
       </div>
       {/* Pagination */}
       <div className="mt-16 flex">
         <ReactPaginate
           breakLabel="..."
-          nextLabel= {
-          <svg width="39" height="12" viewBox="0 0 39 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M39 6L29 0.226497V11.7735L39 6ZM0 7H30V5H0V7Z" fill="black"/>
-          </svg>
+          nextLabel={
+            <svg
+              width="39"
+              height="12"
+              viewBox="0 0 39 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M39 6L29 0.226497V11.7735L39 6ZM0 7H30V5H0V7Z"
+                fill="black"
+              />
+            </svg>
           }
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           pageCount={pageCount}
           renderOnZeroPageCount={null}
-          className='flex gap-x-[18px] mx-auto items-center'
-          activeClassName='underline'
+          className="flex gap-x-[18px] mx-auto items-center"
+          activeClassName="underline"
         />
       </div>
     </div>

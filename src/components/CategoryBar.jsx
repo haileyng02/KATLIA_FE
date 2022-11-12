@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import {Skeleton} from 'antd'
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
 const CategoryBar = ({categoryClick,currCategory}) => {
   const [categories, setCategories] = useState([]);
+  const [loading,setLoading] = useState(true)
 
   //Get category by gender
   const getCategoryByGender = async () => {
@@ -20,6 +22,7 @@ const CategoryBar = ({categoryClick,currCategory}) => {
           };
         })
       );
+      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -39,14 +42,15 @@ const CategoryBar = ({categoryClick,currCategory}) => {
     <div className="">
       {/* Menu Title */}
       <h1
-        className=" text-[35px] leading-[44px] font-bold"
+        className=" text-[35px] leading-[44px] font-bold mb-[59px]"
       >
         Men
       </h1>
 
       {/* Side category bar */}
       <nav>
-        <ul className={`mt-[59px] space-y-[63px]`}>
+        {loading ? <Skeleton/> : 
+        <ul className={`space-y-[63px]`}>
           {categories.map((c, i) => (
             <li
               className={`cursor-pointer hover:text-black ${
@@ -59,6 +63,7 @@ const CategoryBar = ({categoryClick,currCategory}) => {
             </li>
           ))}
         </ul>
+        }
       </nav>
     </div>
   );
