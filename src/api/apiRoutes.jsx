@@ -21,8 +21,7 @@ export const getSigninBody = (email, password) => ({
 })
 
 //GET PRODUCT BY GENDER
-export const GET_PRODUCT_BY_GENDER_MEN = '/product/getProductByGender/men'
-export const GET_PRODUCT_BY_GENDER_WOMEN = '/product/getProductByGender/women'
+export const GET_PRODUCT_BY_GENDER = `/product/getProductByGender/${gender}`
 export const getProductByGender = (gender) => ({
   params: {
     gender: gender
@@ -30,7 +29,7 @@ export const getProductByGender = (gender) => ({
 })
 
 //GET PRODUCT BY CATEGORY ID
-export const GET_PRODUCT_BY_CATEGORY_ID = '/product/getProductByCategoryId/1'
+export const GET_PRODUCT_BY_CATEGORY_ID = (id) => `/product/getProductByCategoryId/${id}`
 export const getProductByCategoryId = (categoryId) => ({
   params: {
     categoryId: categoryId
@@ -38,8 +37,7 @@ export const getProductByCategoryId = (categoryId) => ({
 })
 
 //GET TOP 4
-export const GET_TOP4_MEN = '/product/getTop4/men'
-export const GET_TOP4_WOMEN = '/product/getTop4/women'
+export const GET_TOP4 = `/product/getTop4/${gender}`
 export const getTop4Body = (gender) => ({
   params: {
     gender: gender
@@ -47,8 +45,7 @@ export const getTop4Body = (gender) => ({
 })
 
 //GET CATEGORY BY GENDER
-export const GET_CATEGORY_BY_GENDER_MEN = '/category/getCategoryByGender/men'
-export const GET_CATEGORY_BY_GENDER_WOMEN = '/category/getCategoryByGender/women'
+export const GET_CATEGORY_BY_GENDER = `/category/getCategoryByGender/${gender}`
 export const getCategoryByGender = (gender) => ({
   params: {
     gender: gender
@@ -56,7 +53,7 @@ export const getCategoryByGender = (gender) => ({
 })
 
 //GET PRODUCT DETAIL
-export const GET_PRODUCT_DETAIL = '/product/getProductDetail/579857'
+export const GET_PRODUCT_DETAIL = (id) => `/product/getProductDetail/${id}`
 export const getProductDetail = (id) => ({
   params: {
     id: id
@@ -64,7 +61,7 @@ export const getProductDetail = (id) => ({
 })
 
 //GET 4 SIMILAR ITEMS 
-export const GET_4SIMILAR_ITEMS = '/product/get4SimilarItems/579857'
+export const GET_4SIMILAR_ITEMS = (id) => `/product/get4SimilarItems/${id}`
 export const get4SimilarItems = (id) => ({
   params: {
     id: id
