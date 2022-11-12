@@ -1,7 +1,7 @@
 import React from "react";
 import deleteIcon from "../images/DeleteIcon2.svg";
 
-const AddressItem = ({data,editAddress}) => {
+const AddressItem = ({data,editAddress,deleteAddress}) => {
   const theme ={
     style: data.isDefault ? 'border-[#F9AF5E] text-[#F9AF5E]' : 'border-black cursor-pointer',
     text: data.isDefault ? 'Default' : 'Set as Default'
@@ -25,7 +25,7 @@ const AddressItem = ({data,editAddress}) => {
           <p>{theme.text}</p>
         </div>
         <div className="flex gap-x-[25px]">
-          <img src={deleteIcon} alt="Delete" />
+          <img src={deleteIcon} alt="Delete" className="cursor-pointer" onClick={deleteAddress}/>
           <button 
           onClick={editAddress}
           className="edit-button">
