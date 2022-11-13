@@ -5,9 +5,6 @@ import DropDownBox from "./DropDownBox";
 import ProductThumbnail from "./ProductThumbnail";
 import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
-import appApi from "../api/appApi";
-import * as routes from "../api/apiRoutes";
-import SkeletonAvatar from "antd/lib/skeleton/Avatar";
 
 const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
@@ -26,11 +23,8 @@ const ProductsContainer = ({ items, loading }) => {
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
+    window.scrollTo(0, 0);
   };
-
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
 
   
   return (
@@ -76,7 +70,7 @@ const ProductsContainer = ({ items, loading }) => {
                   <Skeleton className="mt-8"/>
                 </div>
               ))
-          : items.map((item, i) => <ProductThumbnail item={item} key={i} />)}
+          : currentItems.map((item, i) => <ProductThumbnail item={item} key={i} />)}
       </div>
       {/* Pagination */}
       <div className="mt-16 flex">
