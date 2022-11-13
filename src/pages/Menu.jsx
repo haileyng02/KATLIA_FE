@@ -16,9 +16,9 @@ const Menu = () => {
     let data = window.location.pathname.substring(5);
     if (data === "") {
       setCategory({ category: "view all" });
+      getProductByGender();
       return;
     }
-    console.log('alo')
     const categoryId = data.split("-")[0];
     const category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ");
     setCategory({ categoryId, category });
@@ -44,10 +44,6 @@ const Menu = () => {
       }
     }
   };
-
-  useEffect(() => {
-    getProductByGender();
-  }, []);
 
   const getProductByGender = async () => {
     try {
