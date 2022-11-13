@@ -7,7 +7,7 @@ const ProductThumbnail = ({item}) => {
       <div>
           <img src={item.image} alt='Item' className='aspect-[2/3] object-cover object-center'/>
           <div className='mt-[23px] leading-6'>
-              {item.colorNumber===1||<p>{'+'+(item.colorNumber-1)+' COLOURS'}</p>}
+              {/* {item.colorNumber===1||<p>{'+'+(item.colorNumber-1)+' COLOURS'}</p>} */}
               <h2>{item.name}</h2>
               <p>{item.price+' $'}</p>
           </div>

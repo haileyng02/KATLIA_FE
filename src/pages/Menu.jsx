@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import CategoryBar from "../components/CategoryBar";
 import ProductsContainer from "../components/ProductsContainer";
 
 const Menu = () => {
-  const [currCategory, setCategory] = useState("VIEW ALL");
-  const [items,setItems] = useState([]);
-  const [loading,setLoading] = useState(true);
+  const [currCategory, setCategory] = useState({ category: "VIEW ALL" });
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getProductByCategoryId = async (id) => {
     try {
@@ -30,15 +32,15 @@ const Menu = () => {
 
   useEffect(() => {
     getProductByGender();
-  },[])
+  }, []);
 
   const getProductByGender = async () => {
     try {
       const data = await appApi.get(
-        routes.GET_PRODUCT_BY_GENDER('men'),
+        routes.GET_PRODUCT_BY_GENDER("men"),
         routes.getProductByGender("men")
-        );
-      console.log(data);
+      );
+      setItems(data.data);
       setLoading(false);
     } catch (err) {
       if (err.response) {
@@ -50,21 +52,26 @@ const Menu = () => {
       }
     }
   };
-  
+
   const categoryClick = (c) => {
     setCategory(c);
+    navigate(`/men/${c.category.toLowerCase()}`);
     setLoading(true);
-    getProductByCategoryId(c.categoryId);
+    if (c.category === "VIEW ALL") getProductByGender();
+    else getProductByCategoryId(c.categoryId);
   };
-  
+
   return (
     <div className="flex px-[150px] pt-[62px]">
       {/* Sidebar */}
-      <aside className="sticky w-[14%]">
-        <CategoryBar currCategory={currCategory} categoryClick={(c)=>categoryClick(c)}/>
+      <aside className="sticky w-[18%]">
+        <CategoryBar
+          currCategory={currCategory}
+          categoryClick={(c) => categoryClick(c)}
+        />
       </aside>
       {/* Products Container */}
-      <ProductsContainer items={items} loading={loading}/>
+      <ProductsContainer items={items} loading={loading} />
     </div>
   );
 };
