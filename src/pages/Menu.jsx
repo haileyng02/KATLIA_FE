@@ -6,10 +6,25 @@ import CategoryBar from "../components/CategoryBar";
 import ProductsContainer from "../components/ProductsContainer";
 
 const Menu = () => {
-  const [currCategory, setCategory] = useState({ category: "VIEW ALL" });
+  const [currCategory, setCategory] = useState({ category: "view all" });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  // Get current category based on URL
+  useEffect(() => {
+    let data = window.location.pathname.substring(5);
+    if (data === "") {
+      setCategory({ category: "view all" });
+      return;
+    }
+    console.log('alo')
+    const categoryId = data.split("-")[0];
+    const category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ");
+    setCategory({ categoryId, category });
+    setLoading(true);
+    getProductByCategoryId(categoryId);
+  }, [navigate]);
 
   const getProductByCategoryId = async (id) => {
     try {
@@ -55,10 +70,14 @@ const Menu = () => {
 
   const categoryClick = (c) => {
     setCategory(c);
-    navigate(`/men/${c.category.toLowerCase()}`);
     setLoading(true);
-    if (c.category === "VIEW ALL") getProductByGender();
-    else getProductByCategoryId(c.categoryId);
+    if (c.category === "view all") {
+      navigate(`/men`);
+      getProductByGender();
+    } else {
+      navigate(`/men/${c.categoryId}-${c.category}`);
+      getProductByCategoryId(c.categoryId);
+    }
   };
 
   return (

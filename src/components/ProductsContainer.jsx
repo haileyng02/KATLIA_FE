@@ -66,7 +66,7 @@ const ProductsContainer = ({ items, loading }) => {
         {loading
           ? Array(12)
               .fill()
-              .map((i) => (
+              .map((_,i) => (
                 <div key={i}>
                   <Skeleton.Image
                     style={{ width: "100%", height: "100%" }}

@@ -14,15 +14,10 @@ const CategoryBar = ({ categoryClick, currCategory }) => {
         routes.GET_CATEGORY_BY_GENDER("men"),
         routes.getCategoryByGender("men")
       );
-      let categories = [{ category: 'VIEW ALL' }]
+      let categories = [{ category: 'view all' }]
       setCategories([
         ...categories,
-        ...data.data.map((c, i) => {
-          return {
-            ...c,
-            category: c.category.toUpperCase(),
-          };
-        }),
+        ...data.data
       ]);
       setLoading(false);
     } catch (err) {
@@ -59,7 +54,7 @@ const CategoryBar = ({ categoryClick, currCategory }) => {
                 key={i}
                 onClick={() => categoryClick(c)}
               >
-                {c.category}
+                {c.category.toUpperCase()}
               </li>
             ))}
           </ul>
