@@ -14,13 +14,17 @@ const Menu = () => {
   // Get current category based on URL
   useEffect(() => {
     let data = window.location.pathname.substring(5);
-    if (data === "") {
+    if (data.includes("all")) {
       setCategory({ category: "view all" });
       getProductByGender();
       return;
     }
     const categoryId = data.split("-")[0];
-    const category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ");
+    let category;
+    if (!data.includes('&page=')) {
+      category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ")
+    }
+    else category = data.slice(data.indexOf("-") + 1,data.indexOf('&page=')).replaceAll("%20", " ")
     setCategory({ categoryId, category });
     setLoading(true);
     getProductByCategoryId(categoryId);
@@ -68,7 +72,7 @@ const Menu = () => {
     setCategory(c);
     setLoading(true);
     if (c.category === "view all") {
-      navigate(`/men`);
+      navigate(`/men/all`);
       getProductByGender();
     } else {
       navigate(`/men/${c.categoryId}-${c.category}`);
@@ -86,7 +90,7 @@ const Menu = () => {
         />
       </aside>
       {/* Products Container */}
-      <ProductsContainer items={items} loading={loading} />
+      <ProductsContainer items={items} loading={loading}/>
     </div>
   );
 };

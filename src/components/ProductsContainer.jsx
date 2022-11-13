@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { Skeleton } from "antd";
 import DropDownBox from "./DropDownBox";
@@ -10,28 +11,45 @@ const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
+  const [page, setPage] = useState(0);
+  const navigate = useNavigate();
 
   //Pagination
   const itemsPerPage = 12;
+
+  // Get current page based on URL
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (!path.includes("&page=")) {
+      setPage(0);
+      setItemOffset(0);
+      return;
+    }
+    const page = path.substring(path.indexOf("&page=") + 6);
+    const pageNumber = parseInt(page) - 1;
+    const newOffset = (pageNumber * itemsPerPage) % items.length;
+    setPage(pageNumber);
+    setItemOffset(newOffset);
+  }, [navigate, items.length, pageCount]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
     setCurrentItems(items.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage]);
+  }, [itemOffset, itemsPerPage, items]);
 
   const handlePageClick = (event) => {
+    let path = window.location.pathname;
+    if (path.includes("&page="))
+      path = path.substring(0, path.indexOf("&page="));
+    navigate(path + "&page=" + (event.selected + 1));
     const newOffset = (event.selected * itemsPerPage) % items.length;
     setItemOffset(newOffset);
     window.scrollTo(0, 0);
   };
 
-  
   return (
-    <div
-      style={{ flex: 1 }}
-      className="leading-[25px] ml-[67px]"
-    >
+    <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
         <p className="">22 items found</p>
@@ -60,43 +78,48 @@ const ProductsContainer = ({ items, loading }) => {
         {loading
           ? Array(12)
               .fill()
-              .map((_,i) => (
+              .map((_, i) => (
                 <div key={i}>
                   <Skeleton.Image
                     style={{ width: "100%", height: "100%" }}
                     active={true}
                     className="aspect-[2/3] w-full"
                   />
-                  <Skeleton className="mt-8"/>
+                  <Skeleton className="mt-8" />
                 </div>
               ))
-          : currentItems.map((item, i) => <ProductThumbnail item={item} key={i} />)}
+          : currentItems.map((item, i) => (
+              <ProductThumbnail item={item} key={i} />
+            ))}
       </div>
       {/* Pagination */}
       <div className="mt-16 flex">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={
-            <svg
-              width="39"
-              height="12"
-              viewBox="0 0 39 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M39 6L29 0.226497V11.7735L39 6ZM0 7H30V5H0V7Z"
-                fill="black"
-              />
-            </svg>
-          }
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          pageCount={pageCount}
-          renderOnZeroPageCount={null}
-          className="flex gap-x-[18px] mx-auto items-center"
-          activeClassName="underline"
-        />
+        {pageCount!==0 ? (
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={
+              <svg
+                width="39"
+                height="12"
+                viewBox="0 0 39 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M39 6L29 0.226497V11.7735L39 6ZM0 7H30V5H0V7Z"
+                  fill="black"
+                />
+              </svg>
+            }
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={3}
+            pageCount={pageCount}
+            renderOnZeroPageCount={null}
+            className="flex gap-x-[18px] mx-auto items-center"
+            activeClassName="underline"
+            forcePage={page}
+          />
+        ) : null}
       </div>
     </div>
   );
