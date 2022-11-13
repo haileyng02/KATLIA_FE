@@ -15,7 +15,7 @@ const Header = () => {
   const handleNavClick = (navItem) => {
     setCurrItem(navItem);
     let path = String(navItem).toLowerCase();
-    if (navItem==='MEN') path+='/all'
+    if (navItem === "MEN" || navItem === "WOMEN") path += "/all";
     navigate("/" + path);
   };
   return (
