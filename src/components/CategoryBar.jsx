@@ -3,16 +3,17 @@ import { Skeleton } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
-const CategoryBar = ({ categoryClick, currCategory }) => {
+const CategoryBar = ({ categoryClick, currCategory, gender }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   //Get category by gender
-  const getCategoryByGender = async () => {
+  const getCategoryByGender = async (gender) => {
     try {
+      setLoading(true);
       const data = await appApi.get(
-        routes.GET_CATEGORY_BY_GENDER("men"),
-        routes.getCategoryByGender("men")
+        routes.GET_CATEGORY_BY_GENDER(gender),
+        routes.getCategoryByGender(gender)
       );
       let categories = [{ category: 'view all' }]
       setCategories([
@@ -32,13 +33,13 @@ const CategoryBar = ({ categoryClick, currCategory }) => {
   };
 
   useEffect(() => {
-    getCategoryByGender();
-  }, []);
+    getCategoryByGender(gender);
+  }, [gender]);
 
   return (
     <div className="">
       {/* Menu Title */}
-      <h1 className=" text-[35px] leading-[44px] font-bold mb-[59px]">Men</h1>
+      <h1 className=" text-[35px] leading-[44px] font-bold mb-[59px]">{[gender[0].toUpperCase(),...gender.substring(1)]}</h1>
 
       {/* Side category bar */}
       <nav>

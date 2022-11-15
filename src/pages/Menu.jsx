@@ -9,28 +9,42 @@ const Menu = () => {
   const [currCategory, setCategory] = useState({ category: "view all" });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [gender, setGender] = useState("men");
   const navigate = useNavigate();
+
+  const path = window.location.pathname.substring(1);
 
   // Get current category based on URL
   useEffect(() => {
-    let data = window.location.pathname.substring(5);
+    const genderPath = path.substring(0, path.indexOf("/"));
+    if (genderPath !== gender) {
+      setGender(genderPath);
+    }
+    const data = path.substring(gender.length + 1);
     if (data.includes("all")) {
       setCategory({ category: "view all" });
-      getProductByGender();
+      getProductByGender(gender);
       return;
     }
     const categoryId = data.split("-")[0];
     let category;
-    if (!data.includes('&page=')) {
-      category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ")
-    }
-    else category = data.slice(data.indexOf("-") + 1,data.indexOf('&page=')).replaceAll("%20", " ")
-    setCategory({ categoryId, category });
-    setLoading(true);
+    if (!data.includes("&page=")) {
+      category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ");
+    } else
+      category = data
+        .slice(data.indexOf("-") + 1, data.indexOf("&page="))
+        .replaceAll("%20", " ");
+    if (category !== currCategory.category)
+      setCategory({ categoryId, category });
     getProductByCategoryId(categoryId);
   }, [navigate]);
 
+  useEffect(() => {
+    getProductByGender(gender);
+  }, [gender]);
+
   const getProductByCategoryId = async (id) => {
+    setLoading(true);
     try {
       const data = await appApi.get(
         routes.GET_PRODUCT_BY_CATEGORY_ID(id),
@@ -49,11 +63,12 @@ const Menu = () => {
     }
   };
 
-  const getProductByGender = async () => {
+  const getProductByGender = async (gender) => {
+    setLoading(true);
     try {
       const data = await appApi.get(
-        routes.GET_PRODUCT_BY_GENDER("men"),
-        routes.getProductByGender("men")
+        routes.GET_PRODUCT_BY_GENDER(gender),
+        routes.getProductByGender(gender)
       );
       setItems(data.data);
       setLoading(false);
@@ -87,10 +102,11 @@ const Menu = () => {
         <CategoryBar
           currCategory={currCategory}
           categoryClick={(c) => categoryClick(c)}
+          gender={gender}
         />
       </aside>
       {/* Products Container */}
-      <ProductsContainer items={items} loading={loading}/>
+      <ProductsContainer items={items} loading={loading} />
     </div>
   );
 };
