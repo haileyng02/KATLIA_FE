@@ -9,8 +9,8 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
 
   //Get category by gender
   const getCategoryByGender = async (gender) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const data = await appApi.get(
         routes.GET_CATEGORY_BY_GENDER(gender),
         routes.getCategoryByGender(gender)
@@ -20,7 +20,6 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
         ...categories,
         ...data.data
       ]);
-      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -30,6 +29,7 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
         console.log(err.message);
       }
     }
+    setLoading(false);
   };
 
   useEffect(() => {

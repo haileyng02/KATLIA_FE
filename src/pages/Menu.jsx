@@ -12,18 +12,16 @@ const Menu = () => {
   const [gender, setGender] = useState("men");
   const navigate = useNavigate();
 
-  const path = window.location.pathname.substring(1);
-
   // Get current category based on URL
   useEffect(() => {
+    const path = window.location.pathname.substring(1);
     const genderPath = path.substring(0, path.indexOf("/"));
-    if (genderPath !== gender) {
-      setGender(genderPath);
-    }
-    const data = path.substring(gender.length + 1);
+    if (genderPath !== gender) setGender(genderPath);
+
+    const data = path.substring(genderPath.length + 1);
     if (data.includes("all")) {
       setCategory({ category: "view all" });
-      getProductByGender(gender);
+      getProductByGender(genderPath);
       return;
     }
     const categoryId = data.split("-")[0];
@@ -34,14 +32,17 @@ const Menu = () => {
       category = data
         .slice(data.indexOf("-") + 1, data.indexOf("&page="))
         .replaceAll("%20", " ");
-    if (category !== currCategory.category)
+    // if (category !== currCategory.category) {
       setCategory({ categoryId, category });
-    getProductByCategoryId(categoryId);
+      getProductByCategoryId(categoryId);
+    // }
   }, [navigate]);
 
-  useEffect(() => {
-    getProductByGender(gender);
-  }, [gender]);
+  // useEffect(() => {
+  //   if (currCategory.category === "view all") {
+  //     return;
+  //   }
+  // }, [currCategory]);
 
   const getProductByCategoryId = async (id) => {
     setLoading(true);
@@ -51,7 +52,6 @@ const Menu = () => {
         routes.getProductByCategoryId(id)
       );
       setItems(data.data);
-      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -61,6 +61,7 @@ const Menu = () => {
         console.log(err.message);
       }
     }
+    setLoading(false);
   };
 
   const getProductByGender = async (gender) => {
@@ -71,7 +72,6 @@ const Menu = () => {
         routes.getProductByGender(gender)
       );
       setItems(data.data);
-      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -81,17 +81,15 @@ const Menu = () => {
         console.log(err.message);
       }
     }
+    setLoading(false);
   };
 
   const categoryClick = (c) => {
     setCategory(c);
-    setLoading(true);
     if (c.category === "view all") {
-      navigate(`/men/all`);
-      getProductByGender();
+      navigate(`/${gender}/all`);
     } else {
-      navigate(`/men/${c.categoryId}-${c.category}`);
-      getProductByCategoryId(c.categoryId);
+      navigate(`/${gender}/${c.categoryId}-${c.category}`);
     }
   };
 
