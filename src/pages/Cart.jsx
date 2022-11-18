@@ -77,6 +77,28 @@ const Cart = () => {
       }
     }
   }
+
+  //Update Cart Item
+  const updateCartItem = async () => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+      const data = await appApi.patch(
+        routes.UPDATE_CART_ITEM,
+        routes.getUpdateCartBody("637746186d20e9c758312282", 2),
+        routes.getAccessTokenHeader(token)
+      )
+
+      console.log(data)
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
   return (
     <div className="px-[150px] pt-[77px] text-[#22262A] ">
       <h1 onClick={getCart} className="text-[30px] leading-9 font-inter font-bold">
@@ -96,7 +118,7 @@ const Cart = () => {
           <th onClick={deleteCartItem} className=" text-left">PRODUCT</th>
           <th>UNIT PRICE</th>
           <th>QUANTITY</th>
-          <th className=" text-right">PRICE</th>
+          <th onClick={updateCartItem} className=" text-right">PRICE</th>
         </tr>
         {cartItems.map((item, i) => (
           <React.Fragment key={i}>

@@ -91,5 +91,11 @@ export const getDeleteCartBody = (id) => ({
   params: {
     id: id
   }
+})
 
+//UPDATE CART ITEM
+export const UPDATE_CART_ITEM = '/cart/updateCartItem'
+export const getUpdateCartBody = (id, number) => ({
+  id: id,
+  number: number
 })
