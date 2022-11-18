@@ -84,3 +84,12 @@ export const getAddCartBody = (productId, colorId, size, quantity) => ({
 
 //GET CART
 export const GET_CART = '/cart/getCart'
+
+//DELETE CART ITEM
+export const DELETE_CART_ITEM = (id) => `/cart/deleteCartItem/${id}`
+export const getDeleteCartBody = (id) => ({
+  params: {
+    id: id
+  }
+
+})

@@ -34,12 +34,35 @@ const Cart = () => {
   const handleCheckOut = () => {
     navigate('/delivery-information')
   }
+
   //Get Cart
   const getCart = async () => {
     try {
       const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
       const data = await appApi.get(
         routes.GET_CART,
+        routes.getAccessTokenHeader(token)
+      )
+
+      console.log(data);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
+
+  //Delete Cart Item
+  const deleteCartItem = async () => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+      const data = await appApi.delete(
+        routes.DELETE_CART_ITEM,
+        routes.getDeleteCartBody("6374f10b602db0945ba9b0e1"),
         routes.getAccessTokenHeader(token)
       )
 
@@ -70,7 +93,7 @@ const Cart = () => {
         </colgroup>
         <tr className="leading-[25px]">
           <th></th>
-          <th className=" text-left">PRODUCT</th>
+          <th onClick={deleteCartItem} className=" text-left">PRODUCT</th>
           <th>UNIT PRICE</th>
           <th>QUANTITY</th>
           <th className=" text-right">PRICE</th>
