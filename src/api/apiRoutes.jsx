@@ -81,3 +81,6 @@ export const getAddCartBody = (productId, colorId, size, quantity) => ({
   size: size,
   quantity: quantity
 })
+
+//GET CART
+export const GET_CART = '/cart/getCart'
