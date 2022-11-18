@@ -12,6 +12,11 @@ export const getSignupOTPBody = (email, otp) => ({
   email: email,
   otp: otp
 })
+export const getAccessTokenHeader = token => ({
+  headers: {
+    Authorization: 'Bearer ' + token
+  }
+})
 
 //SIGN IN WITH EMAIL AND PASSWORD
 export const SIGN_IN = '/auth/signInWithEmailAndPassword'
@@ -66,4 +71,13 @@ export const get4SimilarItems = (id) => ({
   params: {
     id: id
   }
+})
+
+//ADD ITEM TO CART
+export const ADD_ITEM_TO_CART = '/cart/addItemToCart'
+export const getAddCartBody = (productId, colorId, size, quantity) => ({
+  productId: productId,
+  colorId: colorId,
+  size: size,
+  quantity: quantity
 })

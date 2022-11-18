@@ -17,7 +17,7 @@ const ForMenFeatured = () => {
   const getTop4 = async () => {
     try {
       const data = await appApi.get(
-        routes.GET_TOP4_MEN,
+        routes.GET_TOP4,
         routes.getTop4Body('men')
       )
       console.log(data)

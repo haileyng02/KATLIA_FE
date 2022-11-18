@@ -23,7 +23,7 @@ const Menu = () => {
   const getCategoryByGender = async () => {
     try {
       const data = await appApi.get(
-        routes.GET_CATEGORY_BY_GENDER_MEN,
+        routes.GET_CATEGORY_BY_GENDER,
         routes.getCategoryByGender("men")
       )
       console.log(data)

@@ -635,7 +635,7 @@ const ProductsContainer = () => {
   const getProductByGender = async () => {
     try {
       const data = await appApi.get(
-        routes.GET_PRODUCT_BY_GENDER_MEN, 
+        routes.GET_PRODUCT_BY_GENDER, 
         routes.getProductByGender("men")
         );
       console.log(data)
