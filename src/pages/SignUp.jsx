@@ -42,7 +42,7 @@ const SignUp = () => {
   };
 
   return ( 
-    <div className=" border-1 border-black35 rounded-[5px] w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
+    <div className="auth-border w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
       <Spin size="large" spinning={isLoading} indicator={<img src={loadingIcon} alt="Loading" className="w-14 h-14"/>}>
         <div className="flex flex-col items-center">
           <h1 className="text-[45px]">Let's Get Started</h1>
@@ -93,6 +93,10 @@ const SignUp = () => {
                   required: true,
                   message: "You must enter password",
                 },
+                {
+                  min: 6,
+                  message: 'Your password must contain at least 6 characters'
+                }
               ]}
             >
               <Input

@@ -1,30 +1,40 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import {Notification, Spin} from 'antd'
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import { useState } from "react";
+import loadingIcon from "../images/loading.gif"
 
 const VerifyCode = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isError, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [loading,setLoading] = useState(false);
 
   const email = location.state;
   let otp='';
 
   const handleOnClick = () => {
-    // navigate('/reset-password/new-password')
-    console.log(otp);
+    if (otp==='') setError('Please enter OTP');
+    else {
+      setError('');
+      signUpByEmailAndOTP();
+    }
   };
   //signUpByEmailAndOTP
   const signUpByEmailAndOTP = async () => {
+    setLoading(true);
     try {
-      await appApi.post(
+      const result = await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody(email, "817731")
+        routes.getSignupOTPBody(email, otp)
       );
-      console.log("Success");
+      if (result.data.access_token != null) {
+      } 
+      else {
+        setError('Incorrect OTP');
+      }
+      console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -34,34 +44,39 @@ const VerifyCode = () => {
         console.log(err.message);
       }
     }
+    setLoading(false);
   };
 
   return (
     <div className="auth-border mt-[70px] mx-auto w-[728px] px-[53px] py-16">
-      <h1 className="text-40">Verify Code</h1>
-      <p className="text-[#888888] mt-[27px]">
-        {"Enter the verification code sent to email " + email}
-      </p>
-      <input
-        className="mt-[117px] h-[125px] black-rounded-border text-[45px] px-8 text-center"
-        maxLength={6}
-        onChange={e=>{
-          otp = e.target.value;
-        }}
-      />
-      <p hidden={true} className="text-red-600">
-        Please enter OTP
-      </p>
-      <button
-        onClick={handleOnClick}
-        className="auth-primary-button mt-[130px]"
-      >
-        Verify
-      </button>
-      <p className="text-black70 mt-[9px] text-center">
-        Did not receive the verification OTP?{" "}
-        <span className="text-primary">Resend again</span>
-      </p>
+      <Spin size="large" spinning={loading} indicator={<img src={loadingIcon} alt="Loading" className="w-14 h-14"/>}>
+        <div className="flex flex-col">
+          <h1 className="text-40">Verify Code</h1>
+          <p className="text-[#888888] mt-[27px]">
+            {"Enter the verification code sent to email " + email}
+          </p>
+          <input
+            className="mt-[117px] h-[125px] black-rounded-border text-[45px] px-8 text-center"
+            maxLength={6}
+            onChange={e=>{
+              otp = e.target.value;
+            }}
+          />
+          <p hidden={(error==='')} className="text-red-600">
+            {error}
+          </p>
+          <button
+            onClick={handleOnClick}
+            className="auth-primary-button mt-[130px]"
+          >
+            Verify
+          </button>
+          <p className="text-black70 mt-[9px] text-center">
+            Did not receive the verification OTP?{" "}
+            <span className="text-primary">Resend again</span>
+          </p>
+        </div>
+      </Spin>
     </div>
   );
 };

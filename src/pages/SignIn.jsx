@@ -35,7 +35,7 @@ const SignIn = () => {
 
   return (
     <div className='px-[150px] py-8 flex'>
-        <div className='auth-border items-center px-[89px] py-[50px]  w-[58%]'>
+        <div className='auth-border flex flex-col items-center px-[89px] py-[50px]  w-[58%]'>
             <h1 className='text-[45px]'>Welcome To Katlia!</h1>
             <p className='mt-[9px]'>Sign in to continue.</p>
             <Input
