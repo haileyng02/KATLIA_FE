@@ -11,16 +11,11 @@ import { useEffect } from "react";
 const ProductDetail = () => {
   //Get item id
   const location = useLocation();
-  const id = location.state;
-
   const [item, setItem] = useState();
-
-  const images = [
-    "https://s3-alpha-sig.figma.com/img/ee40/85e6/95a087fb32c5506029cceab00961fa36?Expires=1665360000&Signature=W1vWeSVgmLXdQMz9GUxGcaeTCnyIY9MD090DmCr9nBlW9aPfdIkt~BGvjk7FgSaRS65W854ERf5En66KHbVSbPnwGTHv73pFrXCI8jExJbQWFnaNvw6C5VrloNBdV5JXR13Xt6YNC8~DzXsLxXWJffk60Nz-BoTMJjqyJfYVhWx18vwr5ibj61-tC38b9FMJDVrk7HlUwZhQYETViapHJSP9NaiAxO~tW3mZCLGyvLnqusFmFoImk~o1oxYSGfzq06KWjGCxRh2ws1V3IW6Yrv4yBiE-WOuW6UileruAveZCaTUUSERqmbVHQwoIyjo08yzYU7sbuAV3ZoGIysL-~g__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "https://s3-alpha-sig.figma.com/img/bd5e/94a8/5ce7adfdafce1bee36e5ae048c0b36b8?Expires=1665360000&Signature=MHdFG~zy~qUJfNMssJxoEKrQvjFS2~yfQixGokX6ZvLHMa2ixlpsqM4pRO6PUoj40tH4-kRX-ANMfGjKTqkYEC3P6I2cWBHIAKqUHw778jmoR2vje7WtTz77Nb4IzgAlILmXektEo0pWnzL8ULJG51SI5WMFQhiuT3vhV1Z2jxNM~pJxJL8-zRnERhCtWEiYpPWh6bVzsG~1yIPf9MqIM68k0eicoc5ppyTfktf9pLRh6L-eYbT9UuiqvPOG1stkgwo-5EJdQkm5ptQ3urjbvdomdmcOSpu1ukcOFlaZ7YRrGzLzFCCue9U3ne8dpPoB4aiqkWAE1WR69jd~KOF10g__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "https://s3-alpha-sig.figma.com/img/dc03/6561/06d45d00f3a31c056801d6e9dd71706b?Expires=1665360000&Signature=TRDH5piWpV7WhliBGwdO97ANdp34UDVYlz64la7Qpdl-aBlvohZsLygeq0so0O9Z6KVnOdAuKjk~7S0088Ce0-GP1NB48QZeuXhdScN5zd3OCVh4a-HSEmTvJ5ZAtH00simAkEANlYUKcJnYwX~6JsatxXKl2WfH4SJGj70Uiu9dJKaeEP096mMP4Mc9t7giRP8yW5JTwK993rOqiuGwka3wiAs2q24WsY9botM6jpIe7p0z6SVWmUrepDiqjcStssxqS3SS9hoWm-yTq-DQOpVs8JJGHrmfw1JORA7NAwzl0VBlOnEdk4trugHvLbpKVgmHmrIRAtydKjiI4bBa8w__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "https://s3-alpha-sig.figma.com/img/9cab/0b55/762387ef52f1195a2b041ef6ae94cc20?Expires=1665360000&Signature=gouuNNUKzy7XpGhB-H-DyXYLX4vhVDH2VlSOaxngApa9Mwe1cqHEw27gOs~AQQi-Y9FOgzkKeuUFTg1gx~rLWF-uvSsEX5f2fApFPdBxkDXp0fkxV4SvOiFczYVHm2lP7URbWGPkhPSxYaiG6IdUMuRpUANW8SskTGbQQyhS2LvDUK4RcJhUmMd2BC1vbZNEras3HqV4Wy2PZuDnTYaY0Uy2BRzpOwKs~IxsGKpvUv1TZsDELpz6ea1GO28m981rOAYsVmA-L-xmrzH~H1OlNNDCWS-8K26mrcVtH5YpTMFjinm1FtpDXJvJj8W0x5wJJyOtNyGw9Oc-NZU3-sBztw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-  ];
+  const [currentColor,setCurrentColor] = useState();
+  const [mainImage, setMainImage] = useState();
+  
+  const id = location.state;
 
   // const colors = [
   //   {code: "#000000", name: "Black"}
@@ -55,7 +50,6 @@ const ProductDetail = () => {
     },
   ];
 
-  const [mainImage, setMainImage] = useState(images[0]);
   const handleOnClick = (image) => {
     setMainImage(image);
   };
@@ -67,8 +61,9 @@ const ProductDetail = () => {
         routes.GET_PRODUCT_DETAIL(id),
         routes.getProductDetail(id)
       );
-      console.log(data);
+      console.log(data.data);
       setItem(data.data);
+      setCurrentColor(data.data.colorList[0]);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -103,22 +98,28 @@ const ProductDetail = () => {
     getProductDetail(id);
   }, []);
 
+  const colorOnClick = (c) => {
+    setCurrentColor(c);
+  }
+
   return (
     <div className=" pt-[71px] font-inter">
       <div className="px-[150px] flex items-start justify-between">
         {/* Left */}
-        <div className="flex basis-[47%] justify-between gap-x-7">
+        <div className="flex basis-[47%] justify-between gap-x-7 items-start">
           {/* Main Image */}
-          <div className=" basis-[85%] bg-gray-400 overflow-hidden aspect-[19/30] w-[379px] flex-none">
-            <img
-              src={item.colorList[0].imgList[0].url}
-              alt="Main"
-              className="object-cover object-center w-full"
-            />
-          </div>
+          <img
+            src={currentColor?.imgList[0].url}
+            alt="Main"
+            className="object-cover object-center basis-[85%] bg-gray-400"
+            style={{ height: "80vh" }}
+          />
           {/* Sub Images */}
-          <div className="grid grid-flow-row basis-[18.5%] self-stretch gap-y-[6.3px] cursor-pointer overflow-y-auto">
-            {item.colorList[0].imgList.map((image, i) => {
+          <div
+            className="grid grid-flow-row basis-[12.5%] gap-y-[10px] cursor-pointer overflow-y-auto "
+            style={{ height: "80vh" }}
+          >
+            {currentColor?.imgList.map((image, i) => {
               return (
                 <img
                   key={i}
@@ -135,12 +136,12 @@ const ProductDetail = () => {
           <h1 className=" font-bold">{item?.name}</h1>
           <p className=" leading-6 mt-7">{item?.description}</p>
           <div className="flex mt-6 gap-x-12">
-            {item?.colorList.map((c, i) => (
-              <ColorIcon key={i} colorCode={c?.hex} />
+            {item?.colorList?.map((c, i) => (
+              <ColorIcon key={i} color={c} current={currentColor.id === c.id} colorOnClick={(c) => colorOnClick(c)}/>
             ))}
           </div>
-          <p className="leading-6 mt-7">Black</p>
-          <p className="leading-6 mt-9">28.58$</p>
+          <p className="leading-6 mt-7 capitalize">{currentColor?.name.toLowerCase()}</p>
+          <p className="leading-6 mt-9">{item?.price + '$'}</p>
           <div className="flex mt-9 gap-x-[23px]">
             {sizes.map((s, i) => {
               return (
@@ -174,7 +175,7 @@ const ProductDetail = () => {
         </h2>
         <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
           {similarItems.map((item, i) => {
-            return <ProductThumbnail item={item} key={i} />;
+            return <ProductThumbnail item={item} key={i}/>;
           })}
         </div>
       </div>
