@@ -52,7 +52,7 @@ const ProductsContainer = ({ items, loading }) => {
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
-        <p className="">22 items found</p>
+        <p className="">{items.length + ' items found'}</p>
         <div className="flex border-[0.5px] border-black py-[6px] px-2 rounded-[5px]">
           <h3>Sort by:</h3>
           <p className="text-[#F9AF5E] ml-2 sort-outline">Popular</p>
