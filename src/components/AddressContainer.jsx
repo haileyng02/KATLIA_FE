@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddressItem from "../components/AddressItem";
 import AddressItem2 from "./AddressItem2";
 import AddAddressModal from "../components/AddAddressModal";
+import {Modal} from 'antd';
 
 const addressData = [
   {
@@ -81,6 +82,10 @@ const AddressContainer = ({ type, custom }) => {
     setIsModalOpen(true);
   };
 
+  const deleteAddress = () => {
+
+  }
+
   const handleCancel = () => {
     setIsModalOpen(false);
     setCurrItem(null);
@@ -106,6 +111,7 @@ const AddressContainer = ({ type, custom }) => {
                 key={i}
                 data={a}
                 editAddress={() => editAddress(a.id)}
+                deleteAddress={()=>deleteAddress()}
               />
             );
           })}
@@ -118,6 +124,7 @@ const AddressContainer = ({ type, custom }) => {
                 key={i}
                 data={a}
                 editAddress={() => editAddress(a.id)}
+                deleteAddress={()=>deleteAddress()}
               />
             ))}
           </div>
@@ -134,6 +141,9 @@ const AddressContainer = ({ type, custom }) => {
         handleCancel={handleCancel}
         currItem={currItem}
       />
+      <Modal open={true} centered title='Warning'>
+        <p className="font-inter font-medium text-25 text-center text-black">Are you sure you want to detele this address?</p>
+      </Modal>
     </>
   );
 };

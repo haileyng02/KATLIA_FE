@@ -14,7 +14,8 @@ import DeliveryInformation from './pages/DeliveryInformation';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/product/:productName', component: ProductDetail },
-    { path: '/men', component: Menu },
+    { path: '/men/:category', component: Menu },
+    { path: '/women/:category', component: Menu },
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },
     { path: '/signup', component: SignUp },

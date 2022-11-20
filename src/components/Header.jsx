@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Search from "./Search";
 import Profile from "../images/Profile.svg";
 import Cart from "../images/Cart.svg";
@@ -14,7 +14,8 @@ const Header = () => {
 
   const handleNavClick = (navItem) => {
     setCurrItem(navItem);
-    const path = String(navItem).toLowerCase();
+    let path = String(navItem).toLowerCase();
+    if (navItem === "MEN" || navItem === "WOMEN") path += "/all";
     navigate("/" + path);
   };
   return (
