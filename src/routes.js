@@ -19,6 +19,7 @@ const publicRoutes = [
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },
     { path: '/signup', component: SignUp },
+    { path: '/signup/verify-code', component: VerifyCode },
     { path: '/reset-password', component: ResetPassword },
     { path: '/reset-password/verify-code', component: VerifyCode },
     { path: '/reset-password/new-password', component: NewPassword }
