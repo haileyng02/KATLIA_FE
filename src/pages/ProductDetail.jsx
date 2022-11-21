@@ -25,8 +25,8 @@ const ProductDetail = () => {
         routes.GET_PRODUCT_DETAIL(id),
         routes.getProductDetail(id)
       );
-      console.log(data.data);
       const item = data.data;
+      console.log(item);
       setItem(item);
       setCurrentColor(item.colorList[0]);
       setCurrImage({ id: 0, url: item.colorList[0].imgList[0].url });
@@ -121,6 +121,7 @@ const ProductDetail = () => {
               <p className="leading-6 mt-9">{item?.price + "$"}</p>
               <div className="flex mt-9 gap-x-[23px]">
                 {currentColor?.details.map((s, i) => {
+                  if (s.size==='ONESIZE' && i!==0) return null;
                   return (
                     <div
                       key={i}
@@ -132,7 +133,7 @@ const ProductDetail = () => {
                       onClick={() => sizeOnClick(s.size)}
                     >
                       <h3
-                        className={`text-[18px] leading-[42px] m-auto ${
+                        className={`${s.size==='ONESIZE' ? 'text-[14px]' : 'text-[18px]'} leading-[42px] m-auto ${
                           currentSize === s.size
                             ? "text-white"
                             : "text-nav-item "
