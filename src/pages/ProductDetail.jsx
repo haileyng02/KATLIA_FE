@@ -9,19 +9,13 @@ import appApi from "../api/appApi";
 import { useEffect } from "react";
 
 const ProductDetail = () => {
-  //Get item id
   const location = useLocation();
   const [item, setItem] = useState();
-  const [currentColor,setCurrentColor] = useState();
-  const [mainImage, setMainImage] = useState();
-  
+  const [currentColor, setCurrentColor] = useState();
+  const [currImage, setCurrImage] = useState();
+  const [currentSize, setCurrentSize] = useState();
+
   const id = location.state;
-
-  // const colors = [
-  //   {code: "#000000", name: "Black"}
-  // ]
-
-  const sizes = ["S", "M", "L", "XL"];
 
   const similarItems = [
     {
@@ -50,10 +44,6 @@ const ProductDetail = () => {
     },
   ];
 
-  const handleOnClick = (image) => {
-    setMainImage(image);
-  };
-
   //Get Product Detail
   const getProductDetail = async (id) => {
     try {
@@ -62,8 +52,11 @@ const ProductDetail = () => {
         routes.getProductDetail(id)
       );
       console.log(data.data);
-      setItem(data.data);
-      setCurrentColor(data.data.colorList[0]);
+      const item = data.data;
+      setItem(item);
+      setCurrentColor(item.colorList[0]);
+      setCurrImage({ id: 0, url: item.colorList[0].imgList[0].url });
+      setCurrentSize(item.colorList[0].details[0].size);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -100,7 +93,15 @@ const ProductDetail = () => {
 
   const colorOnClick = (c) => {
     setCurrentColor(c);
-  }
+  };
+
+  const imageOnClick = (id, url) => {
+    setCurrImage({ id, url });
+  };
+
+  const sizeOnClick = (size) => {
+    setCurrentSize(size);
+  };
 
   return (
     <div className=" pt-[71px] font-inter">
@@ -109,15 +110,15 @@ const ProductDetail = () => {
         <div className="flex basis-[47%] justify-between gap-x-7 items-start">
           {/* Main Image */}
           <img
-            src={currentColor?.imgList[0].url}
+            src={currImage?.url}
             alt="Main"
             className="object-cover object-center basis-[85%] bg-gray-400"
             style={{ height: "80vh" }}
           />
           {/* Sub Images */}
           <div
-            className="grid grid-flow-row basis-[12.5%] gap-y-[10px] cursor-pointer overflow-y-auto "
-            style={{ height: "80vh" }}
+            className="grid grid-flow-row basis-[12.5%] gap-y-[10px] cursor-pointer overflow-y-auto"
+            style={{ height: currentColor?.imgList.length > 5 && "80vh" }}
           >
             {currentColor?.imgList.map((image, i) => {
               return (
@@ -125,7 +126,10 @@ const ProductDetail = () => {
                   key={i}
                   src={image.url}
                   alt="Product"
-                  className="object-cover object-center aspect-[55/82]"
+                  className={`object-cover object-center aspect-[55/82] hover:border-2 hover:border-primary hover:border-solid ${
+                    currImage.id === i && "border-2 border-primary border-solid"
+                  }`}
+                  onClick={() => imageOnClick(i, image.url)}
                 />
               );
             })}
@@ -137,17 +141,34 @@ const ProductDetail = () => {
           <p className=" leading-6 mt-7">{item?.description}</p>
           <div className="flex mt-6 gap-x-12">
             {item?.colorList?.map((c, i) => (
-              <ColorIcon key={i} color={c} current={currentColor.id === c.id} colorOnClick={(c) => colorOnClick(c)}/>
+              <ColorIcon
+                key={i}
+                color={c}
+                current={currentColor.id === c.id}
+                colorOnClick={(c) => colorOnClick(c)}
+              />
             ))}
           </div>
-          <p className="leading-6 mt-7 capitalize">{currentColor?.name.toLowerCase()}</p>
-          <p className="leading-6 mt-9">{item?.price + '$'}</p>
+          <p className="leading-6 mt-7 capitalize">
+            {currentColor?.name.toLowerCase()}
+          </p>
+          <p className="leading-6 mt-9">{item?.price + "$"}</p>
           <div className="flex mt-9 gap-x-[23px]">
-            {sizes.map((s, i) => {
+            {currentColor?.details.map((s, i) => {
               return (
-                <div key={i} className="w-[64px] h-[66px] bg-[#D9D9D9] flex">
-                  <h3 className=" text-[35px] leading-[42px] text-nav-item m-auto">
-                    {s}
+                <div
+                  key={i}
+                  className={`w-[64px] h-[66px]  flex cursor-pointer ${
+                    currentSize === s.size ? "bg-primary" : "bg-[#D9D9D9] "
+                  }`}
+                  onClick={() => sizeOnClick(s.size)}
+                >
+                  <h3
+                    className={`text-[18px] leading-[42px] m-auto ${
+                      currentSize === s.size ? "text-white" : "text-nav-item "
+                    }`}
+                  >
+                    {s.size}
                   </h3>
                 </div>
               );
@@ -157,7 +178,7 @@ const ProductDetail = () => {
             {/* Quantity */}
             <Quantity custom="w-36" />
             {/* Add To Cart */}
-            <div className="flex bg-[#EBF5FF] rounded-[5px] items-center px-[21px] gap-x-[15px]">
+            <div className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer">
               <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]" />
               <h3 className=" text-secondary">Add To Cart</h3>
             </div>
@@ -175,7 +196,7 @@ const ProductDetail = () => {
         </h2>
         <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
           {similarItems.map((item, i) => {
-            return <ProductThumbnail item={item} key={i}/>;
+            return <ProductThumbnail item={item} key={i} />;
           })}
         </div>
       </div>
