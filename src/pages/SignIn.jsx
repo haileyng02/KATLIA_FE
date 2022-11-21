@@ -51,7 +51,7 @@ const SignIn = () => {
             <div className='flex mt-[25px] justify-between w-full'>
                 <div className='flex items-center'>
                     <input type={"checkbox"} name="remember" className='accent-black w-[18px] h-[18px] mr-[6px]'/>
-                    <label for="remember" className='text-[14px]'>Remember for 30 days</label>
+                    <label htmlFor='remember' className='text-[14px]'>Remember for 30 days</label>
                 </div>
                 <p 
                 onClick={() => handleOnClick('reset-password')}
