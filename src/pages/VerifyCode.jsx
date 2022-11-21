@@ -1,38 +1,49 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import {Notification, Spin} from 'antd'
+import { useDispatch } from "react-redux";
+import { Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import loadingIcon from "../images/loading.gif"
+import { signIn } from "../actions/auth";
+import loadingIcon from "../images/loading.gif";
 
 const VerifyCode = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const [loading,setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const email = location.state;
-  let otp='';
+  let otp = "";
 
   const handleOnClick = () => {
-    if (otp==='') setError('Please enter OTP');
+    if (otp === "") setError("Please enter OTP");
     else {
-      setError('');
+      setError("");
       signUpByEmailAndOTP();
     }
   };
+
   //signUpByEmailAndOTP
   const signUpByEmailAndOTP = async () => {
     setLoading(true);
     try {
       const result = await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody(email, otp)
+        routes.getSignupOTPBody(email, parseInt(otp))
       );
       if (result.data.access_token != null) {
-      } 
-      else {
-        setError('Incorrect OTP');
+        dispatch(signIn(result.data.access_token));
+        navigate('/',{state:{
+          notification: {
+            type: 'success',
+            message: 'Success',
+            description : 'Congratulations, your account has been successfully created.'
+          }
+        }});
+      } else {
+        setError("Incorrect OTP");
       }
       console.log(result);
     } catch (err) {
@@ -49,7 +60,13 @@ const VerifyCode = () => {
 
   return (
     <div className="auth-border mt-[70px] mx-auto w-[728px] px-[53px] py-16">
-      <Spin size="large" spinning={loading} indicator={<img src={loadingIcon} alt="Loading" className="w-14 h-14"/>}>
+      <Spin
+        size="large"
+        spinning={loading}
+        indicator={
+          <img src={loadingIcon} alt="Loading" className="w-14 h-14" />
+        }
+      >
         <div className="flex flex-col">
           <h1 className="text-40">Verify Code</h1>
           <p className="text-[#888888] mt-[27px]">
@@ -58,11 +75,11 @@ const VerifyCode = () => {
           <input
             className="mt-[117px] h-[125px] black-rounded-border text-[45px] px-8 text-center"
             maxLength={6}
-            onChange={e=>{
+            onChange={(e) => {
               otp = e.target.value;
             }}
           />
-          <p hidden={(error==='')} className="text-red-600">
+          <p hidden={error === ""} className="text-red-600">
             {error}
           </p>
           <button

@@ -1,15 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import Search from "./Search";
 import Profile from "../images/Profile.svg";
 import Cart from "../images/Cart.svg";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
 const Header = () => {
   const navigate = useNavigate();
-  const currentUser = false;
+  const { currentUser } = useSelector(state => state.user)
   const [currItem, setCurrItem] = useState("");
 
   const handleNavClick = (navItem) => {
@@ -18,6 +20,7 @@ const Header = () => {
     if (navItem === "MEN" || navItem === "WOMEN") path += "/all";
     navigate("/" + path);
   };
+
   return (
     <div className="w-full h-[73px] bg-header flex fixed z-10 px-[150px]">
       <div className=" my-auto flex justify-between w-full">

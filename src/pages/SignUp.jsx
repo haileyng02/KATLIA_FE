@@ -4,12 +4,13 @@ import { Input, Form, Button, Spin } from "antd";
 import nameIcon from "../images/Profile2.svg";
 import emailIcon from "../images/emailIcon.svg";
 import lockIcon from "../images/lock2.svg";
-import loadingIcon from "../images/loading.gif"
+import loadingIcon from "../images/loading.gif";
 import api from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [form] = Form.useForm();
   const [isLoading, setLoading] = useState(false);
 
   const handleSignIn = () => {
@@ -20,11 +21,19 @@ const SignUp = () => {
   const createNewAccount = async (email, name, password) => {
     setLoading(true);
     try {
-      await api.post(
+      const result = await api.post(
         routes.SIGN_UP,
         routes.getSignupBody(email, name, password)
       );
-      navigate('/signup/verify-code',{state: email});
+      console.log(result);
+      if (result.data.name === "ForbiddenException") {
+        form.setFields([
+          {
+            name: "email",
+            errors: ["Email already exists"],
+          },
+        ]);
+      } else navigate("/signup/verify-code", { state: email });
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -41,13 +50,20 @@ const SignUp = () => {
     createNewAccount(values.email, values.name, values.password);
   };
 
-  return ( 
+  return (
     <div className="auth-border w-[1000px] mx-auto mt-[115px] px-[189px] py-[116px]">
-      <Spin size="large" spinning={isLoading} indicator={<img src={loadingIcon} alt="Loading" className="w-14 h-14"/>}>
+      <Spin
+        size="large"
+        spinning={isLoading}
+        indicator={
+          <img src={loadingIcon} alt="Loading" className="w-14 h-14" />
+        }
+      >
         <div className="flex flex-col items-center">
           <h1 className="text-[45px]">Let's Get Started</h1>
           <p className="mt-[2px]">Create an new account.</p>
           <Form
+            form={form}
             className="mt-[50px] flex flex-col w-full gap-y-1"
             onFinish={onFinish}
             scrollToFirstError
@@ -62,7 +78,9 @@ const SignUp = () => {
               ]}
             >
               <Input
-                prefix={<img src={nameIcon} alt="Name" className="auth-prefix" />}
+                prefix={
+                  <img src={nameIcon} alt="Name" className="auth-prefix" />
+                }
                 placeholder="Full Name"
                 className="auth-input"
               />
@@ -81,7 +99,9 @@ const SignUp = () => {
               ]}
             >
               <Input
-                prefix={<img src={emailIcon} alt="Email" className="auth-prefix" />}
+                prefix={
+                  <img src={emailIcon} alt="Email" className="auth-prefix" />
+                }
                 placeholder="Your Email"
                 className="auth-input"
               />
@@ -95,8 +115,8 @@ const SignUp = () => {
                 },
                 {
                   min: 6,
-                  message: 'Your password must contain at least 6 characters'
-                }
+                  message: "Your password must contain at least 6 characters",
+                },
               ]}
             >
               <Input
@@ -121,7 +141,9 @@ const SignUp = () => {
                       return Promise.resolve();
                     }
                     return Promise.reject(
-                      new Error("The two passwords that you entered do not match!")
+                      new Error(
+                        "The two passwords that you entered do not match!"
+                      )
                     );
                   },
                 }),
@@ -152,7 +174,10 @@ const SignUp = () => {
           </Form>
           <p className="mt-[33px] text-black70">
             Already have an account?
-            <span onClick={handleSignIn} className="text-primary cursor-pointer">
+            <span
+              onClick={handleSignIn}
+              className="text-primary cursor-pointer"
+            >
               {" "}
               Sign in
             </span>
