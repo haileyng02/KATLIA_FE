@@ -110,3 +110,6 @@ export const getPurchaseBody = (receiverName, receiverPhone, address, payment, n
   note: note,
   voucherId: voucherId
 })
+
+//GET HISTORY ORDER
+export const GET_HISTORY_ORDER = '/order/history'
