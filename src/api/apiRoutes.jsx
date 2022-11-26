@@ -99,3 +99,14 @@ export const getUpdateCartBody = (id, number) => ({
   id: id,
   number: number
 })
+
+//PURCHASE
+export const PURCHASE = '/order/purchase'
+export const getPurchaseBody = (receiverName, receiverPhone, address, payment, note, voucherId) => ({
+  receiverName: receiverName,
+  receiverPhone: receiverPhone,
+  address: address,
+  payment: payment,
+  note: note,
+  voucherId: voucherId
+})
