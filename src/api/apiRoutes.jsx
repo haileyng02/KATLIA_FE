@@ -114,3 +114,11 @@ export const getPurchaseBody = (receiverName, receiverPhone, address, payment, n
 //GET ORDER HISTORY
 export const GET_ORDER_HISTORY = '/order/history'
 
+//GET ORDER DETAIL
+export const GET_ORDER_DETAIL = (id) => `/order/detail/${id}`
+export const getOrderDetailBody = (id) => ({
+  params: {
+    id: id
+  }
+})
+

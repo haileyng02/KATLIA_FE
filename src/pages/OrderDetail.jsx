@@ -5,15 +5,37 @@ import checked from "../images/Checked.svg";
 import unChecked from "../images/Unchecked.svg";
 import passedLine from "../images/PassedLine.svg";
 import unpassedLine from "../images/UnpassedLine.svg";
+import appApi from "../api/appApi";
+import * as routes from '../api/apiRoutes'
 
 const OrderDetail = () => {
   //Get order
   const location = useLocation();
   const order = location.state;
+  //Get order detail
+  const getOrderDetail = async () => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+      const data = await appApi.get(
+        routes.GET_ORDER_DETAIL,
+	      routes.getOrderDetailBody("6374f109602db0945ba9b0e0"),	
+        routes.getAccessTokenHeader(token)
+      )
 
+      console.log(data);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
   return (
     <div className="px-10">
-      <h1 className="account-title">Order Details</h1>
+      <h1 onClick={getOrderDetail} className="account-title">Order Details</h1>
       {/* Status */}
       <div className="flex mt-[59px] gap-x-[82.44px] relative">
         <div>
