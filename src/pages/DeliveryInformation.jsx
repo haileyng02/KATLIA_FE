@@ -66,12 +66,12 @@ const DeliveryInformation = () => {
       }
     }
   }
-  //Get History Order
-  const getHistoryOrder = async () => {
+  //Get Order History
+  const getOrderHistory = async () => {
     try {
       const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
       const data = await appApi.get(
-        routes.GET_HISTORY_ORDER,
+        routes.GET_ORDER_HISTORY,
         routes.getAccessTokenHeader(token)
       )
 
@@ -88,7 +88,7 @@ const DeliveryInformation = () => {
   }
   return (
     <div className="px-[150px] pt-8 deli-info">
-      <h1 onClick={getHistoryOrder} className="text-[30px] font-bold">Delivery Information</h1>
+      <h1 onClick={getOrderHistory} className="text-[30px] font-bold">Delivery Information</h1>
       <div className="flex mt-[58px] justify-between">
         {/* Left side */}
         <div className="w-[59%]">

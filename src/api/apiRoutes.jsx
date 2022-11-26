@@ -111,5 +111,6 @@ export const getPurchaseBody = (receiverName, receiverPhone, address, payment, n
   voucherId: voucherId
 })
 
-//GET HISTORY ORDER
-export const GET_HISTORY_ORDER = '/order/history'
+//GET ORDER HISTORY
+export const GET_ORDER_HISTORY = '/order/history'
+
