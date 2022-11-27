@@ -25,6 +25,12 @@ export const getSigninBody = (email, password) => ({
   password: password
 })
 
+//VERIFY EMAIL FORGOT PASSWORD
+export const VERIFY_EMAIL_FORGOT_PASSWORD = '/auth/verifyEmailForgotPassword'
+export const getVerifyForgotPasswordBody = (email) => ({
+  email: email
+})
+
 //GET PRODUCT BY GENDER
 export const GET_PRODUCT_BY_GENDER = (gender) => `/product/getProductByGender/${gender}`
 export const getProductByGender = (gender) => ({
