@@ -32,9 +32,27 @@ const VerifyCode = () => {
     signUpByEmailAndOTP();
   }, []);
 
+  //Check otp forgot password
+  const checkOTPForgotPassword = async () => {
+    try {
+      await appApi.post(
+        routes.CHECK_OTP_FORGOT_PASSWORD,
+        routes.getOTPForgotPassword("saovayta2131@gmail.com", 713625)
+      )
+      console.log('Success')
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
   return (
     <div className='auth-border mt-[170px] mx-auto w-[728px] px-[53px] py-16'>
-      <h1 className='text-40'>Verify Code</h1>
+      <h1 onClick={checkOTPForgotPassword} className='text-40'>Verify Code</h1>
       <p className='text-[#888888] mt-[27px]'>Enter the verification code sent to email abc@gmail.com</p>
       <input className='mt-[117px] h-[125px] black-rounded-border text-[45px] px-8 text-center'/>
       <button 

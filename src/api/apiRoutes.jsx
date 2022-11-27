@@ -31,6 +31,13 @@ export const getVerifyForgotPasswordBody = (email) => ({
   email: email
 })
 
+//CHECK OTP FORGOT PASSWORD
+export const CHECK_OTP_FORGOT_PASSWORD = '/auth/checkOTPForgotPassword'
+export const getOTPForgotPassword = (email, otp) => ({
+  email: email,
+  otp: otp
+})
+
 //GET PRODUCT BY GENDER
 export const GET_PRODUCT_BY_GENDER = (gender) => `/product/getProductByGender/${gender}`
 export const getProductByGender = (gender) => ({
