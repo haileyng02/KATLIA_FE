@@ -38,6 +38,13 @@ export const getOTPForgotPassword = (email, otp) => ({
   otp: otp
 })
 
+//NEW PASSWORD AFTER VERIFY
+export const NEW_PASSWORD_AFTER_VERIFY = '/auth/newPasswordAfterVerify'
+export const getNewPasswordBody = (email, password) => ({
+  email: email,
+  password: password
+})
+
 //GET PRODUCT BY GENDER
 export const GET_PRODUCT_BY_GENDER = (gender) => `/product/getProductByGender/${gender}`
 export const getProductByGender = (gender) => ({
