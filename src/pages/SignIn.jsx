@@ -19,7 +19,7 @@ const SignIn = () => {
         try {
             await appApi.post(
                 routes.SIGN_IN,
-                routes.getSigninBody("saovayta2131@gmail.com", "123456")
+                routes.getSigninBody("saovayta2131@gmail.com", "654321")
             );
             console.log('Success');
         } catch (err) {
@@ -32,11 +32,29 @@ const SignIn = () => {
               }
         }
     }
-
+    //Get me user
+    const getMeUser = async () => {
+        try {
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+        const data = await appApi.get(
+            routes.GET_ME_USER,
+            routes.getAccessTokenHeader(token)
+        )
+        console.log(data)
+        } catch (err) {
+        if (err.response) {
+            console.log(err.response.data)
+            console.log(err.response.status)
+            console.log(err.response.headers)
+        } else {
+            console.log(err.message)
+        }
+        }
+    }
   return (
     <div className='px-[150px] py-8 flex'>
         <div className='auth-border items-center px-[89px] py-[50px]  w-[58%]'>
-            <h1 className='text-[45px]'>Welcome To Katlia!</h1>
+            <h1 onClick={getMeUser} className='text-[45px]'>Welcome To Katlia!</h1>
             <p className='mt-[9px]'>Sign in to continue.</p>
             <Input
             prefix={<img src={profileIcon} alt='Email' className='auth-prefix'/>}

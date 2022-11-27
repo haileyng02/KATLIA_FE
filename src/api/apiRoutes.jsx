@@ -53,6 +53,9 @@ export const getProductByGender = (gender) => ({
   }
 })
 
+//GET ME USER
+export const GET_ME_USER = '/user/me'
+
 //GET PRODUCT BY CATEGORY ID
 export const GET_PRODUCT_BY_CATEGORY_ID = (id) => `/product/getProductByCategoryId/${id}`
 export const getProductByCategoryId = (categoryId) => ({
