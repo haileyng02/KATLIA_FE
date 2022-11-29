@@ -17,6 +17,8 @@ const SignIn = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  
+  let isChecked = false;
 
   const handleOnClick = (path) => {
     navigate("/" + path);
@@ -38,7 +40,8 @@ const SignIn = () => {
       );
       console.log(result);
       dispatch(signIn(result.data.access_token));
-      navigate('/');
+      localStorage.setItem("user", result.data.access_token);
+      navigate("/");
     } catch (err) {
       if (err.response) {
         const message = err.response.data.message;
@@ -66,6 +69,10 @@ const SignIn = () => {
     }
     setLoading(false);
   };
+
+  const handleChecked = (e) => {
+    isChecked = e.target.checked;
+  }
 
   return (
     <div className="px-[150px] py-8 flex">
@@ -95,6 +102,8 @@ const SignIn = () => {
                 className="mt-8"
               >
                 <Input
+                  type="email"
+                  name="email"
                   prefix={
                     <img
                       src={profileIcon}
@@ -117,6 +126,8 @@ const SignIn = () => {
                 className="mt-7"
               >
                 <Input.Password
+                  type="password"
+                  name="password"
                   prefix={
                     <img
                       src={lockIcon}
@@ -134,6 +145,7 @@ const SignIn = () => {
                 <input
                   type={"checkbox"}
                   name="remember"
+                  onChange={(e)=>handleChecked(e)}
                   className="accent-black w-[18px] h-[18px] mr-[6px]"
                 />
                 <label htmlFor="remember" className="text-[14px]">

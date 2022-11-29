@@ -35,6 +35,7 @@ const VerifyCode = () => {
       );
       if (result.data.access_token != null) {
         dispatch(signIn(result.data.access_token));
+        localStorage.setItem('user',result.data.access_token);
         navigate('/',{state:{
           notification: {
             type: 'success',

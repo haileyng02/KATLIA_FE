@@ -190,3 +190,12 @@ th {
 .loading-animation {
   animation: spin 1s infinite linear;
 }
+
+.ant-dropdown-menu  {
+  border-radius: 10px;
+  top:10px;
+}
+.ant-dropdown-menu-item  {
+  padding: 15px;
+  text-align: center;
+}
