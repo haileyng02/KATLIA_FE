@@ -6,7 +6,7 @@ const FeaturedThumbnail = ({item,container='',image=''}) => {
   const navigate = useNavigate();
 
   const handleOnClick = (product) => {
-    navigate(`/product/${product.id}`, { state: product });
+    navigate(`/product/${product.id}`, { state: product.id });
   };
   return (
     <div
