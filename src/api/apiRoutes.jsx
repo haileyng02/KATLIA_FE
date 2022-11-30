@@ -12,10 +12,35 @@ export const getSignupOTPBody = (email, otp) => ({
   email: email,
   otp: otp
 })
+export const getAccessTokenHeader = token => ({
+  headers: {
+    Authorization: 'Bearer ' + token
+  }
+})
 
 //SIGN IN WITH EMAIL AND PASSWORD
 export const SIGN_IN = '/auth/signInWithEmailAndPassword'
 export const getSigninBody = (email, password) => ({
+  email: email,
+  password: password
+})
+
+//VERIFY EMAIL FORGOT PASSWORD
+export const VERIFY_EMAIL_FORGOT_PASSWORD = '/auth/verifyEmailForgotPassword'
+export const getVerifyForgotPasswordBody = (email) => ({
+  email: email
+})
+
+//CHECK OTP FORGOT PASSWORD
+export const CHECK_OTP_FORGOT_PASSWORD = '/auth/checkOTPForgotPassword'
+export const getOTPForgotPassword = (email, otp) => ({
+  email: email,
+  otp: otp
+})
+
+//NEW PASSWORD AFTER VERIFY
+export const NEW_PASSWORD_AFTER_VERIFY = '/auth/newPasswordAfterVerify'
+export const getNewPasswordBody = (email, password) => ({
   email: email,
   password: password
 })
@@ -27,6 +52,9 @@ export const getProductByGender = (gender) => ({
     gender: gender
   }
 })
+
+//GET ME USER
+export const GET_ME_USER = '/user/me'
 
 //GET PRODUCT BY CATEGORY ID
 export const GET_PRODUCT_BY_CATEGORY_ID = (id) => `/product/getProductByCategoryId/${id}`
@@ -67,3 +95,53 @@ export const get4SimilarItems = (id) => ({
     id: id
   }
 })
+
+//ADD ITEM TO CART
+export const ADD_ITEM_TO_CART = '/cart/addItemToCart'
+export const getAddCartBody = (productId, colorId, size, quantity) => ({
+  productId: productId,
+  colorId: colorId,
+  size: size,
+  quantity: quantity
+})
+
+//GET CART
+export const GET_CART = '/cart/getCart'
+
+//DELETE CART ITEM
+export const DELETE_CART_ITEM = (id) => `/cart/deleteCartItem/${id}`
+export const getDeleteCartBody = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+//UPDATE CART ITEM
+export const UPDATE_CART_ITEM = '/cart/updateCartItem'
+export const getUpdateCartBody = (id, number) => ({
+  id: id,
+  number: number
+})
+
+//PURCHASE
+export const PURCHASE = '/order/purchase'
+export const getPurchaseBody = (receiverName, receiverPhone, address, payment, note, voucherId) => ({
+  receiverName: receiverName,
+  receiverPhone: receiverPhone,
+  address: address,
+  payment: payment,
+  note: note,
+  voucherId: voucherId
+})
+
+//GET ORDER HISTORY
+export const GET_ORDER_HISTORY = '/order/history'
+
+//GET ORDER DETAIL
+export const GET_ORDER_DETAIL = (id) => `/order/detail/${id}`
+export const getOrderDetailBody = (id) => ({
+  params: {
+    id: id
+  }
+})
+

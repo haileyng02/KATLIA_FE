@@ -4,6 +4,8 @@ import ProductThumbnail3 from "../components/ProductThumbnail3";
 import codIcon from "../images/codIcon.svg";
 import cardIcon from "../images/cardIcon.svg";
 import paypalIcon from "../images/paypalIcon.svg";
+import appApi from "../api/appApi";
+import * as routes from '../api/apiRoutes'
 
 const paymentMethods = [
   {
@@ -43,13 +45,54 @@ const order = {
 }
 
 const DeliveryInformation = () => {
+  //Put Purchase
+  const putPurchase = async () => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+      
+      await appApi.put(
+        routes.PURCHASE,
+        routes.getPurchaseBody("Kien", "0975305060", "164, Phan Dinh Phung, phuong 2, Phu Nhuan, TP.HCM", 16.995999999999995, "", ""),
+        routes.getAccessTokenHeader(token)
+      )
+      console.log('Success')
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
+  //Get Order History
+  const getOrderHistory = async () => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+      const data = await appApi.get(
+        routes.GET_ORDER_HISTORY,
+        routes.getAccessTokenHeader(token)
+      )
+
+      console.log(data);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
   return (
     <div className="px-[150px] pt-8 deli-info">
-      <h1 className="text-[30px] font-bold">Delivery Information</h1>
+      <h1 onClick={getOrderHistory} className="text-[30px] font-bold">Delivery Information</h1>
       <div className="flex mt-[58px] justify-between">
         {/* Left side */}
         <div className="w-[59%]">
-          <h2>Delivery Address</h2>
+          <h2> Delivery Address</h2>
           <AddressContainer type={2} custom="flex gap-x-[29px]"/>
           <h2 className=" mt-[33px]">Note</h2>
           <textarea className="border-1 border-black w-full h-[140px] mt-[19px]" />
@@ -63,7 +106,7 @@ const DeliveryInformation = () => {
               </div>;
             })}
           </div>
-          <button className="mt-[35px] deli-button h-[71px] text-[24px] rounded-[8.53px]">Payment Now</button>
+          <button onClick={putPurchase} className="mt-[35px] deli-button h-[71px] text-[24px] rounded-[8.53px]">Payment Now</button>
         </div>
         <span className="w-[1px] bg-account-divider  self-stretch"/>
         {/* Right side */}
