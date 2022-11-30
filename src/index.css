@@ -52,6 +52,15 @@ html, body {
   @apply break-all leading-[21px] mt-[30px] font-featured
 }
 
+.featured-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+          line-clamp: 1; 
+  -webkit-box-orient: vertical;
+}
+
 .footer-col-title {
   @apply leading-6 font-bold
 }
