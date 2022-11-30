@@ -10,14 +10,14 @@ import loadingIcon from "../images/loading2.gif";
 import { useNavigate } from "react-router-dom";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import { signIn } from "../actions/auth";
+import signInProcess from "../utils/signInProcess";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  
+
   let isChecked = false;
 
   const handleOnClick = (path) => {
@@ -39,9 +39,13 @@ const SignIn = () => {
         routes.getSigninBody(email, password)
       );
       console.log(result);
-      dispatch(signIn(result.data.access_token));
-      localStorage.setItem("user", result.data.access_token);
-      navigate("/");
+      signInProcess({
+        token: result.data.access_token,
+        newUser: false,
+        isChecked,
+        dispatch,
+        navigate,
+      });
     } catch (err) {
       if (err.response) {
         const message = err.response.data.message;
@@ -72,7 +76,7 @@ const SignIn = () => {
 
   const handleChecked = (e) => {
     isChecked = e.target.checked;
-  }
+  };
 
   return (
     <div className="px-[150px] py-8 flex">
@@ -145,7 +149,7 @@ const SignIn = () => {
                 <input
                   type={"checkbox"}
                   name="remember"
-                  onChange={(e)=>handleChecked(e)}
+                  onChange={(e) => handleChecked(e)}
                   className="accent-black w-[18px] h-[18px] mr-[6px]"
                 />
                 <label htmlFor="remember" className="text-[14px]">
