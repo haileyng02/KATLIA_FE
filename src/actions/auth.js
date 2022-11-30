@@ -4,3 +4,9 @@ export const signIn = (token) => {
         payload: token,
     };
 };
+
+export const logOut = () => {
+    return {
+        type: 'LOG_OUT'
+    }
+}

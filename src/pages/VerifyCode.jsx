@@ -5,6 +5,7 @@ import { Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import { signIn } from "../actions/auth";
+import signInProcess from "../utils/signInProcess";
 import loadingIcon from "../images/loading.gif";
 
 const VerifyCode = () => {
@@ -34,14 +35,13 @@ const VerifyCode = () => {
         routes.getSignupOTPBody(email, parseInt(otp))
       );
       if (result.data.access_token != null) {
-        dispatch(signIn(result.data.access_token));
-        navigate('/',{state:{
-          notification: {
-            type: 'success',
-            message: 'Success',
-            description : 'Congratulations, your account has been successfully created.'
-          }
-        }});
+        signInProcess({
+          token: result.data.access_token,
+          newUser: true,
+          isChecked: false,
+          dispatch,
+          navigate,
+        });
       } else {
         setError("Incorrect OTP");
       }
