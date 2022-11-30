@@ -52,6 +52,15 @@ html, body {
   @apply break-all leading-[21px] mt-[30px] font-featured
 }
 
+.featured-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+          line-clamp: 1; 
+  -webkit-box-orient: vertical;
+}
+
 .footer-col-title {
   @apply leading-6 font-bold
 }
@@ -141,11 +150,13 @@ th {
 }
 
 .auth-border {
-  @apply flex flex-col border-1 border-black35 rounded-[5px]
+  @apply border-1 border-black35 rounded-[5px]
 }
 
 .auth-primary-button {
-  @apply bg-primary text-white w-full rounded-[10px] h-[52px] border-1 border-account-nav
+  @apply bg-primary text-white w-full rounded-[10px] h-[52px] border-1 border-account-nav 
+  hover:bg-primary hover:text-white hover:border-1 hover:border-account-nav
+  focus:bg-primary focus:text-white focus:border-1 focus:border-account-nav
 }
 
 .auth-prefix {
@@ -174,4 +185,26 @@ th {
 
 .address-modify-container {
   @apply flex items-center justify-between
+}
+
+.product-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+          line-clamp: 2; 
+  -webkit-box-orient: vertical;
+}
+
+.loading-animation {
+  animation: spin 1s infinite linear;
+}
+
+.ant-dropdown-menu  {
+  border-radius: 10px;
+  top:10px;
+}
+.ant-dropdown-menu-item  {
+  padding: 15px;
+  text-align: center;
 }

@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom'
+import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 const FeaturedThumbnail = ({item,container='',image=''}) => {
   const navigate = useNavigate();
 
   const handleOnClick = (product) => {
-    navigate(`/product/${product.id}`, { state: product });
+    navigate(`/product/${product.id}`, { state: product.id });
   };
   return (
     <div
@@ -19,7 +20,7 @@ const FeaturedThumbnail = ({item,container='',image=''}) => {
           className={`${image} featured-image`}
         />
       </div>
-      <h5 className="featured-title">{item.title}</h5>
+      <h5 className="featured-title">{capitalizeFirstLetter(item.name)}</h5>
     </div>
   );
 };

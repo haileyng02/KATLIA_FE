@@ -1,22 +1,47 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Dropdown } from "antd";
 import Search from "./Search";
+import { logOut } from "../actions/auth";
 import Profile from "../images/Profile.svg";
 import Cart from "../images/Cart.svg";
-import { useState } from "react";
 
 const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
+const items = [
+  { label: "View Profile", key: "profile" },
+  { label: "Log Out", key: "logout", danger: true },
+];
+
 const Header = () => {
   const navigate = useNavigate();
-  const currentUser = false;
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
   const [currItem, setCurrItem] = useState("");
 
   const handleNavClick = (navItem) => {
     setCurrItem(navItem);
-    const path = String(navItem).toLowerCase();
+    let path = String(navItem).toLowerCase();
+    if (navItem === "MEN" || navItem === "WOMEN") path += "/all";
     navigate("/" + path);
   };
+
+  const onClick = ({ key }) => {
+    switch (key) {
+      case "profile":
+        navigate("/account/profile");
+        return;
+      case "logout":
+        localStorage.clear(); 
+        dispatch(logOut()); 
+        navigate('/');
+        return;
+      default:
+        return;
+    }
+  };
+
   return (
     <div className="w-full h-[73px] bg-header flex fixed z-10 px-[150px]">
       <div className=" my-auto flex justify-between w-full">
@@ -42,12 +67,14 @@ const Header = () => {
         <Search />
         <div className="flex items-center">
           {currentUser ? (
-            <img
-              src={Profile}
-              alt="Profile icon"
-              className=" w-[27px] cursor-pointer"
-              onClick={() => handleNavClick("account/profile")}
-            />
+            <Dropdown menu={{ items, onClick }} placement="bottom">
+              <img
+                src={Profile}
+                alt="Profile icon"
+                className=" w-[27px] cursor-pointer"
+                onClick={() => handleNavClick("account/profile")}
+              />  
+            </Dropdown>
           ) : (
             <p
               className="mr-4 cursor-pointer"
