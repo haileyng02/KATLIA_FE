@@ -1,6 +1,13 @@
 import { signIn } from "../actions/auth";
+import { openNotification } from "../actions/notification";
 
-const signInProcess = ({ token, newUser, isChecked, dispatch, navigate }) => {
+const signInProcess = ({
+  token,
+  notification,
+  isChecked,
+  dispatch,
+  navigate,
+}) => {
   //App state
   dispatch(signIn(token));
 
@@ -11,22 +18,15 @@ const signInProcess = ({ token, newUser, isChecked, dispatch, navigate }) => {
   const item = {
     token: token,
     expiry: date,
-  }
+  };
   localStorage.setItem("user", JSON.stringify(item));
 
   //Navigate to home
-  if (newUser)
-    navigate("/", {
-      state: {
-        notification: {
-          type: "success",
-          message: "Success",
-          description:
-            "Congratulations, your account has been successfully created.",
-        },
-      },
-    });
-  else navigate("/");
+  if (notification) {
+    dispatch(openNotification(notification));
+  }
+
+  navigate("/");
 };
 
 export default signInProcess;

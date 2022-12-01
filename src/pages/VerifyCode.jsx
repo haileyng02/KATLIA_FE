@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import { signIn } from "../actions/auth";
 import signInProcess from "../utils/signInProcess";
 import loadingIcon from "../images/loading.gif";
 
-const VerifyCode = () => {
+const VerifyCode = ({ type }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,17 +17,19 @@ const VerifyCode = () => {
   const email = location.state;
   let otp = "";
 
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
     if (otp === "") setError("Please enter OTP");
     else {
       setError("");
-      signUpByEmailAndOTP();
+      setLoading(true);
+      if (type === "signup") await signUpByEmailAndOTP();
+      else await checkOTPForgotPassword();
+      setLoading(false);
     }
   };
 
   //signUpByEmailAndOTP
   const signUpByEmailAndOTP = async () => {
-    setLoading(true);
     try {
       const result = await appApi.post(
         routes.SIGN_UP_OTP,
@@ -37,7 +38,12 @@ const VerifyCode = () => {
       if (result.data.access_token != null) {
         signInProcess({
           token: result.data.access_token,
-          newUser: true,
+          notification: {
+            type: "success",
+            message: "Success",
+            description:
+              "Congratulations, your account has been successfully created.",
+          },
           isChecked: false,
           dispatch,
           navigate,
@@ -55,34 +61,39 @@ const VerifyCode = () => {
         console.log(err.message);
       }
     }
-    setLoading(false);
   };
 
   //Check otp forgot password
   const checkOTPForgotPassword = async () => {
     try {
-      await appApi.post(
+      const result = await appApi.post(
         routes.CHECK_OTP_FORGOT_PASSWORD,
-        routes.getOTPForgotPassword("saovayta2131@gmail.com", 713625)
-      )
-      console.log('Success')
+        routes.getOTPForgotPassword(email, parseInt(otp))
+      );
+      console.log(result);
+      if (result.data.message === 'OTP correct') {
+        navigate('/signin')
+      } else {
+        setError("Incorrect OTP");
+      }
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
       } else {
-        console.log(err.message)
+        console.log(err.message);
       }
     }
-  }
+  };
+
   return (
     <div className="auth-border mt-[70px] mx-auto w-[728px] px-[53px] py-16">
       <Spin
         size="large"
         spinning={loading}
         indicator={
-          <img src={loadingIcon} alt="Loading" className="w-14 h-14" />
+          <img src={loadingIcon} alt="Loading" className="w-10 h-10" />
         }
       >
         <div className="flex flex-col">

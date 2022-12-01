@@ -41,7 +41,7 @@ const SignIn = () => {
       console.log(result);
       signInProcess({
         token: result.data.access_token,
-        newUser: false,
+        notification: null,
         isChecked,
         dispatch,
         navigate,
