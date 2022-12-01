@@ -33,7 +33,8 @@ const SignUp = () => {
             errors: ["Email already exists"],
           },
         ]);
-      } else navigate("/signup/verify-code", { state: email });
+      } else
+        navigate("/signup/verify-code", { state: { email, name, password } });
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);

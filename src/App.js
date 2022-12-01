@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from 'react-router-dom'
+import './App.css'
 import { notification } from "antd";
 import { publicRoutes } from './routes'
 import { privateRoutes } from './routes'
@@ -8,7 +9,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { signIn } from "./actions/auth";
-import {resetNotification} from './actions/notification'
 
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ function App() {
         message: notificationContent.message,
         description: notificationContent.description
       });
-      dispatch(resetNotification());
     }
   }, [notificationContent]);
 

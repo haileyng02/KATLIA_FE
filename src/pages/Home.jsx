@@ -7,7 +7,6 @@ import ForMenFeatured from "../components/ForMenFeatured";
 import ForWomenFeatured from "../components/ForWomenFeatured";
 
 const Home = () => {
-
   return (
     <div className="pt-[92px]">
       {/* Main */}

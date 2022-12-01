@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
+import { openNotification } from "../actions/notification";
 import signInProcess from "../utils/signInProcess";
 import loadingIcon from "../images/loading.gif";
 
@@ -14,7 +15,7 @@ const VerifyCode = ({ type }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const email = location.state;
+  const account = location.state;
   let otp = "";
 
   const handleOnClick = async () => {
@@ -23,9 +24,16 @@ const VerifyCode = ({ type }) => {
       setError("");
       setLoading(true);
       if (type === "signup") await signUpByEmailAndOTP();
-      else await checkOTPForgotPassword();
+      else if (type === "forget") await checkOTPForgotPassword();
       setLoading(false);
     }
+  };
+
+  const handleResent = async () => {
+    setLoading(true);
+    if (type === "signup") await createNewAccount();
+    else if (type === "forget") await verifyEmailForgotPassword();
+    setLoading(false);
   };
 
   //signUpByEmailAndOTP
@@ -33,7 +41,7 @@ const VerifyCode = ({ type }) => {
     try {
       const result = await appApi.post(
         routes.SIGN_UP_OTP,
-        routes.getSignupOTPBody(email, parseInt(otp))
+        routes.getSignupOTPBody(account.email, parseInt(otp))
       );
       if (result.data.access_token != null) {
         signInProcess({
@@ -68,11 +76,18 @@ const VerifyCode = ({ type }) => {
     try {
       const result = await appApi.post(
         routes.CHECK_OTP_FORGOT_PASSWORD,
-        routes.getOTPForgotPassword(email, parseInt(otp))
+        routes.getOTPForgotPassword(account.email, parseInt(otp))
       );
       console.log(result);
-      if (result.data.message === 'OTP correct') {
-        navigate('/signin')
+      if (result.data.message === "OTP correct") {
+        dispatch(
+          openNotification({
+            type: "success",
+            message: "Password changed!",
+            description: "Your password has been changed successfully.",
+          })
+        );
+        navigate("/signin");
       } else {
         setError("Incorrect OTP");
       }
@@ -81,6 +96,56 @@ const VerifyCode = ({ type }) => {
         console.log(err.response.data);
         console.log(err.response.status);
         console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  };
+
+  //verifyEmailForSignUp
+  const createNewAccount = async () => {
+    try {
+      const result = await appApi.post(
+        routes.SIGN_UP,
+        routes.getSignupBody(account.email, account.name, account.password)
+      );
+      console.log(result);
+      dispatch(
+        openNotification({
+          type: "success",
+          message: "OTP sent",
+          description: "OTP has been sent successfully!",
+        })
+      );
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  };
+
+  //Verify email forgot password
+  const verifyEmailForgotPassword = async () => {
+    try {
+      const result = await appApi.post(
+        routes.VERIFY_EMAIL_FORGOT_PASSWORD,
+        routes.getVerifyForgotPasswordBody(account.email)
+      );
+      console.log(result);
+      dispatch(
+        openNotification({
+          type: "success",
+          message: "OTP sent",
+          description: "OTP has been sent successfully!",
+        })
+      );
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
       } else {
         console.log(err.message);
       }
@@ -99,7 +164,7 @@ const VerifyCode = ({ type }) => {
         <div className="flex flex-col">
           <h1 className="text-40">Verify Code</h1>
           <p className="text-[#888888] mt-[27px]">
-            {"Enter the verification code sent to email " + email}
+            {"Enter the verification code sent to email " + account.email}
           </p>
           <input
             className="mt-[117px] h-[125px] black-rounded-border text-[45px] px-8 text-center"
@@ -119,7 +184,12 @@ const VerifyCode = ({ type }) => {
           </button>
           <p className="text-black70 mt-[9px] text-center">
             Did not receive the verification OTP?{" "}
-            <span className="text-primary">Resend again</span>
+            <span
+              onClick={() => handleResent()}
+              className="text-primary cursor-pointer"
+            >
+              Resend again
+            </span>
           </p>
         </div>
       </Spin>

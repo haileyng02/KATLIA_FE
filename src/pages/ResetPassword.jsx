@@ -24,14 +24,18 @@ const ResetPassword = () => {
         routes.getVerifyForgotPasswordBody(email)
       );
       console.log(result);
-      navigate("/reset-password/verify-code", { state: email });
+      navigate("/reset-password/verify-code", { state: {email} });
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
+        form.setFields([
+          {
+            name: "email",
+            errors: [err.response.data.message],
+          },
+        ]);
       } else {
-        console.log(err.message);
+        // console.log(err.message);
       }
     }
     setLoading(false);
