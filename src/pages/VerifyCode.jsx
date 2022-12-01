@@ -80,14 +80,7 @@ const VerifyCode = ({ type }) => {
       );
       console.log(result);
       if (result.data.message === "OTP correct") {
-        dispatch(
-          openNotification({
-            type: "success",
-            message: "Password changed!",
-            description: "Your password has been changed successfully.",
-          })
-        );
-        navigate("/signin");
+        navigate("/reset-password/new-password", { state: account.email });
       } else {
         setError("Incorrect OTP");
       }
