@@ -43,26 +43,27 @@ const ProductDetail = () => {
   };
 
   // Add Item To Cart
-    const addItemToCart = async () => {
-      try {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
+  const addItemToCart = async () => {
+    try {
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
 
-        await appApi.post(
-          routes.ADD_ITEM_TO_CART,
-          routes.getAddCartBody(617171, 5, "M", 2),
-          routes.getAccessTokenHeader(token)
-        )
-        console.log('Success');
-      } catch (err) {
-        if (err.response) {
-          console.log(err.response.data)
-          console.log(err.response.status)
-          console.log(err.response.headers)
-        } else {
-          console.log(err.message)
-        }
+      await appApi.post(
+        routes.ADD_ITEM_TO_CART,
+        routes.getAddCartBody(617171, 5, "M", 2),
+        routes.getAccessTokenHeader(token)
+      );
+      console.log("Success");
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
       }
     }
+  };
 
   useEffect(() => {
     getProductDetail(id);
@@ -85,46 +86,34 @@ const ProductDetail = () => {
       <div className="px-[150px] flex items-start justify-between">
         {/* Left */}
         {item ? (
-          <div className="flex basis-[47%] justify-between gap-x-7 items-start">
-            {/* Main Image */}
-            <img
-              src={currImage?.url}
-              alt="Main"
-              className="object-cover object-center basis-[85%] bg-gray-400"
-              style={{ height: "80vh" }}
-            />
-            {/* Sub Images */}
-            <div
-              className="grid grid-flow-row basis-[12.5%] gap-y-[10px] cursor-pointer overflow-y-auto"
-              style={{ height: currentColor?.imgList.length > 5 && "80vh" }}
-            >
-              {currentColor?.imgList.map((image, i) => {
-                return (
-                  <img
-                    key={i}
-                    src={image.url}
-                    alt="Product"
-                    className={`object-cover object-center aspect-[55/82] hover:border-2 hover:border-primary hover:border-solid ${
-                      currImage.id === i &&
-                      "border-2 border-primary border-solid"
-                    }`}
-                    onClick={() => imageOnClick(i, image.url)}
-                  />
-                );
-              })}
+          <>
+            <div className="flex justify-between gap-x-7 w-[47%]">
+              {/* Main Image */}
+              <img
+                src={currImage?.url}
+                alt="Main"
+                className="object-cover object-center basis-[85%] bg-gray-400"
+                style={{ height: "80vh" }}
+              />
+              {/* Sub Images */}
+              <div className="flex flex-col overflow-y-auto h-[80vh] basis-[12.5%] gap-y-[10px] cursor-pointer">
+                {currentColor?.imgList.map((image, i) => {
+                  return (
+                    <img
+                      key={i}
+                      src={image.url}
+                      alt="Product"
+                      className={`flex-none object-cover object-center aspect-[55/82] hover:border-2 hover:border-primary hover:border-solid ${
+                        currImage.id === i &&
+                        "border-2 border-primary border-solid"
+                      }`}
+                      onClick={() => imageOnClick(i, image.url)}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ) : (
-          <Skeleton.Image
-            active
-            style={{ width: "100%", height: "80vh" }}
-            className="w-[47%]"
-          />
-        )}
-        {/* Right */}
-        <div className=" basis-[36.5%] mt-[82px]">
-          {item ? (
-            <div>
+            <div className="mt-[10vh]">
               <h1 className=" font-bold">{item?.name}</h1>
               <p className=" leading-6 mt-7">{item?.description}</p>
               <div className="flex mt-6 gap-x-12">
@@ -143,7 +132,7 @@ const ProductDetail = () => {
               <p className="leading-6 mt-9">{item?.price + "$"}</p>
               <div className="flex mt-9 gap-x-[23px]">
                 {currentColor?.details.map((s, i) => {
-                  if (s.size==='ONESIZE' && i!==0) return null;
+                  if (s.size === "ONESIZE" && i !== 0) return null;
                   return (
                     <div
                       key={i}
@@ -155,7 +144,9 @@ const ProductDetail = () => {
                       onClick={() => sizeOnClick(s.size)}
                     >
                       <h3
-                        className={`${s.size==='ONESIZE' ? 'text-[14px]' : 'text-[18px]'} leading-[42px] m-auto ${
+                        className={`${
+                          s.size === "ONESIZE" ? "text-[14px]" : "text-[18px]"
+                        } leading-[42px] m-auto ${
                           currentSize === s.size
                             ? "text-white"
                             : "text-nav-item "
@@ -181,10 +172,15 @@ const ProductDetail = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <Skeleton className="w-full" />
-          )}
-        </div>
+          </>
+        ) : (
+          <>
+            <div className="w-[47%]">
+              <Skeleton.Image active style={{ width: "100%", height: "80vh" }} />
+            </div>
+            <Skeleton className="mt-[10vh] w-[30%]"/>
+          </>
+        )}
       </div>
       <hr className="black-line w-[50%] mt-[274px]" />
       {/* SIMILAR ITEMS */}

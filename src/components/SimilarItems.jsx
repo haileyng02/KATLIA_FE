@@ -35,10 +35,10 @@ const SimilarItems = ({ id }) => {
   return (
     <div className="mt-[141px] px-[150px]">
       <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
-      <div className="mt-[47px] grid grid-flow-col auto-cols-[29%] gap-x-[86px] overflow-x-auto pb-[53px]">
+      <div className="mt-[47px] flex gap-x-[59px] overflow-x-auto pb-[53px]">
         {items
           ? items.map((item, i) => {
-              return <ProductThumbnail item={item} key={i} />;
+              return <ProductThumbnail item={item} key={i} imageCustom='w-[15vw]' custom={'flex-none'}/>;
             })
           : Array(3)
               .fill()
