@@ -211,3 +211,7 @@ th {
   padding: 15px;
   text-align: center;
 }
+
+.ant-skeleton.ant-skeleton-element {
+  @apply w-full
+}
