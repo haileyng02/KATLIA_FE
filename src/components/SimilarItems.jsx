@@ -43,7 +43,7 @@ const SimilarItems = ({ id }) => {
           : Array(3)
               .fill()
               .map((_, i) => (
-                <div key={i}>
+                <div key={i} className='w-[15vw]'>
                   <Skeleton.Image
                     style={{ width: "100%", height: "100%" }}
                     active={true}
