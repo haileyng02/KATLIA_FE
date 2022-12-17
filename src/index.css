@@ -35,6 +35,10 @@ html, body {
   @apply text-[80px] leading-[100px] text-center min-w-[348px] min-h-[134px] items-center flex justify-center
 }
 
+.about-title {
+  @apply font-inter font-semibold underline underline-offset-8
+}
+
 .black-line {
   @apply border-t-1 border-black
 }
