@@ -14,7 +14,7 @@ import About from './pages/About';
 //Public routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/product/:productName', component: ProductDetail },
+    { path: '/product/:id', component: ProductDetail },
     { path: '/men/:category', component: Menu },
     { path: '/women/:category', component: Menu },
     { path: '/about', component: About },

@@ -29,6 +29,7 @@ const SimilarItems = ({ id }) => {
 
   useEffect(() => {
     if (id == null) return;
+    setItems(null);
     get4SimilarItems();
   }, [id]);
 
