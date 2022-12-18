@@ -6,6 +6,8 @@ import DropDownBox from "./DropDownBox";
 import ProductThumbnail from "./ProductThumbnail";
 import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
+import appApi from "../api/appApi";
+import * as routes from '../api/apiRoutes'
 
 const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
@@ -47,7 +49,6 @@ const ProductsContainer = ({ items, loading }) => {
     setItemOffset(newOffset);
     window.scrollTo(0, 0);
   };
-
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
