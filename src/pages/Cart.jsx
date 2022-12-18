@@ -6,39 +6,13 @@ import * as routes from "../api/apiRoutes";
 import CartItem from "../components/CartItem";
 import { Skeleton } from "antd";
 
-const data = {
-  subtotal: 188.04,
-  shippingFee: 20,
-  discount: "No",
-  total: 208.04,
-};
-
-const cartItems = [
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/7fd6/9ca2/43dcb0397f74f59ddfef712c719f06c0?Expires=1665360000&Signature=GaHqOuZG7Wer65krW5yQr2-fCcrG3BX9l8FhDt4~5DZxQJ8YdjwmRtBbVRYECcGRXqyDZDuSuJpX59El4lW~XVe2m4NKUeSghFt6kTQDknRKvjJZygfBKzcAhurmrMBHOMjJhwGBNEWVlZztTCbYMDZSGW-qMbY98pJ8QWgRMyOtdvEcXSD7JEMXYdbtz1WzRpVPyey~MujqnKqR3ssB~v99t1WDM8evr~Gp~SQsRR4O6YWdlHRPglAVSVxj1WGYF2ljaSi7j8T9q7T3OGRjhU1ZxFs9nQCQ9vaiacX7mVaHKxkk~gDeB5hb86fNJ2RLvVTNTykoouqUZYNal~3ndw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    name: "FADED MINIMALIST T-SHIRT",
-    unit: 41.52,
-    quantity: 2,
-    price: 83.04,
-  },
-  {
-    image:
-      "https://s3-alpha-sig.figma.com/img/ea3b/179c/39ed87623ac25c793007f5edca37cd55?Expires=1665360000&Signature=GMg3~IKkKNaSjmq75wX4lZ8ruXl4H~y4y8CG~IqNYvMSnOFd8xG2QElysd6iNuKVPXIUH~odvmYf~vClpXSDYuxzrMunHy93ngziyRoEq5PFX0LYzaRswL7QYW02lD69UMBlv7fwP2suHB9SHd4aXb5j15pbRkR78kKEIB-1XkmeWww-trLqROffasc1pIHer3eNm2ubedDWyBWsD0OFDY2FxmFU9luK-wtnRVK7ktY08hJN6HFwr~hBA0WOlMdEkRFF3yLFKFvyuLZFgrgMkaiibAfP4fM1bVOcU9VwAFU~XiDEru-C2U-MxNskE1sQt9mOS~~~jEFcfI7CRFZ1aQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    name: "TULLE TOP WITH GATHERING",
-    unit: 52.5,
-    quantity: 3,
-    price: 105,
-  },
-];
-
 const Cart = () => {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [cart, setCart] = useState();
 
   const handleCheckOut = () => {
-    navigate("/delivery-information");
+    navigate("/delivery-information",{state:cart?.cartItems});
   };
 
   //Get Cart

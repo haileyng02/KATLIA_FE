@@ -215,3 +215,7 @@ th {
 .ant-skeleton.ant-skeleton-element {
   @apply w-full
 }
+
+textarea.ant-input {
+  min-height: 140px;
+}
