@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { Input, Spin } from "antd";
@@ -30,30 +30,6 @@ const paymentMethods = [
     image: paypalIcon,
   },
 ];
-
-const order = {
-  items: [
-    {
-      id: 1,
-      name: "FADED MINIMALIST T-SHIRT",
-      size: "M",
-      image:
-        "https://s3-alpha-sig.figma.com/img/7fd6/9ca2/43dcb0397f74f59ddfef712c719f06c0?Expires=1667174400&Signature=OrHn-7fiXM091SFUWqemgSfzIF5hmA9gtQ2Enlbi1dbJNm8wyFYrpVtsu3xRfR1MCrlTXCysD8QelowW3N5pShd1DdrREH55WPM7h1qrKCMLyDyJQdJ8QktPpKSSlwgQ3TpbduwN7fZB6oEH6Lgd2L9BsxFC6Z7kYzR1ckypopbz-oogl~jaobJDIZBxrvcQWM1XEAHAPyuiMB2tsTKRnlAvYwJpkjMh4B4wxfr78mJHTXZBPXYVxOKblvh32RTWL7DXxpXMfQYF9U0c1~ZmnoccVRzT2VVsrZpdKp3PpTXseGgrg2Iq0AQe0DUpbnZNM6XUvUoqfiTIb54joxYNag__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-      price: 41.52,
-    },
-    {
-      id: 2,
-      name: "FADED MINIMALIST T-SHIRT",
-      size: "M",
-      image:
-        "https://s3-alpha-sig.figma.com/img/7fd6/9ca2/43dcb0397f74f59ddfef712c719f06c0?Expires=1667174400&Signature=OrHn-7fiXM091SFUWqemgSfzIF5hmA9gtQ2Enlbi1dbJNm8wyFYrpVtsu3xRfR1MCrlTXCysD8QelowW3N5pShd1DdrREH55WPM7h1qrKCMLyDyJQdJ8QktPpKSSlwgQ3TpbduwN7fZB6oEH6Lgd2L9BsxFC6Z7kYzR1ckypopbz-oogl~jaobJDIZBxrvcQWM1XEAHAPyuiMB2tsTKRnlAvYwJpkjMh4B4wxfr78mJHTXZBPXYVxOKblvh32RTWL7DXxpXMfQYF9U0c1~ZmnoccVRzT2VVsrZpdKp3PpTXseGgrg2Iq0AQe0DUpbnZNM6XUvUoqfiTIb54joxYNag__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-      price: 41.52,
-    },
-  ],
-  subtotal: 41.52,
-  shippingFee: 2,
-  total: 42.51,
-};
 
 const DeliveryInformation = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -97,27 +73,6 @@ const DeliveryInformation = () => {
     }
     setLoading(false);
   };
-  //Get Order History
-  const getOrderHistory = async () => {
-    try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
-      const data = await appApi.get(
-        routes.GET_ORDER_HISTORY,
-        routes.getAccessTokenHeader(token)
-      );
-
-      console.log(data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
 
   const handlePurchase = () => {
     console.log(chosenAddress.phoneNumber);
@@ -127,7 +82,7 @@ const DeliveryInformation = () => {
   return (
     <div className="px-[150px] pt-8 deli-info">
       <Spin size="large" spinning={loading}>
-        <h1 onClick={getOrderHistory} className="text-[30px] font-bold">
+        <h1 className="text-[30px] font-bold">
           Delivery Information
         </h1>
         <div className="flex mt-[40px] justify-between">
