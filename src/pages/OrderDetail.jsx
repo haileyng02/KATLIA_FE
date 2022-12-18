@@ -18,9 +18,15 @@ const OrderDetail = () => {
     try {
       const token = currentUser.token;
       const result = await appApi.get(
-        routes.GET_ORDER_DETAIL(orderID),
-        routes.getOrderDetailBody(orderID),
-        routes.getAccessTokenHeader("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzg4ZTZjNDNjYWFkYzY5ZmRiNzdiOTYiLCJlbWFpbCI6ImhhaWxleW5ndXllbnNzQGdtYWlsLmNvbSIsImlhdCI6MTY3MTM0MjUyMSwiZXhwIjoxNjcxNDI4OTIxfQ.Xsg-l4mbXnoKhQ3Jfs9i9JbR6ag3bkBrqO2fD1S6Ljo")
+        `/order/detail/${orderID}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token
+          },
+          params: {
+            id: orderID
+          }
+        }
       );
 
       console.log(result);

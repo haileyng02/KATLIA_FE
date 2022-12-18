@@ -28,7 +28,8 @@ const CartItem = ({ item, handleDelete }) => {
       );
 
       console.log(data);
-    } catch (err) {
+      window.location.reload();
+      } catch (err) {
       if (err.response) {
         console.log(err.response.data);
         console.log(err.response.status);
