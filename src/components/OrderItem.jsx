@@ -6,7 +6,7 @@ import divider from "../images/Divider.svg";
 const OrderItem = ({ item }) => {
   const navigate = useNavigate();
   const handleOnClick = () => {
-    navigate(`/account/order/${item.id}`, { state: item });
+    navigate(`/account/order/${item.id}`);
   };
 
   return (

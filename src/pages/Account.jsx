@@ -53,6 +53,7 @@ const Account = () => {
           <ul className="">
             {navData.map((n, i) => (
               <li
+                key={i}
                 className=" mt-12 text-[25px] text-account-nav cursor-pointer"
                 onClick={() => handleNavClick(n)}
               >
