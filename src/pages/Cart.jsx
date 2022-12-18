@@ -12,7 +12,7 @@ const Cart = () => {
   const [cart, setCart] = useState();
 
   const handleCheckOut = () => {
-    navigate("/delivery-information",{state:cart?.cartItems});
+    navigate("/delivery-information",{state:cart});
   };
 
   //Get Cart
@@ -71,7 +71,7 @@ const Cart = () => {
             <th className=" text-right">PRICE</th>
           </tr>
           {cart ? (
-            cart.cartItems.map((item, i) => (
+            cart.cartItems?.map((item, i) => (
               <CartItem
                 key={i}
                 item={item}

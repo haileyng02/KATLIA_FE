@@ -58,13 +58,13 @@ const order = {
 const DeliveryInformation = () => {
   const { currentUser } = useSelector((state) => state.user);
   const location = useLocation();
-  const cartItems = location.state;
+  const cart = location.state;
   const [chosenAddress, setChosenAddress] = useState();
   const [noteValue, setNoteValue] = useState("");
   const [paymentValue, setPaymentValue] = useState(0);
-  const [voucherValue,setVoucherValue] = useState('');
-  const [successOpen,setSuccessOpen] = useState(false);
-  const [loading,setLoading] = useState(false);
+  const [voucherValue, setVoucherValue] = useState("");
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //Put Purchase
   const putPurchase = async () => {
@@ -84,6 +84,7 @@ const DeliveryInformation = () => {
         ),
         routes.getAccessTokenHeader(token)
       );
+      console.log(result);
       setSuccessOpen(true);
     } catch (err) {
       if (err.response) {
@@ -119,7 +120,7 @@ const DeliveryInformation = () => {
   };
 
   const handlePurchase = () => {
-    console.log(chosenAddress.phoneNumber)
+    console.log(chosenAddress.phoneNumber);
     putPurchase();
   };
 
@@ -158,7 +159,7 @@ const DeliveryInformation = () => {
                       name="payment"
                       className="w-7 h-7 text-primary"
                       checked={paymentValue === p.id}
-                      onChange={()=>setPaymentValue(p.id)}
+                      onChange={() => setPaymentValue(p.id)}
                     />
                     <img src={p.image} alt="COD" className="ml-6" />
                     <p className="ml-[21px] text-kaliablue">{p.name}</p>
@@ -178,7 +179,7 @@ const DeliveryInformation = () => {
           <div className="flex flex-col w-[36%]">
             <h2>Order Summary</h2>
             <div className="flex flex-col gap-y-2 mt-[25px] overflow-y-auto max-h-[40vh]">
-              {cartItems.map((item, i) => {
+              {cart?.cartItems.map((item, i) => {
                 return <ProductThumbnail3 key={i} item={item} />;
               })}
             </div>
@@ -186,30 +187,43 @@ const DeliveryInformation = () => {
               <Input
                 placeholder="Discount Code"
                 className="border-b-1 border-[#F6F7F8]  flex-1 text-20"
-                onChange={(e)=>setVoucherValue(e.target.value)}
+                onChange={(e) => setVoucherValue(e.target.value)}
                 value={voucherValue}
               />
-              <button className="bg-primary rounded-[5px] text-white w-[77px]">
+              <button className="bg-primary hover:bg-secondary rounded-[5px] text-white w-[77px]">
                 Apply
               </button>
             </div>
             <div className="flex justify-between mt-[37px] text-[#262626]">
               <h4>Subtotal</h4>
-              <p>{"$" + order.subtotal}</p>
+              <p>{"$" + cart?.subtotal}</p>
             </div>
             <div className="flex justify-between mt-[27px] text-[#262626]">
               <h4>Shipping fee</h4>
-              <p>{"$" + order.shippingFee}</p>
+              <p>{"$" + cart?.ship}</p>
+            </div>
+            <div className="flex justify-between mt-[27px] text-[#262626]">
+              <h4>Discount</h4>
+              <p>{"$" + cart?.discount}</p>
             </div>
             <span className="h-[1px] bg-[#F6F7F8] self-stretch mt-7" />
             <div className="flex justify-between mt-[29px] text-[#22262A]">
               <h4>TOTAL</h4>
-              <p>{"$" + order.total}</p>
+              <p>{"$" + cart?.total}</p>
             </div>
           </div>
         </div>
       </Spin>
-      <PurchaseSuccessModal open={true} handleCancel={()=>setSuccessOpen(false)}/>
+      <PurchaseSuccessModal
+        data={{
+          name: chosenAddress?.name,
+          phone: chosenAddress?.phoneNumber,
+          address: chosenAddress?.fullAddress,
+          amount: cart?.total,
+        }}
+        open={successOpen}
+        handleCancel={() => setSuccessOpen(false)}
+      />
     </div>
   );
 };

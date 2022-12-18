@@ -175,7 +175,7 @@ th {
 }
 
 .deli-button {
-  @apply bg-primary text-white font-poppins font-bold w-full drop-shadow-[0_17px_51px_rgba(64,191,255,0.24)]
+  @apply bg-primary hover:bg-secondary text-white font-poppins font-bold w-full drop-shadow-[0_17px_51px_rgba(64,191,255,0.24)]
 }
 
 .edit-button {
@@ -218,4 +218,8 @@ th {
 
 textarea.ant-input {
   min-height: 140px;
+}
+
+.row {
+  @apply flex items-center
 }
