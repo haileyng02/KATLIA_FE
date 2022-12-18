@@ -6,9 +6,11 @@ import { Skeleton } from "antd";
 
 const SimilarItems = ({ id }) => {
   const [items, setItems] = useState();
+  const [loading,setLoading] =  useState(true);
 
   //Get 4 Similar Items
   const get4SimilarItems = async () => {
+    setLoading(true)
     try {
       const data = await appApi.get(
         routes.GET_4SIMILAR_ITEMS(id),
@@ -25,11 +27,10 @@ const SimilarItems = ({ id }) => {
         console.log(err.message);
       }
     }
+    setLoading(false)
   };
 
   useEffect(() => {
-    if (id == null) return;
-    setItems(null);
     get4SimilarItems();
   }, [id]);
 
@@ -37,11 +38,11 @@ const SimilarItems = ({ id }) => {
     <div className="mt-[141px] px-[150px]">
       <h2 className=" text-[35px] leading-[44px] font-bold">SIMILAR ITEMS</h2>
       <div className="mt-[47px] flex gap-x-[59px] overflow-x-auto pb-[53px]">
-        {items
+        {!loading
           ? items.map((item, i) => {
               return <ProductThumbnail item={item} key={i} imageCustom='w-[15vw]' custom={'flex-none'}/>;
             })
-          : Array(3)
+          : Array(4)
               .fill()
               .map((_, i) => (
                 <div key={i} className='w-[15vw]'>

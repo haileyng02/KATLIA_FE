@@ -18,16 +18,17 @@ function App() {
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
+      console.log(JSON.parse(loggedInUser))
       const item = JSON.parse(loggedInUser);
 
       const now = new Date();
       const expiry = new Date(item.expiry);
       console.log(expiry)
       if (now < expiry) {
-        dispatch(signIn(loggedInUser));
+        dispatch(signIn(item));
       }
       else {
-        localStorage.removeItem('item');
+        localStorage.removeItem('user');
       }
     }
   }, [])

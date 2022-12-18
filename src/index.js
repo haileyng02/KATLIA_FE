@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk'
+import { ConfigProvider } from 'antd';
 import './index.css';
 import App from './App';
 import allReducers from './reducers'
@@ -15,11 +16,17 @@ const store = createStore(allReducers, applyMiddleware(...middleware));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <ConfigProvider theme={{
+      token: {
+        colorPrimary: '#C85A2791',
+      },
+    }}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </ConfigProvider>
+  </Provider>
   // </React.StrictMode>
 );
 
