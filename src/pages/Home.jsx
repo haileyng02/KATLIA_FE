@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { notification } from "antd";
+import React from "react";
 import mainPic1 from "../images/main-1.png";
 import mainPic2 from "../images/main-2.png";
 import mainArrow from "../images/shop-now-arrow.svg";
@@ -9,32 +7,8 @@ import ForMenFeatured from "../components/ForMenFeatured";
 import ForWomenFeatured from "../components/ForWomenFeatured";
 
 const Home = () => {
-  const [api, contextHolder] = notification.useNotification();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const openNotification = (type, message, description) => {
-    api[type]({
-      message: message,
-      description: description
-    });
-  };
-
-  useEffect(() => {
-    if (location.state && location.state.notification) {
-      const notification = location.state.notification;
-      openNotification(
-        notification.type,
-        notification.message,
-        notification.description
-      );
-      navigate('/',{replace:{state: null}})
-    }
-  }, []);
-
   return (
     <div className="pt-[92px]">
-      {contextHolder}
       {/* Main */}
       <div className="px-[105px] h-[763px] relative">
         {/* Title */}

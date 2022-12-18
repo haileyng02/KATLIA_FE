@@ -9,19 +9,21 @@ import ResetPassword from './pages/ResetPassword';
 import VerifyCode from './pages/VerifyCode';
 import NewPassword from './pages/NewPassword';
 import DeliveryInformation from './pages/DeliveryInformation';
+import About from './pages/About';
 
 //Public routes
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/product/:productName', component: ProductDetail },
+    { path: '/product/:id', component: ProductDetail },
     { path: '/men/:category', component: Menu },
     { path: '/women/:category', component: Menu },
+    { path: '/about', component: About },
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },
     { path: '/signup', component: SignUp },
-    { path: '/signup/verify-code', component: VerifyCode },
+    { path: '/signup/verify-code', component: VerifyCode, props: { type: 'signup' } },
     { path: '/reset-password', component: ResetPassword },
-    { path: '/reset-password/verify-code', component: VerifyCode },
+    { path: '/reset-password/verify-code', component: VerifyCode, props: { type: 'forget' } },
     { path: '/reset-password/new-password', component: NewPassword }
 ];
 

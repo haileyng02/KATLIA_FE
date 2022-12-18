@@ -1,33 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import MinusIcon from "../images/MinusIcon.svg";
 import PlusIcon from "../images/PlusIcon.svg";
 
-const Quantity = ({ custom = "", quantity=1 }) => {
-  const [value, setValue] = useState(quantity);
-
+const Quantity = ({ custom = "", quantity, setQuantity }) => {
   const handleMinusClick = () => {
-    if (value > 1) setValue(value - 1);
+    if (quantity > 1) setQuantity(quantity - 1); 
   };
 
   const handlePlusClick = () => {
-    setValue(value + 1);
+    setQuantity(quantity + 1);
   };
 
   const handleOnChange = (e) => {
-    const value = e.target.value;
-    if (isNaN(value) || value < 1) return;
-    setValue(e.target.value);
-  }
+    const quantity = e.target.value;
+    if (isNaN(quantity) || quantity < 0) return;
+    setQuantity(e.target.value);
+  };
 
   return (
-    <div className={`bg-[#F6F7F8] rounded-[5px] flex items-center ${custom}`}>
-      <div className="quantity-button" onClick={handleMinusClick}>
+    <div
+      className={`bg-[#F6F7F8] rounded-5 grid grid-cols-3 ${custom}`}
+    >
+      <button onClick={handleMinusClick}>
         <img src={MinusIcon} alt="Minus" className="m-auto" />
-      </div>
-      <input value={value} className="w-12 h-12 text-center bg-transparent" onChange={(e)=>handleOnChange(e)}/>
-      <div className="quantity-button" onClick={handlePlusClick}>
+      </button>
+      <input
+        value={quantity}
+        className="text-center bg-[#F6F7F8] font-inder text-[18px] text-[#262626]"
+        onChange={(e) => handleOnChange(e)}
+      />
+      <button onClick={handlePlusClick}>
         <img src={PlusIcon} alt="Plus" className="m-auto" />
-      </div>
+      </button>
     </div>
   );
 };

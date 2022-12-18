@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '~antd/dist/antd.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Inder&display=swap');
 @import url('https://fonts.googleapis.com/earlyaccess/kopubbatang.css');
@@ -34,6 +33,10 @@ html, body {
 
 .main-title {
   @apply text-[80px] leading-[100px] text-center min-w-[348px] min-h-[134px] items-center flex justify-center
+}
+
+.about-title {
+  @apply font-inter font-semibold underline underline-offset-8
 }
 
 .black-line {
@@ -172,7 +175,7 @@ th {
 }
 
 .deli-button {
-  @apply bg-primary text-white font-poppins font-bold w-full drop-shadow-[0_17px_51px_rgba(64,191,255,0.24)]
+  @apply bg-primary hover:bg-secondary text-white font-poppins font-bold w-full drop-shadow-[0_17px_51px_rgba(64,191,255,0.24)]
 }
 
 .edit-button {
@@ -207,4 +210,16 @@ th {
 .ant-dropdown-menu-item  {
   padding: 15px;
   text-align: center;
+}
+
+.ant-skeleton.ant-skeleton-element {
+  @apply w-full
+}
+
+textarea.ant-input {
+  min-height: 140px;
+}
+
+.row {
+  @apply flex items-center
 }

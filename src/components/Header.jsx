@@ -42,16 +42,25 @@ const Header = () => {
     }
   };
 
+  const handleCartClick = () => {
+    if (currentUser) {
+      navigate('/cart');
+    }
+    else {
+      navigate('/signin');
+    }
+  }
+
   return (
-    <div className="w-full h-[73px] bg-header flex fixed z-10 px-[150px]">
-      <div className=" my-auto flex justify-between w-full">
+    <div className="w-full h-[73px] bg-header flex items-center fixed z-10 px-[150px]">
+      <div className=" my-auto flex justify-between items-center w-full">
         <h1
           className=" text-[30px] font-logo font-bold leading-[38px] cursor-pointer"
           onClick={() => handleNavClick("")}
         >
           KATLIA
         </h1>
-        <ul className="flex">
+        <ul className="flex items-center">
           {navData.map((n, i) => (
             <li
               key={i}
@@ -87,7 +96,7 @@ const Header = () => {
             src={Cart}
             alt="Cart icon"
             className="ml-[15px] w-7 cursor-pointer"
-            onClick={() => handleNavClick("cart")}
+            onClick={handleCartClick}
           />
         </div>
       </div>
