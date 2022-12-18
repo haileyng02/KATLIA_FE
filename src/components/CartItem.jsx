@@ -18,7 +18,7 @@ const CartItem = ({ item, handleDelete }) => {
       const data = await appApi.delete(
         routes.DELETE_CART_ITEM(item.id),
         routes.getDeleteCartBody(item.id),
-        routes.getAccessTokenHeader("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Mzg4ZTZjNDNjYWFkYzY5ZmRiNzdiOTYiLCJlbWFpbCI6ImhhaWxleW5ndXllbnNzQGdtYWlsLmNvbSIsImlhdCI6MTY3MTM0Mzg4NiwiZXhwIjoxNjcxNDMwMjg2fQ.FpWZCE6QsNqqyMBTfmzQD7G7-MYqLjh-fcCelyqXWeI")
+        routes.getAccessTokenHeader(token)
       );
 
       console.log(data);
