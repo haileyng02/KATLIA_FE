@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Skeleton } from "antd";
 import Quantity from "../Quantity";
 import ColorIcon from "../ColorIcon";
@@ -7,14 +9,18 @@ import * as routes from "../../api/apiRoutes";
 import appApi from "../../api/appApi";
 import CartIcon from "../../images/Cart2.svg";
 
-const MainProductContainer = ({id}) => {
+const MainProductContainer = ({ id }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [item, setItem] = useState();
   const [currentColor, setCurrentColor] = useState();
   const [currentSize, setCurrentSize] = useState();
+  const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    setItem(null);
     getProductDetail(id);
+    window.scrollTo(0, 0);
   }, [id]);
 
   useEffect(() => {
@@ -27,12 +33,14 @@ const MainProductContainer = ({id}) => {
 
   //Get Product Detail
   const getProductDetail = async (id) => {
+    setLoading(true);
     try {
       const data = await appApi.get(
         routes.GET_PRODUCT_DETAIL(id),
         routes.getProductDetail(id)
       );
       setItem(data.data);
+      console.log(data.data)
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -41,6 +49,37 @@ const MainProductContainer = ({id}) => {
       } else {
         console.log(err.message);
       }
+    }
+    setLoading(false);
+  };
+
+  // Add Item To Cart
+  const addItemToCart = async () => {
+    try {
+      const token = currentUser.token;
+
+      const result = await appApi.post(
+        routes.ADD_ITEM_TO_CART,
+        routes.getAddCartBody(parseInt(id), currentColor.id, currentSize, quantity),
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (currentUser != null) {
+      addItemToCart();
+    } else {
+      navigate("/signin");
     }
   };
 
@@ -54,7 +93,7 @@ const MainProductContainer = ({id}) => {
 
   return (
     <div className="px-[150px] flex items-start justify-between">
-      {item ? (
+      {!loading ? (
         <>
           <ImagesContainer currentColor={currentColor} />
           <div className="mt-[10vh] w-[35%]">
@@ -102,9 +141,12 @@ const MainProductContainer = ({id}) => {
             </div>
             <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
               {/* Quantity */}
-              <Quantity custom="w-36" />
+              <Quantity custom="w-[124px] h-[50px]" quantity={quantity} setQuantity={setQuantity}/>
               {/* Add To Cart */}
-              <div className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer">
+              <div
+                onClick={handleAddToCart}
+                className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer"
+              >
                 <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]" />
                 <h3 className=" text-secondary">Add To Cart</h3>
               </div>
