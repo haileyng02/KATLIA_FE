@@ -16,9 +16,15 @@ const CartItem = ({ item, handleDelete }) => {
       const token = currentUser.token;
       console.log(token);
       const data = await appApi.delete(
-        routes.DELETE_CART_ITEM(item.id),
-        routes.getDeleteCartBody(item.id),
-        routes.getAccessTokenHeader(token)
+        `/cart/deleteCartItem/${item.id}`,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token
+          },
+          params: {
+            id: item.id
+          }
+        },
       );
 
       console.log(data);
