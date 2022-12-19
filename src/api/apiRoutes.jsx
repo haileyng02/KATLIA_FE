@@ -184,3 +184,15 @@ export const getFilterByColorAndSizeBody = (colorId, size) => ({
   }
 })
 
+//ADD ADDRESS
+export const ADD_ADDRESS = '/address/addAddress'
+export const getAddAddressBody = (fullname, phonenumber, address, province, district, ward, note, setAsDefault) => ({
+  fullname: fullname,
+  phonenumber: phonenumber,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note,
+  setAsDefault: setAsDefault
+})
