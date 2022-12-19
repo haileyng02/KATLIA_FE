@@ -23,7 +23,6 @@ const CartButton = () => {
 
   //Get Cart
   const getCart = async () => {
-    console.log('in header')
     try {
       const token = currentUser.token;
       const result = await appApi.get(
