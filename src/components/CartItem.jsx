@@ -1,55 +1,30 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
+import { deleteCartItem, updateCartItem } from "../actions/cart";
 import Quantity from "./Quantity";
 import DeleteIcon from "../images/Delete.svg";
+import { useEffect } from "react";
 
-const CartItem = ({ item, handleDelete }) => {
+const CartItem = ({ item, handleDelete,handleUpdate, updatePricing }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(item?.quantity);
 
   //Delete Cart Item
-  const deleteCartItem = async () => {
+  const deleteCartItemCall = async () => {
     try {
       const token = currentUser.token;
-      console.log(token);
-      const data = await appApi.delete(
-        `/cart/deleteCartItem/${item.id}`,
-        {
-          headers: {
-            Authorization: 'Bearer ' + token
-          },
-          params: {
-            id: item.id
-          }
+      const data = await appApi.delete(`/cart/deleteCartItem/${item.id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
         },
-      );
-
-      console.log(data);
-      window.location.reload();
-      } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
-
-  //Update Cart Item
-  const updateCartItem = async () => {
-    try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2Njg3NjAzMDIsImV4cCI6MTY2ODg0NjcwMn0.6G5Tk78A_7EgslAw4yfslOC29Zf_ZypGd5dr2jIidbk";
-      const data = await appApi.patch(
-        routes.UPDATE_CART_ITEM,
-        routes.getUpdateCartBody("637746186d20e9c758312282", 2),
-        routes.getAccessTokenHeader(token)
-      );
+        params: {
+          id: item.id,
+        },
+      });
 
       console.log(data);
     } catch (err) {
@@ -63,10 +38,44 @@ const CartItem = ({ item, handleDelete }) => {
     }
   };
 
-  const onDelete = () => {
-    deleteCartItem();
-    handleDelete(item.id);
+  //Update Cart Item
+  const updateCartItemCall = async () => {
+    try {
+      const result = await appApi.patch(
+        routes.UPDATE_CART_ITEM,
+        routes.getUpdateCartBody(item.id, quantity),
+        routes.getAccessTokenHeader(currentUser.token)
+      );
+
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
   };
+
+  const onDelete = () => {
+    dispatch(deleteCartItem(item.productId, item.quantity));
+    handleDelete(item.id);
+    deleteCartItemCall();
+  };
+
+  const onUpdate = () => {
+    dispatch(updateCartItem(item.productId, quantity));
+    handleUpdate(item.id,quantity);
+    updateCartItemCall();
+  };
+
+  useEffect(() => {
+    onUpdate();
+    updatePricing();
+  }, [quantity]);
+
 
   return (
     <>
@@ -90,7 +99,7 @@ const CartItem = ({ item, handleDelete }) => {
               alt="Cart item"
               className="w-[100px] aspect-[2/3] object-cover object-center"
             />
-            <h2 className="cart-item ml-[68px]">{item?.name}</h2>
+            <h2 className="cart-item ml-[68px] text-left">{item?.name}</h2>
           </div>
         </td>
         <td className="cart-item">{"$" + item?.unit}</td>
@@ -103,7 +112,7 @@ const CartItem = ({ item, handleDelete }) => {
           />
         </td>
         <td className="cart-item text-right">
-          {"$" + item?.unit * item?.quantity}
+          {"$" + (item?.unit * quantity).toFixed(2)}
         </td>
       </tr>
     </>
