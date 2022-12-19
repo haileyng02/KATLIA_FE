@@ -7,10 +7,12 @@ import ColorIcon from "../ColorIcon";
 import ImagesContainer from "../product-detail/ImagesContainer";
 import * as routes from "../../api/apiRoutes";
 import appApi from "../../api/appApi";
+import {addToCart} from '../../actions/cart'
 import CartIcon from "../../images/Cart2.svg";
 
 const MainProductContainer = ({ id }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [item, setItem] = useState();
   const [currentColor, setCurrentColor] = useState();
@@ -77,6 +79,7 @@ const MainProductContainer = ({ id }) => {
 
   const handleAddToCart = () => {
     if (currentUser != null) {
+      dispatch(addToCart(item,quantity))
       addItemToCart();
     } else {
       navigate("/signin");

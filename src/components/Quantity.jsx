@@ -14,7 +14,7 @@ const Quantity = ({ custom = "", quantity, setQuantity }) => {
   const handleOnChange = (e) => {
     const quantity = e.target.value;
     if (isNaN(quantity) || quantity < 0) return;
-    setQuantity(e.target.value);
+    setQuantity(parseInt(e.target.value));
   };
 
   return (

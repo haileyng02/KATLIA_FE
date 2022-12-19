@@ -5,7 +5,7 @@ import { Dropdown } from "antd";
 import Search from "./Search";
 import { logOut } from "../actions/auth";
 import Profile from "../images/Profile.svg";
-import Cart from "../images/Cart.svg";
+import CartButton from "./CartButton";
 
 const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
@@ -41,16 +41,7 @@ const Header = () => {
         return;
     }
   };
-
-  const handleCartClick = () => {
-    if (currentUser) {
-      navigate('/cart');
-    }
-    else {
-      navigate('/signin');
-    }
-  }
-
+  
   return (
     <div className="w-full h-[73px] bg-header flex items-center fixed z-10 px-[150px]">
       <div className=" my-auto flex justify-between items-center w-full">
@@ -92,12 +83,7 @@ const Header = () => {
               Login
             </p>
           )}
-          <img
-            src={Cart}
-            alt="Cart icon"
-            className="ml-[15px] w-7 cursor-pointer"
-            onClick={handleCartClick}
-          />
+          <CartButton/>
         </div>
       </div>
     </div>
