@@ -161,6 +161,29 @@ const ProductsContainer = ({ items, loading }) => {
     filterBySize()
   }, [])
 
+  //Filter by color and size
+  const filterByColorAndSize = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_BY_COLOR_AND_SIZE,
+        routes.getFilterByColorAndSizeBody(1, "S")
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterByColorAndSize()
+  }, [])
+
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
