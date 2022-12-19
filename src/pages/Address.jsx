@@ -8,8 +8,33 @@ import * as routes from "../api/apiRoutes";
 const Address = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { addressID } = useParams();
+  
+  //Get all address
+  const getAllAddress = async() => {
+    try {
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2NzE0NTgxNzUsImV4cCI6MTY3MTU0NDU3NX0.gztvSo8P3ijc2wN6tB73t1R8QSMyjS09C0mRNKmoHL8";
+      const result = await appApi.get(
+        routes.GET_ALL_ADDRESS,
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getAllAddress()
+  }, [])
+
   //Add address
-  const addAddress = async() =>{
+  const addAddress = async() => {
     try {
       const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYyOTE2NTNkMzEwMjdmMjNiYWVkMTMiLCJlbWFpbCI6InNhb3ZheXRhMjEzMUBnbWFpbC5jb20iLCJpYXQiOjE2NzE0NTgxNzUsImV4cCI6MTY3MTU0NDU3NX0.gztvSo8P3ijc2wN6tB73t1R8QSMyjS09C0mRNKmoHL8";
       const result = await appApi.post(
@@ -28,14 +53,9 @@ const Address = () => {
       }
     }
   }
-
-  useEffect(() => {
-    addAddress()
-  }, [])
-
   return (
     <div>
-      <h1 className="account-title">Address</h1>
+      <h1 onClick={addAddress} className="account-title">Address</h1>
       <AddressContainer type={1}/>
     </div>
   );
