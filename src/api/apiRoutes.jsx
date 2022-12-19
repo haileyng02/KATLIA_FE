@@ -166,3 +166,12 @@ export const getFilterByColorBody = (colorId ) => ({
     colorId: colorId
   }
 })
+
+//FILTER BY SIZE
+export const FILTER_BY_SIZE = '/filter/filterBySize'
+export const getFilterBySizeBody = (size) => ({
+  params: {
+    size: size
+  }
+})
+
