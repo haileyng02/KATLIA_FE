@@ -150,3 +150,11 @@ export const GET_ALL_COLORS = '/filter/getAllColors'
 
 //GET ALL SIZES
 export const GET_ALL_SIZES = '/filter/getAllSizes'
+
+//SEARCH PRODUCTS
+export const SEARCH_PRODUCTS = '/filter/searchProducts'
+export const getSearchProductsBody = (search) => ({
+  params: {
+    search: search
+  }
+})
