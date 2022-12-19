@@ -49,6 +49,28 @@ const ProductsContainer = ({ items, loading }) => {
     setItemOffset(newOffset);
     window.scrollTo(0, 0);
   };
+  //Get all colors
+  const getAllColors = async () => {
+    try {
+      const result = await appApi.get(
+        routes.GET_ALL_COLORS
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data)
+        console.log(err.response.status)
+        console.log(err.response.headers)
+      } else {
+        console.log(err.message)
+      }
+    }
+  }
+
+  useEffect(() => {
+    getAllColors()
+  }, [])
+
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}

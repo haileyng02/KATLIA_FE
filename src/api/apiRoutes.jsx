@@ -145,3 +145,5 @@ export const getOrderDetailBody = (id) => ({
   }
 })
 
+//GET ALL COLORS 
+export const GET_ALL_COLORS = '/filter/getAllColors'
