@@ -8,6 +8,7 @@ import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
 import appApi from "../api/appApi";
 import * as routes from '../api/apiRoutes'
+import { async } from "q";
 
 const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
@@ -113,7 +114,30 @@ const ProductsContainer = ({ items, loading }) => {
   useEffect(() => {
     searchProduct()
   }, [])
-    
+  
+  //Filter by color
+  const filterByColor = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_BY_COLOR,
+        routes.getFilterByColorBody(1)
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterByColor()
+  }, [])
+
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}

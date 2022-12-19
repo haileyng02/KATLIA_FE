@@ -158,3 +158,11 @@ export const getSearchProductsBody = (search) => ({
     search: search
   }
 })
+
+//FILTER BY COLOR
+export const FILTER_BY_COLOR = '/filter/filterByColor'
+export const getFilterByColorBody = (colorId ) => ({
+  params: {
+    colorId: colorId
+  }
+})
