@@ -8,7 +8,7 @@ import Quantity from "./Quantity";
 import DeleteIcon from "../images/Delete.svg";
 import { useEffect } from "react";
 
-const CartItem = ({ item, handleDelete,handleUpdate, updatePricing }) => {
+const CartItem = ({ item, handleDelete, handleUpdate, updatePricing }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(item?.quantity);
@@ -67,7 +67,7 @@ const CartItem = ({ item, handleDelete,handleUpdate, updatePricing }) => {
 
   const onUpdate = () => {
     dispatch(updateCartItem(item.productId, quantity));
-    handleUpdate(item.id,quantity);
+    handleUpdate(item.id, quantity);
     updateCartItemCall();
   };
 
@@ -75,7 +75,6 @@ const CartItem = ({ item, handleDelete,handleUpdate, updatePricing }) => {
     onUpdate();
     updatePricing();
   }, [quantity]);
-
 
   return (
     <>
@@ -115,6 +114,10 @@ const CartItem = ({ item, handleDelete,handleUpdate, updatePricing }) => {
           {"$" + (item?.unit * quantity).toFixed(2)}
         </td>
       </tr>
+      {/* <tr className="text-[16px] text-[#FF0202]">
+        <td></td>
+        <td colSpan={4}>Item has reached its maximum quantity</td>
+      </tr> */}
     </>
   );
 };

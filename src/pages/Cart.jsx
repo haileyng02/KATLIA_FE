@@ -18,7 +18,6 @@ const Cart = () => {
 
   //Get Cart
   const getCart = async () => {
-    console.log('incart')
     try {
       const token = currentUser.token;
       const result = await appApi.get(
@@ -50,12 +49,10 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    console.log("ok");
     if (currentUser) getCart();
   }, [currentUser]);
 
   const handleDelete = (id) => {
-    console.log(id);
     setCart({
       ...cart,
       cartItems: cart.cartItems.filter(function (obj) {
@@ -77,13 +74,16 @@ const Cart = () => {
 
   const updatePricing = () => {
     let subtotal = 0;
+    let totalSale = 0;
     for (let i = 0; i < cart?.cartItems?.length; i++) {
       subtotal += cart?.cartItems[i].quantity * cart?.cartItems[i].unit;
-      // promoPrice += cart.cartItems[i].totalPricePromo
+      if (cart?.cartItems[i].unitSale == null) continue;
+      totalSale += cart.cartItems[i].unitSale*cart?.cartItems[i].quantity
     }
     setPricing({
       ...pricing,
       subtotal: subtotal,
+      discount: totalSale,
       total: subtotal + pricing?.ship - pricing?.discount,
     });
   };
