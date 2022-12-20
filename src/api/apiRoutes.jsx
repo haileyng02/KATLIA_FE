@@ -64,6 +64,9 @@ export const getProductByCategoryId = (categoryId) => ({
   }
 })
 
+//GET ALL CATEGORY
+export const GET_ALL_CATEGORY = '/category/getAll'
+
 //GET TOP 4
 export const GET_TOP4 = (gender) => `/product/getTop4/${gender}`
 export const getTop4Body = (gender) => ({

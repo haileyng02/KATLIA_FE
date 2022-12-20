@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Skeleton } from "antd";
+import { useSelector } from "react-redux";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
 const CategoryBar = ({ categoryClick, currCategory, gender }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { currentUser } = useSelector((state) => state.user);
 
   //Get category by gender
   const getCategoryByGender = async (gender) => {
@@ -35,6 +37,29 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
   useEffect(() => {
     getCategoryByGender(gender);
   }, [gender]);
+
+  //Get all category
+  const getALLCategory = async () => {
+    try {
+      const result = await appApi.get(
+        routes.GET_ALL_CATEGORY,
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getALLCategory()
+  }, [])
 
   return (
     <div className="">
