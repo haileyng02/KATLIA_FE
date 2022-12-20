@@ -72,6 +72,7 @@ useEffect(() => {
           ...routes.getDeleteAddressBody("63a07f64900f9f3f53baa7a0")
         }
       );
+
       console.log(result);
     } catch (err) {
       if (err.response) {

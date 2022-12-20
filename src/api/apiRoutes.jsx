@@ -195,13 +195,13 @@ export const getUpdateAddressIdParams = (id) => ({
   }
 })
 
-// //DELETE ADDRESS
-// export const DELETE_ADDRESS = (id) => `/address/deleteAdress/${id}`
-// export const getDeleteAddressBody = (id) => ({
-//   params: {
-//     id: id
-//   }
-// })
+//DELETE ADDRESS
+export const DELETE_ADDRESS = (id) => `/address/deleteAdress/${id}`
+export const getDeleteAddressBody = (id) => ({
+  params: {
+    id: id
+  }
+})
 
 //ADD ADDRESS
 export const ADD_ADDRESS = '/address/addAddress'
