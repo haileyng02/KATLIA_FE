@@ -81,12 +81,12 @@ const AddressContainer = ({
   }, []);
 
   useEffect(() => {
-    setChosenAddress(addressBook[0])
+    //setChosenAddress(addressBook[0])
     var myDiv = document.getElementById('address-container');
-    myDiv.scrollTo({
-      'behavior': 'smooth',
-      'left': 0,
-    });
+    // myDiv.scrollTo({
+    //   'behavior': 'smooth',
+    //   'left': 0,
+    // });
   }, [addressBook]);
 
   const addAddress = () => {
@@ -114,7 +114,7 @@ const AddressContainer = ({
   };
 
   const handleChooseAddress = (a, i) => {
-    setChosenAddress(a);
+    // setChosenAddress(a);
     sortAddress(i);
   };
 
