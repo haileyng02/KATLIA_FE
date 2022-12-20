@@ -187,6 +187,22 @@ export const getFilterByColorAndSizeBody = (colorId, size) => ({
 //GET ALL ADDRESS
 export const GET_ALL_ADDRESS = '/address/getAllAddress' 
 
+//UPDATE ADDRESS
+export const UPDATE_ADDRESS = (id) => `/address/updateAddress/${id}`
+export const getUpdateAddressIdParams = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+// //DELETE ADDRESS
+// export const DELETE_ADDRESS = (id) => `/address/deleteAdress/${id}`
+// export const getDeleteAddressBody = (id) => ({
+//   params: {
+//     id: id
+//   }
+// })
+
 //ADD ADDRESS
 export const ADD_ADDRESS = '/address/addAddress'
 export const getAddAddressBody = (fullname, phonenumber, address, province, district, ward, note, setAsDefault) => ({
