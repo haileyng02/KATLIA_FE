@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AccountInput from "../components/AccountInput";
 import DefaultRadioInput from "../components/DefaultRadioInput"
 import AddressForm from "../components/AddressForm";
@@ -6,11 +6,38 @@ import defaultAvatar from "../images/DefaultAvatar.svg";
 import dateIcon from "../images/DateIcon.svg";
 import changeAvatar from "../images/ChangeAvatar.svg"
 import { DatePicker } from "antd";
+import { useSelector } from "react-redux";
+import appApi from "../api/appApi";
+import * as routes from "../api/apiRoutes";
 
 const Profile = () => {
-
+  const { currentUser } = useSelector((state) => state.user);
   const dateFormat = "DD/MM/YYYY";
 
+  //Get profile
+  const getProfile = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.GET_PROFILE,
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if(currentUser) getProfile()
+  }, [currentUser])
+  
   return (
     <div>
       <h1 className="account-title">Profile</h1>

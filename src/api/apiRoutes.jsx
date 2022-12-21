@@ -218,3 +218,6 @@ export const getAddAddressBody = (fullname, phonenumber, address, province, dist
   note: note,
   setAsDefault: setAsDefault
 })
+
+//GET PROFILE
+export const GET_PROFILE = '/profile/getProfile'
