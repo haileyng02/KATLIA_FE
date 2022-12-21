@@ -64,6 +64,9 @@ export const getProductByCategoryId = (categoryId) => ({
   }
 })
 
+//GET ALL CATEGORY
+export const GET_ALL_CATEGORY = '/category/getAll'
+
 //GET TOP 4
 export const GET_TOP4 = (gender) => `/product/getTop4/${gender}`
 export const getTop4Body = (gender) => ({
@@ -145,3 +148,100 @@ export const getOrderDetailBody = (id) => ({
   }
 })
 
+//GET ALL COLORS 
+export const GET_ALL_COLORS = '/filter/getAllColors'
+
+//GET ALL SIZES
+export const GET_ALL_SIZES = '/filter/getAllSizes'
+
+//SEARCH PRODUCTS
+export const SEARCH_PRODUCTS = '/filter/searchProducts'
+export const getSearchProductsBody = (search) => ({
+  params: {
+    search: search
+  }
+})
+
+//FILTER BY COLOR
+export const FILTER_BY_COLOR = '/filter/filterByColor'
+export const getFilterByColorBody = (colorId ) => ({
+  params: {
+    colorId: colorId
+  }
+})
+
+//FILTER BY SIZE
+export const FILTER_BY_SIZE = '/filter/filterBySize'
+export const getFilterBySizeBody = (size) => ({
+  params: {
+    size: size
+  }
+})
+
+//FILTER BY COLOR AND SIZE
+export const FILTER_BY_COLOR_AND_SIZE = '/filter/filterByColorAndSize'
+export const getFilterByColorAndSizeBody = (colorId, size) => ({
+  params: {
+    colorId: colorId,
+    size: size
+  }
+})
+
+//GET ALL ADDRESS
+export const GET_ALL_ADDRESS = '/address/getAllAddress' 
+
+//UPDATE ADDRESS
+export const UPDATE_ADDRESS = (id) => `/address/updateAddress/${id}`
+export const getUpdateAddressIdParams = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+//DELETE ADDRESS
+export const DELETE_ADDRESS = (id) => `/address/deleteAdress/${id}`
+export const getDeleteAddressBody = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+//ADD ADDRESS
+export const ADD_ADDRESS = '/address/addAddress'
+export const getAddAddressBody = (fullname, phonenumber, address, province, district, ward, note, setAsDefault) => ({
+  fullname: fullname,
+  phonenumber: phonenumber,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note,
+  setAsDefault: setAsDefault
+})
+
+//UPDATE PROFILE
+export const UPDATE_PROFILE = '/profile/updateProfile'
+export const getUpdateProfileBody = (
+  gender, 
+  fullName, 
+  phoneNumber, 
+  birthday, 
+  address, 
+  province, 
+  district, 
+  ward, 
+  note
+) => ({ 
+  gender: gender,
+  fullName: fullName,
+  phoneNumber: phoneNumber,
+  birthday: birthday,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note
+})
+
+//GET PROFILE
+export const GET_PROFILE = '/profile/getProfile'

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AccountInput from "../components/AccountInput";
 import DefaultRadioInput from "../components/DefaultRadioInput"
 import AddressForm from "../components/AddressForm";
@@ -6,10 +6,64 @@ import defaultAvatar from "../images/DefaultAvatar.svg";
 import dateIcon from "../images/DateIcon.svg";
 import changeAvatar from "../images/ChangeAvatar.svg"
 import { DatePicker } from "antd";
+import { useSelector } from "react-redux";
+import appApi from "../api/appApi";
+import * as routes from "../api/apiRoutes";
 
 const Profile = () => {
-
+  const { currentUser } = useSelector((state) => state.user);
   const dateFormat = "DD/MM/YYYY";
+
+  //Get profile
+  const getProfile = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.GET_PROFILE,
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if(currentUser) getProfile()
+  }, [currentUser])
+
+  //Update profile
+  const updateProfile = async () => {
+    try {
+      const token = currentUser.token;
+      console.log(routes.getUpdateProfileBody("FEMALE", "Nguyen Kien", "0975305060", "", "", "", "", "", ""),);
+      const result = await appApi.put(
+        routes.UPDATE_PROFILE,
+        routes.getUpdateProfileBody("MALE", "Nguyen Kien", "0338411557", "2022-12-21T03:48:14.773Z", "", "", "", "", ""),
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+  
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if(currentUser) updateProfile()
+  }, [currentUser])
 
   return (
     <div>
