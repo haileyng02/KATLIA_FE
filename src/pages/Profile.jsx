@@ -37,7 +37,34 @@ const Profile = () => {
   useEffect(() => {
     if(currentUser) getProfile()
   }, [currentUser])
+
+  //Update profile
+  const updateProfile = async () => {
+    try {
+      const token = currentUser.token;
+      console.log(routes.getUpdateProfileBody("FEMALE", "Nguyen Kien", "0975305060", "", "", "", "", "", ""),);
+      const result = await appApi.put(
+        routes.UPDATE_PROFILE,
+        routes.getUpdateProfileBody("MALE", "Nguyen Kien", "0338411557", "2022-12-21T03:48:14.773Z", "", "", "", "", ""),
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
   
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if(currentUser) updateProfile()
+  }, [currentUser])
+
   return (
     <div>
       <h1 className="account-title">Profile</h1>

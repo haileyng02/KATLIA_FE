@@ -219,5 +219,29 @@ export const getAddAddressBody = (fullname, phonenumber, address, province, dist
   setAsDefault: setAsDefault
 })
 
+//UPDATE PROFILE
+export const UPDATE_PROFILE = '/profile/updateProfile'
+export const getUpdateProfileBody = (
+  gender, 
+  fullName, 
+  phoneNumber, 
+  birthday, 
+  address, 
+  province, 
+  district, 
+  ward, 
+  note
+) => ({ 
+  gender: gender,
+  fullName: fullName,
+  phoneNumber: phoneNumber,
+  birthday: birthday,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note
+})
+
 //GET PROFILE
 export const GET_PROFILE = '/profile/getProfile'
