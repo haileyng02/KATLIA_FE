@@ -27,6 +27,7 @@ const AddressForm = ({ form, currItem, open,checked,setChecked }) => {
       setCurrAddress(currItem);
     } else {
       form.resetFields();
+      handleCheck(false);
     }
   }, [currItem, form, open]);
 

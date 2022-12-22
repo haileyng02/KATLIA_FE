@@ -97,11 +97,6 @@ const Address = () => {
         currentUser={currentUser}
         getAllAddress={getAllAddress}
       />
-      <Modal open={false} centered title="Warning">
-        <p className="font-inter font-medium text-25 text-center text-black">
-          Are you sure you want to detele this address?
-        </p>
-      </Modal>
     </div>
   );
 };

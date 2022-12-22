@@ -10,6 +10,7 @@ const AddAddressModal = ({
   currItem,
   currentUser,
   getAllAddress,
+  myDiv
 }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,6 @@ const AddAddressModal = ({
   ) => {
     setLoading(true);
     try {
-      console.log("alo");
       const token = currentUser.token;
       const result = await appApi.post(
         routes.ADD_ADDRESS,
@@ -48,6 +48,10 @@ const AddAddressModal = ({
       );
       console.log(result);
       getAllAddress();
+      myDiv?.scrollTo({
+        behavior: "smooth",
+        right: 200,
+      });
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -137,6 +141,11 @@ const AddAddressModal = ({
       .then((_) => handleCancel());
   };
 
+  const onCancel = () => {
+    handleCancel();
+    form.resetFields();
+  }
+
   return (
     <Modal
       open={open}
@@ -149,7 +158,7 @@ const AddAddressModal = ({
         paddingTop: 30,
         paddingBottom: 30,
       }}
-      onCancel={handleCancel}
+      onCancel={onCancel}
     >
       <Spin spinning={loading}>
         <h1 className="text-[30px] font-semibold">
