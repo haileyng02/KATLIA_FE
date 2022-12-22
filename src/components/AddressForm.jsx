@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch } from "antd";
+import { Form, Switch } from "antd";
 import AccountInput from "../components/AccountInput";
 import DefaultSelect from "../components/DefaultSelect";
 import provinceApi from "../api/provinceApi";
@@ -7,57 +7,44 @@ import handleApiCallError from "../utils/handleApiCallError";
 import sortByName from "../utils/sortByName";
 import normalizeText from "../utils/normalizeText";
 
-const AddressForm = ({ currItem }) => {
+const AddressForm = ({ form, currItem, open,checked,setChecked }) => {
   const [province, setProvince] = useState([]);
   const [district, setDistrict] = useState([]);
   const [ward, setWard] = useState([]);
-  const [address, setAddress] = useState({
-    name: "",
-    phoneNumber: "",
-    address: "",
-    province: "",
-    district: "",
-    ward: "",
-    note: "",
-    isDefault: false,
-  });
 
   useEffect(() => {
+    if (!open) return;
     fetchProvinces();
-    if (currItem) setCurrAddress(currItem);
-    else
-      setCurrAddress({
-        address: "",
-        province: "",
-        district: "",
-        ward: "",
-        note: "",
-        isDefault: false,
+    if (currItem) {
+      form.setFieldsValue({
+        name: currItem.fullname,
+        phoneNumber: currItem.phonenumber,
+        address: currItem.address,
+        note: currItem.note,
       });
-  }, [currItem]);
+      console.log(currItem.setAsDefault)
+      handleCheck(currItem.setAsDefault)
+      setCurrAddress(currItem);
+    } else {
+      form.resetFields();
+      handleCheck(false);
+    }
+  }, [currItem, form, open]);
 
   const setCurrAddress = async (currItem) => {
-    setAddress((prev) => ({
-      ...prev,
-      name: currItem.name,
-      phoneNumber: currItem.phoneNumber,
-      address: currItem.address,
-      note: currItem.note,
+    form.setFieldsValue({
       province: currItem.province,
-      isDefault : currItem.isDefault
-    }));
+    });
 
     await fetchDistricts(currItem.province);
-    setAddress((prev) => ({
-      ...prev,
+    form.setFieldsValue({
       district: currItem.district,
-    }));
+    });
 
     await fetchWards(currItem.district);
-    setAddress((prev) => ({
-      ...prev,
+    form.setFieldsValue({
       ward: currItem.ward,
-    }));
+    });
   };
 
   // Fetch province at first render\
@@ -104,70 +91,70 @@ const AddressForm = ({ currItem }) => {
     }
   };
 
-  // Handle user's changes in input
-  const handleChange = (e) => {
-    const key = e.target.name;
-    const value = e.target.value;
-    console.log(key);
-    console.log(value);
-
-    if (key === "province" && value !== "default") {
-      setAddress({
-        ...address,
-        province: value,
-        district: "",
-        ward: "",
-      });
+  const handleChangeProvince = (value) => {
+    if (value !== "default") {
       fetchDistricts(value);
-      return;
     }
-
-    if (key === "district" && value !== "default") {
-      setAddress({
-        ...address,
-        district: value,
-        ward: "",
-      });
-      fetchWards(value);
-      return;
-    }
-
-    if (key === "ward" && value !== "ward") {
-    }
-
-    if (e.target.name === "phone") {
-      setAddress({
-        ...address,
-        phone: e.target.value.replace(/\D/g, ""),
-      });
-      return;
-    }
-
-    setAddress({
-      ...address,
-      [key]: value,
-    });
   };
 
+  const handleChangeDistrict = (value) => {
+    if (value !== "default") {
+      fetchWards(value);
+    }
+  };
+
+  const handleCheck = (value) => {
+    setChecked(value);
+    form.setFieldsValue({
+      default: value,
+    });
+  }
+
   return (
-    <>
+    <Form form={form}>
       <AccountInput
         name="name"
         label={"Full name"}
-        value={address.name || ""}
-        handleChange={handleChange}
+        rules={[
+          {
+            required: true,
+            message: "You must enter your name",
+          },
+        ]}
       />
       <AccountInput
         name="phoneNumber"
         label={"Contact number"}
-        value={address.phoneNumber || ""}
-        handleChange={handleChange}
+        rules={[
+          {
+            required: true,
+            message: "Please enter phone number",
+          },
+          {
+            validator: (_, value) => {
+              if (
+                /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(
+                  value
+                ) ||
+                !value
+              ) {
+                return Promise.resolve();
+              } else {
+                return Promise.reject("This is not a phone number");
+              }
+            },
+          },
+        ]}
       />
       <AccountInput
         name="address"
         label={"Your address"}
-        value={address.address || ""}
-        handleChange={handleChange}
+        rules={[
+          {
+            required: true,
+            message: "Please enter your address",
+          },
+        ]}
       />
       <div className="flex gap-x-[74px]">
         <DefaultSelect
@@ -175,16 +162,16 @@ const AddressForm = ({ currItem }) => {
           custom={"flex-1"}
           label="Province"
           items={province}
-          value={address.province}
-          handleChange={handleChange}
+          handleChange={handleChangeProvince}
+          rules={[{ required: true, message: "Please select province" }]}
         />
         <DefaultSelect
           name="district"
           custom={"flex-1"}
           label="District"
           items={district}
-          value={address.district}
-          handleChange={handleChange}
+          handleChange={handleChangeDistrict}
+          rules={[{ required: true, message: "Please select district" }]}
         />
       </div>
       <div className="flex gap-x-[74px]">
@@ -193,22 +180,17 @@ const AddressForm = ({ currItem }) => {
           custom={"flex-1"}
           label="Ward"
           items={ward}
-          value={address.ward}
-          handleChange={handleChange}
+          rules={[{ required: true, message: "Please select ward" }]}
         />
-        <AccountInput
-          name="note"
-          custom={"flex-1"}
-          label="Note"
-          value={address.note || ""}
-          handleChange={handleChange}
-        />
+        <AccountInput name="note" custom={"flex-1"} label="Note" />
       </div>
-      <div className="flex mt-6 justify-between">
+      <div className="flex justify-between">
         <p>Set as Default Address</p>
-        <Switch className="bg-gray-300" checked={address.isDefault}/>
+        <Form.Item name={"default"}>
+          <Switch className="bg-gray-300" checked={checked} onChange={(value)=>handleCheck(value)}/>
+        </Form.Item>
       </div>
-    </>
+    </Form>
   );
 };
 

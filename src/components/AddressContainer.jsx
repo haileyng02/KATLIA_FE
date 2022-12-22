@@ -1,170 +1,128 @@
 import React, { useState, useEffect } from "react";
-import AddressItem from "../components/AddressItem";
+import { useSelector } from "react-redux";
+import { Skeleton, Tooltip } from "antd";
+import appApi from "../api/appApi";
+import * as routes from "../api/apiRoutes";
 import AddressItem2 from "./AddressItem2";
 import AddAddressModal from "../components/AddAddressModal";
-import { Modal } from "antd";
 
-const addressData = [
-  {
-    id: 1,
-    name: "Nguyen Huu Trung Kien",
-    phoneNumber: 975305060,
-    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
-    address: "56, August Revolution",
-    ward: "25195_Phuong Tan Phu",
-    district: "689_Thanh pho Dong Xoai",
-    province: "70_Tinh Binh Phuoc",
-    note: "hihi",
-    isDefault: false,
-  },
-  {
-    id: 2,
-    name: "Nguyen Tran Cam Tien",
-    phoneNumber: 528325771,
-    fullAddress: "164, Phan Dinh Phung, phuong 2, Phu Nhuan, TP.HCM",
-    address: "164, Phan Dinh Phung",
-    ward: "27061_Phuong 02",
-    district: "768_Quan Phu Nhuan",
-    province: "79_Thanh pho Ho Chi Minh",
-    isDefault: true,
-  },
-  {
-    id: 3,
-    name: "Nguyen Huu Trung Kien",
-    phoneNumber: 975305060,
-    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
-    address: "56, August Revolution",
-    ward: "25195_Phuong Tan Phu",
-    district: "689_Thanh pho Dong Xoai",
-    province: "70_Tinh Binh Phuoc",
-    isDefault: false,
-  },
-  {
-    id: 4,
-    name: "Nguyen Huu Trung Kien",
-    phoneNumber: 975305060,
-    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
-    address: "56, August Revolution",
-    ward: "25195_Phuong Tan Phu",
-    district: "689_Thanh pho Dong Xoai",
-    province: "70_Tinh Binh Phuoc",
-    isDefault: false,
-  },
-  {
-    id: 5,
-    name: "Nguyen Huu Trung Kien",
-    phoneNumber: 975305060,
-    fullAddress: "56, August Revolution, Tan Phu, Dong Xoai, Binh Phuoc",
-    address: "56, August Revolution",
-    ward: "25195_Phuong Tan Phu",
-    district: "689_Thanh pho Dong Xoai",
-    province: "70_Tinh Binh Phuoc",
-    isDefault: false,
-  },
-];
+const myDiv = document.getElementById("address-container");
 
-const AddressContainer = ({
-  type,
-  chosenId,
-  setChosenAddress,
-  chosenAddress,
-}) => {
-  const [addressBook, setAddressBook] = useState([...addressData]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const AddressContainer = ({ setChosenAddress, chosenAddress }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const [data, setData] = useState();
+  const [addOpen, setAddOpen] = useState(false);
   const [currItem, setCurrItem] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const index = addressBook.findIndex(
-      (element) => element.isDefault === true
-    );
-    sortAddress(index);
-  }, []);
+  //Get all address
+  const getAllAddress = async () => {
+    console.log("huh");
+    setLoading(true);
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.GET_ALL_ADDRESS,
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result);
+      const index = result.data.findIndex(
+        (element) => element.setAsDefault === true
+      );
+      handleSetData(index, result.data);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+    setLoading(false);
+  };
 
-  useEffect(() => {
-    //setChosenAddress(addressBook[0])
-    var myDiv = document.getElementById('address-container');
-    // myDiv.scrollTo({
-    //   'behavior': 'smooth',
-    //   'left': 0,
-    // });
-  }, [addressBook]);
-
-  const addAddress = () => {
-    setCurrItem(null);
-    setIsModalOpen(true);
+  const handleAddAddress = () => {
+    setAddOpen(true);
   };
 
   const editAddress = (id) => {
-    setCurrItem(addressBook.filter((r) => r.id === id)[0]);
-    setIsModalOpen(true);
+    const item = data.filter((r) => r.id === id)[0];
+    setCurrItem(item);
+    setAddOpen(true);
   };
 
-  const deleteAddress = () => {};
-
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setAddOpen(false);
     setCurrItem(null);
   };
 
   //Sort addresses to move the default one to first
-  const sortAddress = (index) => {
-    const array = addressBook;
-    array.splice(0, 0, addressBook.splice(index, 1)[0]);
-    setAddressBook([...array]);
+  const handleSetData = (index, data) => {
+    const array = data;
+    array.splice(0, 0, data.splice(index, 1)[0]);
+    setData(array);
   };
 
+  useEffect(() => {
+    if (currentUser) getAllAddress();
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (data) {
+      setChosenAddress(data[0]);
+      myDiv.scrollTo({
+        behavior: "smooth",
+        left: 0,
+      });
+    }
+  }, [data]);
+
   const handleChooseAddress = (a, i) => {
-    // setChosenAddress(a);
-    sortAddress(i);
+    setChosenAddress(a);
+    const array = data;
+    array.splice(0, 0, data.splice(i, 1)[0]);
+    setData([...array]);
   };
 
   return (
     <>
-      {type === 2 ? (
-        <div id="address-container" className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4">
-          {addressBook.map((a, index) => {
-            return (
-              <AddressItem2
-                key={index}
-                data={a}
-                editAddress={() => editAddress(a.id)}
-                deleteAddress={() => deleteAddress()}
-                chosen={a?.id === chosenAddress?.id}
-                onClick={() => handleChooseAddress(a, index)}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <>
-          <div className="mt-[30px] flex flex-col gap-y-[22px]">
-            {addressBook.map((a, i) => (
-              <AddressItem
-                key={i}
-                data={a}
-                editAddress={() => editAddress(a.id)}
-                deleteAddress={() => deleteAddress()}
-              />
-            ))}
-          </div>
-          <button
-            onClick={() => addAddress()}
-            className="default-button w-full h-[56px] mt-[22px]"
+      <div className="flex justify-end">
+        <Tooltip title="Click to add address">
+          <p
+            onClick={() => handleAddAddress()}
+            className="cursor-pointer hover:font-medium underline underline-offset-2"
           >
             Add Address
-          </button>
-        </>
-      )}
+          </p>
+        </Tooltip>
+      </div>
+      <div
+        id="address-container"
+        className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4"
+      >
+        {!loading ? data?.map((a, index) => {
+          return (
+            <AddressItem2
+              key={index}
+              data={a}
+              editAddress={() => editAddress(a.id)}
+              chosen={a?.id === chosenAddress?.id}
+              onClick={() => handleChooseAddress(a, index)}
+              currentUser={currentUser}
+              getAllAddress={getAllAddress}
+            />
+          );
+        }) : <Skeleton active/>}
+      </div>
       <AddAddressModal
-        isModalOpen={isModalOpen}
+        open={addOpen}
         handleCancel={handleCancel}
         currItem={currItem}
+        currentUser={currentUser}
+        getAllAddress={getAllAddress}
+        myDiv={myDiv}
       />
-      <Modal open={false} centered title="Warning">
-        <p className="font-inter font-medium text-25 text-center text-black">
-          Are you sure you want to detele this address?
-        </p>
-      </Modal>
     </>
   );
 };

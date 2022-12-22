@@ -19,7 +19,7 @@ root.render(
   <Provider store={store}>
     <ConfigProvider theme={{
       token: {
-        colorPrimary: '#C85A2791',
+        colorPrimary: '#E0A184',
       },
     }}>
       <BrowserRouter>
