@@ -82,7 +82,7 @@ const AddressContainer = ({
 
   useEffect(() => {
     //setChosenAddress(addressBook[0])
-    var myDiv = document.getElementById('address-container');
+    var myDiv = document.getElementById("address-container");
     // myDiv.scrollTo({
     //   'behavior': 'smooth',
     //   'left': 0,
@@ -120,41 +120,23 @@ const AddressContainer = ({
 
   return (
     <>
-      {type === 2 ? (
-        <div id="address-container" className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4">
-          {addressBook.map((a, index) => {
-            return (
-              <AddressItem2
-                key={index}
-                data={a}
-                editAddress={() => editAddress(a.id)}
-                deleteAddress={() => deleteAddress()}
-                chosen={a?.id === chosenAddress?.id}
-                onClick={() => handleChooseAddress(a, index)}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <>
-          <div className="mt-[30px] flex flex-col gap-y-[22px]">
-            {addressBook.map((a, i) => (
-              <AddressItem
-                key={i}
-                data={a}
-                editAddress={() => editAddress(a.id)}
-                deleteAddress={() => deleteAddress()}
-              />
-            ))}
-          </div>
-          <button
-            onClick={() => addAddress()}
-            className="default-button w-full h-[56px] mt-[22px]"
-          >
-            Add Address
-          </button>
-        </>
-      )}
+      <div
+        id="address-container"
+        className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4"
+      >
+        {addressBook.map((a, index) => {
+          return (
+            <AddressItem2
+              key={index}
+              data={a}
+              editAddress={() => editAddress(a.id)}
+              deleteAddress={() => deleteAddress()}
+              chosen={a?.id === chosenAddress?.id}
+              onClick={() => handleChooseAddress(a, index)}
+            />
+          );
+        })}
+      </div>
       <AddAddressModal
         isModalOpen={isModalOpen}
         handleCancel={handleCancel}

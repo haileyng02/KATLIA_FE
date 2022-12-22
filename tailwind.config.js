@@ -25,6 +25,7 @@ module.exports = {
         'nav-item': 'rgba(0, 0, 0, 0.42)',
         'menu-nav': 'rgba(0, 0, 0, 0.46)',
         'account-nav': 'rgba(0, 0, 0, 0.47)',
+        'black60': 'rgba(0,0,0,0.6)',
         'black70': 'rgba(0,0,0,0.7)',
         'kaliablue' : "#223263",
         'kaliayellow' : "#F9AF5E"
