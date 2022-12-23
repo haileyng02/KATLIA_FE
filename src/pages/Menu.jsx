@@ -6,17 +6,13 @@ import CategoryBar from "../components/CategoryBar";
 import ProductsContainer from "../components/ProductsContainer";
 
 const Menu = () => {
-  const [currCategory, setCategory] = useState({ category: "view all" });
+  const [currCategory, setCategory] = useState();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const { gender, categoryPath } = useParams();
   const navigate = useNavigate();
 
   // Get current category based on URL
-  useEffect(() => {
-    setCategory({ category: "view all" });
-  }, [gender]);
-
   useEffect(() => {
     if (categoryPath === "all") {
       setCategory({ category: "view all" });
@@ -27,15 +23,15 @@ const Menu = () => {
       .replace(categoryId + "-", "")
       .replaceAll("%20", " ");
     setCategory({ categoryId, category });
-  }, [categoryPath]);
+  }, [gender,categoryPath]);
 
   useEffect(() => {
-    if (currCategory.category === "view all") {
+    if (currCategory?.category === "view all") {
       getProductByGender(gender);
     } else {
-      getProductByCategoryId(currCategory.categoryId);
+      getProductByCategoryId(currCategory?.categoryId);
     }
-  }, [currCategory]);
+  }, [currCategory,gender]);
 
   const categoryClick = (c) => {
     if (c.category === "view all") {

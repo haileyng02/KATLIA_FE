@@ -59,10 +59,6 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
     getALLCategory()
   }, [])
 
-  useEffect(() => {
-    console.log(currCategory.category)
-  }, [currCategory])
-
   return (
     <div className="">
       {/* Menu Title */}

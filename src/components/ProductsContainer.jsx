@@ -9,6 +9,9 @@ import CloseIcon from "../images/CloseOutlined.svg";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
+//Pagination
+const itemsPerPage = 12;
+
 const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
   const [pageCount, setPageCount] = useState(0);
@@ -16,13 +19,9 @@ const ProductsContainer = ({ items, loading }) => {
   const navigate = useNavigate();
   const { page } = useParams();
 
-  //Pagination
-  const itemsPerPage = 12;
-
   useEffect(() => {
     const pageNumber = parseInt(page) - 1;
     const newOffset = (pageNumber * itemsPerPage) % items.length;
-    console.log(newOffset)
     setItemOffset(newOffset);
   }, [page,items]);
 
@@ -36,10 +35,9 @@ const ProductsContainer = ({ items, loading }) => {
     let path = window.location.pathname;
     path = path.substring(0, path.indexOf("page="));
     navigate(path + "page=" + (event.selected + 1));
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
     window.scrollTo(0, 0);
   };
+
   //Get all colors
   const getAllColors = async () => {
     try {
