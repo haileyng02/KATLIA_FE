@@ -106,7 +106,7 @@ th {
 }
 
 .input-label {
-  @apply font-semibold;
+  @apply font-semibold mt-[20px];
 }
 
 .radio-input {

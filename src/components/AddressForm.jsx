@@ -75,7 +75,7 @@ const AddressForm = ({ form, currItem, open, checked, setChecked }) => {
         ]}
       />
       <AddressSelect form={form} open={open} currItem={currItem} containNote validate/>
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-[20px]">
         <p>Set as Default Address</p>
         <Form.Item name={"default"}>
           <Switch

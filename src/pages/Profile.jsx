@@ -145,14 +145,14 @@ const Profile = () => {
                 </Radio.Group>
               </Form.Item>
             </div>
-            <h3 className="input-label">{"Date of birth"}</h3>
+            <h3 className="font-semibold">{"Date of birth"}</h3>
             <Form.Item name={"birthday"}>
               <DatePicker
                 suffixIcon={<img src={dateIcon} alt="Calendar" />}
                 placeholder="dd/mm/yyyy"
                 format={dateFormat}
                 popupClassName="font-inter"
-                className="w-full h-[45px] px-4 font-normal text-[18px] text-red-400"
+                className="w-full h-[45px] px-4 font-normal text-[18px] text-red-400" 
               />
             </Form.Item>
             <AccountInput
