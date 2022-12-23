@@ -42,8 +42,7 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
       const result = await appApi.get(
         routes.GET_ALL_CATEGORY,
       );
-      console.log(result);
-
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);

@@ -23,15 +23,17 @@ const Menu = () => {
       .replace(categoryId + "-", "")
       .replaceAll("%20", " ");
     setCategory({ categoryId, category });
-  }, [gender,categoryPath]);
+  }, [gender, categoryPath]);
 
   useEffect(() => {
-    if (currCategory?.category === "view all") {
-      getProductByGender(gender);
-    } else {
-      getProductByCategoryId(currCategory?.categoryId);
+    if (currCategory) {
+      if (currCategory.category === "view all") {
+        getProductByGender(gender);
+      } else {
+        getProductByCategoryId(currCategory.categoryId);
+      }
     }
-  }, [currCategory,gender]);
+  }, [currCategory, gender]);
 
   const categoryClick = (c) => {
     if (c.category === "view all") {
@@ -48,6 +50,7 @@ const Menu = () => {
         routes.GET_PRODUCT_BY_CATEGORY_ID(id),
         routes.getProductByCategoryId(id)
       );
+      console.log(data.data);
       setItems(data.data);
     } catch (err) {
       if (err.response) {
@@ -68,6 +71,7 @@ const Menu = () => {
         routes.GET_PRODUCT_BY_GENDER(gender),
         routes.getProductByGender(gender)
       );
+      console.log(data.data);
       setItems(data.data);
     } catch (err) {
       if (err.response) {

@@ -42,7 +42,7 @@ const ProductsContainer = ({ items, loading }) => {
   const getAllColors = async () => {
     try {
       const result = await appApi.get(routes.GET_ALL_COLORS);
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -62,7 +62,7 @@ const ProductsContainer = ({ items, loading }) => {
   const getAllSizes = async () => {
     try {
       const result = await appApi.get(routes.GET_ALL_SIZES);
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -84,7 +84,7 @@ const ProductsContainer = ({ items, loading }) => {
         routes.SEARCH_PRODUCTS,
         routes.getSearchProductsBody("HOODIE")
       );
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -106,7 +106,7 @@ const ProductsContainer = ({ items, loading }) => {
         routes.FILTER_BY_COLOR,
         routes.getFilterByColorBody(1)
       );
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -129,7 +129,7 @@ const ProductsContainer = ({ items, loading }) => {
         routes.FILTER_BY_SIZE,
         routes.getFilterBySizeBody("S")
       );
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -152,7 +152,7 @@ const ProductsContainer = ({ items, loading }) => {
         routes.FILTER_BY_COLOR_AND_SIZE,
         routes.getFilterByColorAndSizeBody(1, "S")
       );
-      console.log(result);
+      // console.log(result);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);

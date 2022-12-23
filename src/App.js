@@ -23,7 +23,6 @@ function App() {
 
       const now = new Date();
       const expiry = new Date(item.expiry);
-      console.log(expiry)
       if (now < expiry) {
         dispatch(signIn(item));
       }
