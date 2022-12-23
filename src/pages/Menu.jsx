@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import CategoryBar from "../components/CategoryBar";
@@ -9,40 +9,41 @@ const Menu = () => {
   const [currCategory, setCategory] = useState({ category: "view all" });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [gender, setGender] = useState("men");
+  const { gender, categoryPath } = useParams();
   const navigate = useNavigate();
 
   // Get current category based on URL
   useEffect(() => {
-    const path = window.location.pathname.substring(1);
-    const genderPath = path.substring(0, path.indexOf("/"));
-    if (genderPath !== gender) setGender(genderPath);
+    setCategory({ category: "view all" });
+  }, [gender]);
 
-    const data = path.substring(genderPath.length + 1);
-    if (data.includes("all")) {
+  useEffect(() => {
+    if (categoryPath === "all") {
       setCategory({ category: "view all" });
-      getProductByGender(genderPath);
       return;
     }
-    const categoryId = data.split("-")[0];
-    let category;
-    if (!data.includes("&page=")) {
-      category = data.slice(data.indexOf("-") + 1).replaceAll("%20", " ");
-    } else
-      category = data
-        .slice(data.indexOf("-") + 1, data.indexOf("&page="))
-        .replaceAll("%20", " ");
-    // if (category !== currCategory.category) {
-      setCategory({ categoryId, category });
-      getProductByCategoryId(categoryId);
-    // }
-  }, [navigate]);
+    const categoryId = categoryPath.split("-")[0];
+    const category = categoryPath
+      .replace(categoryId + "-", "")
+      .replaceAll("%20", " ");
+    setCategory({ categoryId, category });
+  }, [categoryPath]);
 
-  // useEffect(() => {
-  //   if (currCategory.category === "view all") {
-  //     return;
-  //   }
-  // }, [currCategory]);
+  useEffect(() => {
+    if (currCategory.category === "view all") {
+      getProductByGender(gender);
+    } else {
+      getProductByCategoryId(currCategory.categoryId);
+    }
+  }, [currCategory]);
+
+  const categoryClick = (c) => {
+    if (c.category === "view all") {
+      navigate(`/products/${gender}/all/page=1`);
+    } else {
+      navigate(`/products/${gender}/${c.categoryId}-${c.category}/page=1`);
+    }
+  };
 
   const getProductByCategoryId = async (id) => {
     setLoading(true);
@@ -82,15 +83,6 @@ const Menu = () => {
       }
     }
     setLoading(false);
-  };
-
-  const categoryClick = (c) => {
-    setCategory(c);
-    if (c.category === "view all") {
-      navigate(`/${gender}/all`);
-    } else {
-      navigate(`/${gender}/${c.categoryId}-${c.category}`);
-    }
   };
 
   return (

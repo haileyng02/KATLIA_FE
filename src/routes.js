@@ -15,8 +15,7 @@ import About from './pages/About';
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/product/:id', component: ProductDetail },
-    { path: '/men/:category', component: Menu },
-    { path: '/women/:category', component: Menu },
+    { path: 'products/:gender/:categoryPath/page=:page', component: Menu },
     { path: '/about', component: About },
     { path: '/cart', component: Cart },
     { path: 'signin', component: SignIn },

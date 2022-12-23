@@ -23,7 +23,7 @@ const Header = () => {
   const handleNavClick = (navItem) => {
     setCurrItem(navItem);
     let path = String(navItem).toLowerCase();
-    if (navItem === "MEN" || navItem === "WOMEN") path += "/all";
+    if (navItem === "MEN" || navItem === "WOMEN") path = "products/"+navItem.toLowerCase()+'/all/page=1';
     navigate("/" + path);
   };
 
