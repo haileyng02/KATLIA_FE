@@ -21,7 +21,7 @@ const SearchField = () => {
         <Form.Item name={"search"}>
           <Input
             className="w-full h-full rounded-[30px] pl-5 pr-2 text-[20px] placeholder:text-placeholder"
-            placeholder="Search"
+            placeholder="Search..."
             suffix={
               <div
                 className="hover:bg-primary rounded-full p-1 group"
