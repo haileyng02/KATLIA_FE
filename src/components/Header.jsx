@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "antd";
-import Search from "./Search";
 import { logOut } from "../actions/auth";
 import Profile from "../images/Profile.svg";
 import CartButton from "./CartButton";
+import SearchField from "./SearchField";
 
 const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
@@ -64,7 +64,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <Search />
+        <SearchField />
         <div className="flex items-center">
           {currentUser ? (
             <Dropdown menu={{ items, onClick }} placement="bottom">

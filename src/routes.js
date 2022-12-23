@@ -10,6 +10,7 @@ import VerifyCode from './pages/VerifyCode';
 import NewPassword from './pages/NewPassword';
 import DeliveryInformation from './pages/DeliveryInformation';
 import About from './pages/About';
+import Search from './pages/Search';
 
 //Public routes
 const publicRoutes = [
@@ -23,7 +24,8 @@ const publicRoutes = [
     { path: '/signup/verify-code', component: VerifyCode, props: { type: 'signup' } },
     { path: '/reset-password', component: ResetPassword },
     { path: '/reset-password/verify-code', component: VerifyCode, props: { type: 'forget' } },
-    { path: '/reset-password/new-password', component: NewPassword }
+    { path: '/reset-password/new-password', component: NewPassword },
+    { path: '/search=:searchValue/page=:page', component: Search }
 ];
 
 //Private routes
