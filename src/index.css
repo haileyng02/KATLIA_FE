@@ -81,7 +81,7 @@ body {
 }
 
 .confirm-button {
-  @apply h-[34px] bg-primary rounded-5 px-[10px] text-15 text-white ml-5 hover:bg-secondary ;
+  @apply h-[34px] bg-primary rounded-5 px-[10px] text-15 text-white ml-5 hover:bg-secondary;
 }
 
 .sort-outline {
@@ -106,7 +106,7 @@ th {
 }
 
 .input-label {
-  @apply font-semibold;
+  @apply font-semibold mt-[20px];
 }
 
 .radio-input {
@@ -117,6 +117,11 @@ th {
   @apply text-black font-normal;
 }
 
+.ant-picker .ant-picker-input >input{
+  @apply text-[18px]
+}
+
+
 .my-select-container .ant-select .ant-select-selector {
   @apply border-black border-1 rounded-[10px] w-full h-[45px];
 }
@@ -125,12 +130,24 @@ th {
   @apply p-0;
 }
 
-.ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
-  @apply h-full
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  @apply h-full;
 }
 
 .ant-select-selection-item {
-  @apply flex items-center
+  @apply flex items-center;
+}
+
+.ant-form input[type="file"]{
+  display: none
+}
+
+.ant-form label {
+  @apply text-[18px];
+}
+
+.ant-form-item {
+  @apply mb-0;
 }
 
 .account-title {
