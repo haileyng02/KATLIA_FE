@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import AccountInput from "../components/AccountInput";
 import defaultAvatar from "../images/DefaultAvatar.svg";
 import dateIcon from "../images/DateIcon.svg";
@@ -14,13 +14,15 @@ const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [form] = Form.useForm();
   const [currItem, setCurrItem] = useState();
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState();
+  const [avatar, setAvatar] = useState();
 
   const dateFormat = "DD/MM/YYYY";
 
   //Get profile
   const getProfile = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const token = currentUser.token;
       const result = await appApi.get(
@@ -28,6 +30,9 @@ const Profile = () => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result.data[0]);
+      if (result.data.ava) {
+        setAvatar(result.data.ava)
+      }
       setCurrItem(result.data[0]);
     } catch (err) {
       if (err.response) {
@@ -38,7 +43,7 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -53,7 +58,7 @@ const Profile = () => {
         phoneNumber: currItem.phoneNumber,
         address: currItem.address,
         gender: currItem.gender,
-        birthday: dayjs(currItem.birthday)
+        birthday: dayjs(currItem.birthday),
       });
     }
   }, [currItem, form]);
@@ -69,7 +74,7 @@ const Profile = () => {
     district,
     ward
   ) => {
-    setLoading(true)
+    setLoading(true);
     try {
       const token = currentUser.token;
       const result = await appApi.put(
@@ -97,8 +102,10 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-    setLoading(false)
+    setLoading(false);
   };
+
+  const uploadAvatar = () => {};
 
   const handleSave = () => {
     form.validateFields().then((values) => {
@@ -113,7 +120,15 @@ const Profile = () => {
         values.district,
         values.ward
       );
+      uploadAvatar();
     });
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+    const objectUrl = URL.createObjectURL(file);
+    setAvatar(objectUrl);
   };
 
   return (
@@ -122,15 +137,29 @@ const Profile = () => {
       <Spin spinning={loading}>
         <Form form={form}>
           <div className="flex flex-col space-y-[21px] mt-1">
-            <div className="flex">
-              <div className="mx-auto relative cursor-pointer">
-                <img src={defaultAvatar} alt="Avatar" />
-                <img
-                  src={changeAvatar}
-                  alt="Change avatar"
-                  className="absolute right-1 bottom-1"
-                />
-              </div>
+            <div className="image-upload">
+              <label htmlFor="file-input">
+                <div className="flex">
+                  <div className="mx-auto relative cursor-pointer">
+                    <img
+                      src={avatar || defaultAvatar}
+                      alt="Avatar"
+                      className="w-[150px] h-[150px] rounded-full object-cover object-center"
+                    />
+                    <img
+                      src={changeAvatar}
+                      alt="Change avatar"
+                      className="absolute right-1 bottom-1"
+                    />
+                  </div>
+                </div>
+              </label>
+              <input
+                id="file-input"
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+              />
             </div>
             <AccountInput name={"name"} label={"Full name"} />
             <AccountInput name={"email"} label={"Your email"} readOnly />
@@ -152,7 +181,7 @@ const Profile = () => {
                 placeholder="dd/mm/yyyy"
                 format={dateFormat}
                 popupClassName="font-inter"
-                className="w-full h-[45px] px-4 font-normal text-[18px] text-red-400" 
+                className="w-full h-[45px] px-4 font-normal text-[18px] text-red-400"
               />
             </Form.Item>
             <AccountInput

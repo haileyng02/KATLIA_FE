@@ -138,6 +138,10 @@ th {
   @apply flex items-center;
 }
 
+.ant-form input[type="file"]{
+  display: none
+}
+
 .ant-form label {
   @apply text-[18px];
 }
