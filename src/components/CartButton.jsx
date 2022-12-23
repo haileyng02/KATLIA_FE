@@ -47,13 +47,11 @@ const CartButton = () => {
   };
 
   useEffect(() => {
-    console.log('qty:'+quantity)
     setValue(quantity);
   }, [quantity]);
 
   useEffect(() => {
     if (currentUser) {
-      console.log("ok");
       getCart();
     }
   }, [currentUser]);
