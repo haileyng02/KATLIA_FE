@@ -105,7 +105,11 @@ const Profile = () => {
     setLoading(false);
   };
 
-  const uploadAvatar = () => {};
+  const uploadAvatar = () => {
+    if (file) {
+      //Call api update ava
+    }
+  };
 
   const handleSave = () => {
     form.validateFields().then((values) => {
