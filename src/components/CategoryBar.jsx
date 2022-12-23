@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Skeleton } from "antd";
-import { useSelector } from "react-redux";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
 const CategoryBar = ({ categoryClick, currCategory, gender }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { currentUser } = useSelector((state) => state.user);
 
   //Get category by gender
   const getCategoryByGender = async (gender) => {

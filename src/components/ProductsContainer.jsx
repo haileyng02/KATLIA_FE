@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { Skeleton } from "antd";
 import DropDownBox from "./DropDownBox";
@@ -7,33 +7,23 @@ import ProductThumbnail from "./ProductThumbnail";
 import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
 import appApi from "../api/appApi";
-import * as routes from '../api/apiRoutes'
-import { async } from "q";
+import * as routes from "../api/apiRoutes";
+
+//Pagination
+const itemsPerPage = 12;
 
 const ProductsContainer = ({ items, loading }) => {
   const [currentItems, setCurrentItems] = useState(items);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const [page, setPage] = useState(0);
   const navigate = useNavigate();
+  const { page } = useParams();
 
-  //Pagination
-  const itemsPerPage = 12;
-
-  // Get current page based on URL
   useEffect(() => {
-    const path = window.location.pathname;
-    if (!path.includes("&page=")) {
-      setPage(0);
-      setItemOffset(0);
-      return;
-    }
-    const page = path.substring(path.indexOf("&page=") + 6);
     const pageNumber = parseInt(page) - 1;
     const newOffset = (pageNumber * itemsPerPage) % items.length;
-    setPage(pageNumber);
     setItemOffset(newOffset);
-  }, [navigate, items.length, pageCount]);
+  }, [page,items]);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -43,56 +33,50 @@ const ProductsContainer = ({ items, loading }) => {
 
   const handlePageClick = (event) => {
     let path = window.location.pathname;
-    if (path.includes("&page="))
-      path = path.substring(0, path.indexOf("&page="));
-    navigate(path + "&page=" + (event.selected + 1));
-    const newOffset = (event.selected * itemsPerPage) % items.length;
-    setItemOffset(newOffset);
+    path = path.substring(0, path.indexOf("page="));
+    navigate(path + "page=" + (event.selected + 1));
     window.scrollTo(0, 0);
   };
+
   //Get all colors
   const getAllColors = async () => {
     try {
-      const result = await appApi.get(
-        routes.GET_ALL_COLORS
-      );
+      const result = await appApi.get(routes.GET_ALL_COLORS);
       console.log(result);
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
       } else {
-        console.log(err.message)
+        console.log(err.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    getAllColors()
-  }, [])
+    getAllColors();
+  }, []);
 
   //Get all sizes
   const getAllSizes = async () => {
     try {
-      const result = await appApi.get(
-        routes.GET_ALL_SIZES
-      );
+      const result = await appApi.get(routes.GET_ALL_SIZES);
       console.log(result);
     } catch (err) {
       if (err.response) {
-        console.log(err.response.data)
-        console.log(err.response.status)
-        console.log(err.response.headers)
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
       } else {
-        console.log(err.message)
+        console.log(err.message);
       }
     }
-  }
+  };
   useEffect(() => {
-    getAllSizes()
-  }, [])
-  
+    getAllSizes();
+  }, []);
+
   //Search products
   const searchProduct = async () => {
     try {
@@ -110,11 +94,11 @@ const ProductsContainer = ({ items, loading }) => {
         console.log(err.message);
       }
     }
-  }
+  };
   useEffect(() => {
-    searchProduct()
-  }, [])
-  
+    searchProduct();
+  }, []);
+
   //Filter by color
   const filterByColor = async () => {
     try {
@@ -132,11 +116,11 @@ const ProductsContainer = ({ items, loading }) => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    filterByColor()
-  }, [])
+    filterByColor();
+  }, []);
 
   //Filter by size
   const filterBySize = async () => {
@@ -155,11 +139,11 @@ const ProductsContainer = ({ items, loading }) => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    filterBySize()
-  }, [])
+    filterBySize();
+  }, []);
 
   //Filter by color and size
   const filterByColorAndSize = async () => {
@@ -178,17 +162,17 @@ const ProductsContainer = ({ items, loading }) => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    filterByColorAndSize()
-  }, [])
+    filterByColorAndSize();
+  }, []);
 
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
-        <p className="">{items.length + ' items found'}</p>
+        <p className="">{items.length + " items found"}</p>
         <div className="flex border-[0.5px] border-black py-[6px] px-2 rounded-[5px]">
           <h3>Sort by:</h3>
           <p className="text-[#F9AF5E] ml-2 sort-outline">Popular</p>
@@ -230,7 +214,7 @@ const ProductsContainer = ({ items, loading }) => {
       </div>
       {/* Pagination */}
       <div className="mt-16 flex">
-        {pageCount!==0 ? (
+        {pageCount !== 0 ? (
           <ReactPaginate
             breakLabel="..."
             nextLabel={
@@ -253,7 +237,7 @@ const ProductsContainer = ({ items, loading }) => {
             renderOnZeroPageCount={null}
             className="flex gap-x-[18px] mx-auto items-center"
             activeClassName="underline"
-            forcePage={page}
+            forcePage={parseInt(page) - 1}
           />
         ) : null}
       </div>
