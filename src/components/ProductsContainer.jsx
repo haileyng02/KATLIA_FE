@@ -163,7 +163,29 @@ const ProductsContainer = ({ items, loading }) => {
     filterColorByCategoryId();
   }, []);
 
-  
+  //Filter size by gender
+  const filterSizeByGender = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_SIZE_BY_GENDER,
+        routes.getFilterSizeByGenderBody("S", "men")
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterSizeByGender();
+  }, []);  
 
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
