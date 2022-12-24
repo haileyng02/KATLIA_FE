@@ -1,8 +1,9 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { Skeleton } from "antd";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
-const FeaturedThumbnail = ({item,container='',image=''}) => {
+const FeaturedThumbnail = ({ item, container = "", image = "" }) => {
   const navigate = useNavigate();
 
   const handleOnClick = (product) => {
@@ -14,13 +15,17 @@ const FeaturedThumbnail = ({item,container='',image=''}) => {
       onClick={() => handleOnClick(item)}
     >
       <div className="home__for-men">
-        <img
-          src={item.image}
-          alt="Men Featured"
-          className={`${image} featured-image`}
-        />
+        {item ? (
+          <img
+            src={item?.image}
+            alt="Men Featured"
+            className={`${image} featured-image`}
+          />
+        ) : (
+          <Skeleton.Image active className={`w-full h-full ${image} featured-image`} style={{width:'100%',height:'100%'}}/>
+        )}
       </div>
-      <h5 className="featured-title">{capitalizeFirstLetter(item.name)}</h5>
+      {item ? <h5 className="featured-title">{capitalizeFirstLetter(item?.name)}</h5> : <Skeleton active className="mt-4"/>}
     </div>
   );
 };
