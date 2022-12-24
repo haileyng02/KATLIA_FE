@@ -187,6 +187,15 @@ export const getFilterByColorAndSizeBody = (colorId, size) => ({
   }
 })
 
+//FILTER COLOR BY GENDER
+export const FILTER_COLOR_BY_GENDER = '/filter/filterColorByGender' 
+export const getFilterColorByGenderBody = (colorId, gender) => ({
+  params: {
+    colorId: colorId,
+    gender: gender
+  }
+})
+
 //GET ALL ADDRESS
 export const GET_ALL_ADDRESS = '/address/getAllAddress' 
 

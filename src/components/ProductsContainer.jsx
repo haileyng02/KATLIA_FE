@@ -115,6 +115,30 @@ const ProductsContainer = ({ items, loading }) => {
     filterByColorAndSize();
   }, []);
 
+  //Filter color by gender
+  const filterColorByGender = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_COLOR_BY_GENDER,
+        routes.getFilterColorByGenderBody(1, "men")
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterColorByGender();
+  }, []);
+
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
