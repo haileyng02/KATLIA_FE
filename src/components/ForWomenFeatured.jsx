@@ -19,30 +19,28 @@ const ForWomenFeatured = () => {
         className="max-w-[333px] h-auto ml-[579px]"
       />
       {/* Featured */}
-      {items && (
-        <div className="flex justify-between mt-[89px]">
-          <FeaturedThumbnail
-            item={items[0]}
-            container="basis-[20.74%]"
-            image="aspect-[275/394]"
-          />
-          <FeaturedThumbnail
-            item={items[1]}
-            container="basis-[18.3%]"
-            image="aspect-[243/315]"
-          />
-          <FeaturedThumbnail
-            item={items[2]}
-            container="basis-[23.8%]"
-            image="aspect-[315/452]"
-          />
-          <FeaturedThumbnail
-            item={items[3]}
-            container="basis-[19.08%]"
-            image="aspect-[253/404]"
-          />
-        </div>
-      )}
+      <div className="flex justify-between mt-[89px]">
+        <FeaturedThumbnail
+          item={items && items[0]}
+          container="basis-[20.74%]"
+          image="aspect-[275/394]"
+        />
+        <FeaturedThumbnail
+          item={items && items[1]}
+          container="basis-[18.3%]"
+          image="aspect-[243/315]"
+        />
+        <FeaturedThumbnail
+          item={items && items[2]}
+          container="basis-[23.8%]"
+          image="aspect-[315/452]"
+        />
+        <FeaturedThumbnail
+          item={items && items[3]}
+          container="basis-[19.08%]"
+          image="aspect-[253/404]"
+        />
+      </div>
     </div>
   );
 };
