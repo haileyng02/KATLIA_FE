@@ -245,3 +245,6 @@ export const getUpdateProfileBody = (
 
 //GET PROFILE
 export const GET_PROFILE = '/profile/getProfile'
+
+//UPDATE AVA
+export const UPDATE_AVA = '/profile/updateAva'
