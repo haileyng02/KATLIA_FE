@@ -9,7 +9,7 @@ const ProductThumbnail = ({item,imageCustom,custom}) => {
           <div className={`mt-[23px] leading-6 ${imageCustom}`}>
               {item.colorNumber===1||<p>{'+'+(item.colorNumber-1)+' COLOURS'}</p>}
               <h2 className='product-name'>{item.name}</h2>
-              <p>{item.price+' $'}</p>
+              <p style={{color:'rgba(200, 90, 39, 0.57)'}}>{item.price+' $'}</p>
           </div>
       </div>
     </Link>
