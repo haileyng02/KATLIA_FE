@@ -4,7 +4,7 @@ import AccountInput from "../components/AccountInput";
 import defaultAvatar from "../images/DefaultAvatar.svg";
 import dateIcon from "../images/DateIcon.svg";
 import changeAvatar from "../images/ChangeAvatar.svg";
-import { DatePicker, Form, Radio, Spin } from "antd";
+import { DatePicker, Form, Radio, Skeleton, Spin } from "antd";
 import { useSelector } from "react-redux";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
@@ -32,9 +32,10 @@ const Profile = () => {
       console.log(result.data[0]);
       if (result.data[0].ava) {
         setAvatar(result.data[0].ava);
+      } else {
+        setAvatar("");
       }
       setCurrItem(result.data[0]);
-      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -49,6 +50,10 @@ const Profile = () => {
   useEffect(() => {
     if (currentUser) getProfile();
   }, [currentUser]);
+
+  useEffect(() => {
+    if (avatar) setLoading(false);
+  }, [avatar]);
 
   useEffect(() => {
     if (currItem) {
@@ -155,11 +160,19 @@ const Profile = () => {
               <label htmlFor="file-input">
                 <div className="flex">
                   <div className="mx-auto relative cursor-pointer">
-                    <img
-                      src={avatar || defaultAvatar}
-                      alt="Avatar"
-                      className="w-[150px] h-[150px] rounded-full object-cover object-center"
-                    />
+                    {avatar ? (
+                      <img
+                        src={avatar === "" ? defaultAvatar : avatar}
+                        alt="Avatar"
+                        className="w-[150px] h-[150px] rounded-full object-cover object-center"
+                      />
+                    ) : (
+                      <Skeleton.Image
+                        active
+                        className="w-[150px] h-[150px]"
+                        style={{ borderRadius: 300, height: "150px",width:'150px' }}
+                      />
+                    )}
                     <img
                       src={changeAvatar}
                       alt="Change avatar"
