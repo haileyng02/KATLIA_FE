@@ -187,6 +187,62 @@ export const getFilterByColorAndSizeBody = (colorId, size) => ({
   }
 })
 
+//FILTER COLOR BY GENDER
+export const FILTER_COLOR_BY_GENDER = '/filter/filterColorByGender' 
+export const getFilterColorByGenderBody = (colorId, gender) => ({
+  params: {
+    colorId: colorId,
+    gender: gender
+  }
+})
+
+//FILTER COLOR BY CATEGORY ID
+export const FILTER_COLOR_BY_CATEGORY_ID = '/filter/filterColorByCategoryId'
+export const getFilterColorByCategoryId = (colorId, categoryId) => ({
+  params: {
+    colorId: colorId,
+    categoryId: categoryId
+  }
+})
+
+//FILTER SIZE BY GENDER
+export const FILTER_SIZE_BY_GENDER = '/filter/filterSizeByGender'
+export const getFilterSizeByGenderBody = (size, gender) => ({
+  params: {
+    size: size,
+    gender: gender
+  }
+})
+
+//FILTER SIZE BY CATEGORY ID
+export const FILTER_SIZE_BY_CATEGORY_ID = '/filter/filterSizeByCategoryId'
+export const getFilterSizeByCategoryIdBody = (size, categoryId) => ({
+  params: {
+    size: size,
+    categoryId: categoryId
+  }
+})
+
+//FILTER SIZE COLOR BY GENDER
+export const FILTER_SIZE_COLOR_BY_GENDER = '/filter/filterSizeColorByGender'
+export const getFilterSizeColorByGenderBody = (colorId, size, gender) => ({
+  params: {
+	  colorId: colorId,
+    size: size,
+    gender: gender
+  }
+})
+
+//FILTER SIZE COLOR BY CATEGORY ID
+export const FILTER_SIZE_COLOR_BY_CATEGORY_ID = '/filter/filterSizeColorByCategoryId'
+export const getFilterSizeColorByCategoryIdBody = (colorId, size, categoryId) => ({
+  params: {
+	  colorId: colorId,
+    size: size,
+    categoryId: categoryId
+  }
+})
+
 //GET ALL ADDRESS
 export const GET_ALL_ADDRESS = '/address/getAllAddress' 
 
@@ -245,3 +301,6 @@ export const getUpdateProfileBody = (
 
 //GET PROFILE
 export const GET_PROFILE = '/profile/getProfile'
+
+//UPDATE AVA
+export const UPDATE_AVA = '/profile/updateAva'

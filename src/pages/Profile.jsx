@@ -108,6 +108,16 @@ const Profile = () => {
   const uploadAvatar = () => {
     if (file) {
       //Call api update ava
+      console.log(file);
+      const token = currentUser.token;
+      const formData = new FormData();
+
+      formData.append("file", file);
+      appApi.patch('/profile/updateAva', formData, {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+    })
     }
   };
 

@@ -115,6 +115,150 @@ const ProductsContainer = ({ items, loading }) => {
     filterByColorAndSize();
   }, []);
 
+  //Filter color by gender
+  const filterColorByGender = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_COLOR_BY_GENDER,
+        routes.getFilterColorByGenderBody(1, "men")
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterColorByGender();
+  }, []);
+
+//Filter color by categoryId
+  const filterColorByCategoryId = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_COLOR_BY_CATEGORY_ID,
+        routes.getFilterColorByCategoryId(1, 1)
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterColorByCategoryId();
+  }, []);
+
+  //Filter size by gender
+  const filterSizeByGender = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_SIZE_BY_GENDER,
+        routes.getFilterSizeByGenderBody("S", "men")
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterSizeByGender();
+  }, []);  
+
+  //Filter size by categoryId
+  const filterSizeByCategoryId = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_SIZE_BY_CATEGORY_ID,
+        routes.getFilterSizeByCategoryIdBody("S", 1)
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterSizeByCategoryId();
+  }, []);  
+
+  //Filter size color by gender
+  const filterSizeColorByGender = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_SIZE_COLOR_BY_GENDER,
+        routes.getFilterSizeColorByGenderBody(1, "S", "men")
+      );
+      console.log(result);  
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterSizeColorByGender();
+  }, []);  
+
+  //Filter size color by category id
+  const filterSizeColorByCategoryId = async () => {
+    try {
+      const result = await appApi.get(
+        routes.FILTER_SIZE_COLOR_BY_CATEGORY_ID,
+        routes.getFilterSizeColorByCategoryIdBody(1, "S", 1)
+      );
+      console.log(result);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  useEffect(() => {
+    filterSizeColorByCategoryId();
+  }, []); 
+
   return (
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
