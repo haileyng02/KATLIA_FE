@@ -252,6 +252,7 @@ const ProductsContainer = ({
           <Select
             size="large"
             placeholder="Color"
+            loading={!colors}
             value={color}
             className="w-[201px] product-filter"
             onChange={handleColorChange}
@@ -277,6 +278,7 @@ const ProductsContainer = ({
           <Select
             size="large"
             placeholder="Size"
+            loading={!sizes}
             value={size}
             onChange={handleSizeChange}
             className="w-[201px] product-filter text-black"
