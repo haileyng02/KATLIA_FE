@@ -30,10 +30,11 @@ const Profile = () => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result.data[0]);
-      if (result.data.ava) {
-        setAvatar(result.data.ava)
+      if (result.data[0].ava) {
+        setAvatar(result.data[0].ava);
       }
       setCurrItem(result.data[0]);
+      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -43,7 +44,6 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -74,7 +74,6 @@ const Profile = () => {
     district,
     ward
   ) => {
-    setLoading(true);
     try {
       const token = currentUser.token;
       const result = await appApi.put(
@@ -102,10 +101,9 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-    setLoading(false);
   };
 
-  const uploadAvatar = () => {
+  const uploadAvatar = async () => {
     if (file) {
       //Call api update ava
       console.log(file);
@@ -113,18 +111,19 @@ const Profile = () => {
       const formData = new FormData();
 
       formData.append("file", file);
-      appApi.patch('/profile/updateAva', formData, {
+      await appApi.patch("/profile/updateAva", formData, {
         headers: {
-          Authorization: 'Bearer ' + token
-        }
-    })
+          Authorization: "Bearer " + token,
+        },
+      });
     }
   };
 
-  const handleSave = () => {
-    form.validateFields().then((values) => {
+  const handleSave = async () => {
+    form.validateFields().then(async (values) => {
+      setLoading(true);
       const birthday = new Date(values.birthday);
-      updateProfile(
+      await updateProfile(
         values.gender,
         values.name,
         values.phoneNumber,
@@ -134,7 +133,8 @@ const Profile = () => {
         values.district,
         values.ward
       );
-      uploadAvatar();
+      await uploadAvatar();
+      setLoading(false);
     });
   };
 
