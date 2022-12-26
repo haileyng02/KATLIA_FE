@@ -50,7 +50,6 @@ const Menu = () => {
         routes.GET_PRODUCT_BY_CATEGORY_ID(id),
         routes.getProductByCategoryId(id)
       );
-      console.log(data.data);
       setItems(data.data);
     } catch (err) {
       if (err.response) {
@@ -71,7 +70,6 @@ const Menu = () => {
         routes.GET_PRODUCT_BY_GENDER(gender),
         routes.getProductByGender(gender)
       );
-      console.log(data.data);
       setItems(data.data);
     } catch (err) {
       if (err.response) {
@@ -96,7 +94,16 @@ const Menu = () => {
         />
       </aside>
       {/* Products Container */}
-      <ProductsContainer items={items} loading={loading} />
+      <ProductsContainer
+        items={items}
+        loading={loading}
+        setLoading={setLoading}
+        gender={gender}
+        currCategory={currCategory}
+        setItems = {setItems}
+        getProductByCategoryId={getProductByCategoryId}
+        getProductByGender={getProductByGender}
+      />
     </div>
   );
 };

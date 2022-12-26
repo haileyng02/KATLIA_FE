@@ -261,3 +261,15 @@ textarea.ant-input {
 .row {
   @apply flex items-center;
 }
+
+.product-filter.ant-select-single.ant-select-lg .ant-select-selector {
+  @apply rounded-[5px]
+}
+
+.product-filter.ant-select:not(:where(.css-dev-only-do-not-override-1ykeo0l).ant-select-customize-input) .ant-select-selector {
+ @apply border-black
+}
+
+.product-filter.ant-select .ant-select-selection-placeholder {
+  @apply text-black
+}
