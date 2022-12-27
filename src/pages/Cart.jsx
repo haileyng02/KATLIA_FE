@@ -10,7 +10,7 @@ const Cart = () => {
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [cart, setCart] = useState();
-  const [pricing, setPricing] = useState();
+  const [loading,setLoading] = useState(true);
 
   const handleCheckOut = () => {
     navigate("/delivery-information", { state: cart });
@@ -18,6 +18,7 @@ const Cart = () => {
 
   //Get Cart
   const getCart = async () => {
+    setLoading(true);
     try {
       const token = currentUser.token;
       const result = await appApi.get(
@@ -30,12 +31,6 @@ const Cart = () => {
         return;
       }
       setCart(result.data);
-      setPricing({
-        subtotal: result.data.subtotal,
-        ship: result.data.ship,
-        discount: result.data.discount,
-        total: result.data.total,
-      });
     } catch (err) {
       setCart({cartItems:[]})
       if (err.response) {
@@ -46,6 +41,7 @@ const Cart = () => {
         console.log(err.message);
       }
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -72,25 +68,25 @@ const Cart = () => {
     setCart(temp);
   };
 
-  const updatePricing = () => {
-    let subtotal = 0;
-    let totalSale = 0;
-    for (let i = 0; i < cart?.cartItems?.length; i++) {
-      subtotal += cart?.cartItems[i].quantity * cart?.cartItems[i].unit;
-      if (cart?.cartItems[i].unitSale == null) continue;
-      totalSale += cart.cartItems[i].unitSale*cart?.cartItems[i].quantity
-    }
-    setPricing({
-      ...pricing,
-      subtotal: subtotal,
-      discount: totalSale,
-      total: subtotal + pricing?.ship - pricing?.discount,
-    });
-  };
+  // const updatePricing = () => {
+  //   let subtotal = 0;
+  //   let totalSale = 0;
+  //   for (let i = 0; i < cart?.cartItems?.length; i++) {
+  //     subtotal += cart?.cartItems[i].quantity * cart?.cartItems[i].unit;
+  //     if (cart?.cartItems[i].unitSale == null) continue;
+  //     totalSale += cart.cartItems[i].unitSale*cart?.cartItems[i].quantity
+  //   }
+  //   setPricing({
+  //     ...pricing,
+  //     subtotal: subtotal,
+  //     discount: totalSale,
+  //     total: subtotal + pricing?.ship - pricing?.discount,
+  //   });
+  // };
 
-  useEffect(() => {
-    updatePricing();
-  }, [cart]);
+  // useEffect(() => {
+  //   updatePricing();
+  // }, [cart]);
 
   return (
     <div className="px-[150px] pt-[77px] text-[#22262A] ">
@@ -128,7 +124,7 @@ const Cart = () => {
                     setCart={setCart}
                     handleDelete={(id) => handleDelete(id)}
                     handleUpdate={(id, quantity) => handleUpdate(id, quantity)}
-                    updatePricing={updatePricing}
+                    getCart={getCart}
                   />
                 ))
               ) : (
@@ -142,25 +138,25 @@ const Cart = () => {
           </table>
           {/* TOTAL */}
           <div className="w-[30%] mt-[49px] mr-0 ml-auto">
-            <Skeleton active loading={!cart}>
+            <Skeleton active loading={loading}>
               <div className="flex justify-between cart-item">
                 <h3>Subtotal</h3>
                 <p className="cart-item">
-                  {"$" + pricing?.subtotal?.toFixed(2)}
+                  {"$" + cart?.subtotal?.toFixed(2)}
                 </p>
               </div>
               <div className="flex justify-between my-[27px] cart-item">
                 <h3>Shipping fee</h3>
-                <p className="cart-item">{"$" + pricing?.ship}</p>
+                <p className="cart-item">{"$" + cart?.ship}</p>
               </div>
               <div className="flex justify-between cart-item">
                 <h3>Discount</h3>
-                <p className="cart-item">{"$" + pricing?.discount?.toFixed(2)}</p>
+                <p className="cart-item">{"$" + cart?.discount?.toFixed(2)}</p>
               </div>
               <div className="flex justify-between mt-[58px] text-[30px]">
                 <h3>TOTAL</h3>
                 <p className="text-[30px]">
-                  {"$" + pricing?.total?.toFixed(2)}
+                  {"$" + cart?.total?.toFixed(2)}
                 </p>
               </div>
             </Skeleton>

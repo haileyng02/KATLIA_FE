@@ -110,7 +110,7 @@ const SignIn = () => {
           <div className="flex flex-col items-center">
             <h1 className="text-[45px]">Welcome To Katlia!</h1>
             <p className="mt-[9px]">Sign in to continue.</p>
-            <Form form={form} className="w-full">
+            <Form form={form} className="w-full" onKeyPress={handleSignIn}>
               <Form.Item
                 name={"email"}
                 rules={[

@@ -26,3 +26,9 @@ export const updateCartItem = (productId,quantity) => {
     };
 };
 
+export const clearCart = () => {
+    return {
+        type: "CLEAR_CART",
+    };
+};
+

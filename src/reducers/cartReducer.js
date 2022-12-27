@@ -9,10 +9,10 @@ export const cartReducer = (state = initialState, action) => {
             const qty = action.payload.reduce((a, b) => a + b.quantity, 0)
             return {
                 cartItems: action.payload,
-                quantity : qty
+                quantity: qty
             }
         case "ADD_TO_CART":
-            const formattedItem = {...action.payload.item,productId:action.payload.item.id}
+            const formattedItem = { ...action.payload.item, productId: action.payload.item.id }
             const i = state.cartItems.findIndex(e => e.productId === formattedItem.productId);
             if (i > -1) {
                 const temp = [...state.cartItems];
@@ -26,15 +26,15 @@ export const cartReducer = (state = initialState, action) => {
                 };
             }
             return {
-                cartItems: [...state.cartItems, {...formattedItem,quantity: action.payload.quantity}],
+                cartItems: [...state.cartItems, { ...formattedItem, quantity: action.payload.quantity }],
                 quantity: state.quantity + action.payload.quantity
             };
         case 'DELETE_CART_ITEM':
-            console.log(state.cartItems.filter(function( obj ) {
+            console.log(state.cartItems.filter(function (obj) {
                 return obj.productId !== action.payload.productId;
             }))
             return {
-                cartItems:  state.cartItems.filter(function( obj ) {
+                cartItems: state.cartItems.filter(function (obj) {
                     return obj.productId !== action.payload.productId;
                 }),
                 quantity: state.quantity - action.payload.quantity
@@ -51,6 +51,11 @@ export const cartReducer = (state = initialState, action) => {
                     return a + b.quantity
                 }, 0)
             };
+        case 'CLEAR_CART':
+            return {
+                cartItems: [],
+                quantity: 0
+            }
         default:
             return state;
     }
