@@ -33,7 +33,7 @@ const Profile = () => {
       if (result.data[0].ava) {
         setAvatar(result.data[0].ava);
       } else {
-        setAvatar("");
+        setAvatar("null");
       }
       setCurrItem(result.data[0]);
     } catch (err) {
@@ -63,7 +63,7 @@ const Profile = () => {
         phoneNumber: currItem.phoneNumber,
         address: currItem.address,
         gender: currItem.gender,
-        birthday: dayjs(currItem.birthday),
+        birthday: currItem.birthday && dayjs(currItem.birthday),
       });
     }
   }, [currItem, form]);
@@ -162,7 +162,7 @@ const Profile = () => {
                   <div className="mx-auto relative cursor-pointer">
                     {avatar ? (
                       <img
-                        src={avatar === "" ? defaultAvatar : avatar}
+                        src={avatar === "null" ? defaultAvatar : avatar}
                         alt="Avatar"
                         className="w-[150px] h-[150px] rounded-full object-cover object-center"
                       />
@@ -214,12 +214,6 @@ const Profile = () => {
             <AccountInput
               name="address"
               label={"Your address"}
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your address",
-                },
-              ]}
             />
             <AddressSelect
               form={form}
