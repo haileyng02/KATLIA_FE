@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import dayjs from 'dayjs'
 import getOrderStatus from "../utils/getOrderStatus";
 import divider from "../images/Divider.svg";
 
@@ -16,7 +17,7 @@ const OrderItem = ({ item }) => {
     >
       <h2 className="text-[#223263] font-bold uppercase">{item?.id}</h2>
       <p className="order-detail-title">
-        {"Order at E-comm: " + item?.createdAt}
+        {"Order at E-comm: " + dayjs(item?.createdAt).format('MMMM DD, YYYY')}
       </p>
       <img src={divider} alt="Divider" />
       <div className="flex justify-between">
