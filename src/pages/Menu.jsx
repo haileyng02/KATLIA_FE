@@ -28,12 +28,13 @@ const Menu = () => {
   useEffect(() => {
     if (currCategory) {
       if (currCategory.category === "view all") {
+        console.log('o day')
         getProductByGender(gender);
       } else {
         getProductByCategoryId(currCategory.categoryId);
       }
     }
-  }, [currCategory, gender]);
+  }, [currCategory]);
 
   const categoryClick = (c) => {
     if (c.category === "view all") {
@@ -64,6 +65,7 @@ const Menu = () => {
   };
 
   const getProductByGender = async (gender) => {
+    console.log('o day ne');
     setLoading(true);
     try {
       const data = await appApi.get(

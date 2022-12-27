@@ -4,7 +4,7 @@ import CloseIcon from "../images/CloseOutlined.svg";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import ProductItems from "./ProductItems";
-import { Select } from "antd";
+import { Select, Spin } from "antd";
 
 const { Option } = Select;
 
@@ -69,6 +69,7 @@ const ProductsContainer = ({
         routes.getFilterColorByGenderBody(colorId, gender)
       );
       setItems(result.data);
+      console.log(result.data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -132,7 +133,7 @@ const ProductsContainer = ({
         routes.getFilterSizeByCategoryIdBody(size, categoryId)
       );
       setItems(result.data);
-      console.log(result.data)
+      console.log(result.data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -209,7 +210,8 @@ const ProductsContainer = ({
   };
 
   useEffect(() => {
-    handleResetFilter();
+    setColor(null);
+    setSize(null);
   }, [currCategory, gender]);
 
   useEffect(() => {
@@ -238,7 +240,11 @@ const ProductsContainer = ({
     <div style={{ flex: 1 }} className="leading-[25px] ml-[67px]">
       {/* Items found and sort */}
       <div className="flex justify-between items-center">
-        <p className="">{items.length + " items found"}</p>
+        {loading ? (
+          <Spin />
+        ) : (
+          <p className="">{items.length + " items found"}</p>
+        )}
         <div className="flex border-[0.5px] border-black py-[6px] px-2 rounded-[5px]">
           <h3>Sort by:</h3>
           <p className="text-[#F9AF5E] ml-2 sort-outline">Popular</p>
@@ -264,7 +270,7 @@ const ProductsContainer = ({
             }
           >
             {colors?.map((color, i) => (
-              <Option key={i} value={color.id} label={color.color}>
+              <Option key={i} value={color.colorId} label={color.color}>
                 <div className="row gap-x-[10px] font-inter font-[16px]">
                   <div
                     className={`w-5 h-5 rounded-full`}
