@@ -10,10 +10,10 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
   const [warningOpen, setWarningOpen] = useState(false);
 
   const theme = {
-    style: data.setAsDefault
+    style: data?.setAsDefault
       ? "text-[#F9AF5E] underline underline-offset-4"
       : "border-1 border-black60 text-black60 hover:text-black hover:border-black cursor-pointer",
-    text: data.setAsDefault ? "Default" : "Set as Default",
+    text: data?.setAsDefault ? "Default" : "Set as Default",
   };
 
   //Delete address
@@ -42,7 +42,7 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
 
   //Update address
   const handleSetAsDefault = async () => {
-    if (data.setAsDefault === true) return;
+    if (data?.setAsDefault === true) return;
     setLoading(true);
     try {
       const token = currentUser.token;
@@ -82,20 +82,20 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
     <div className="border-1 border-black px-[50px] py-[34px]">
       <Spin spinning={loading}>
         <div className="flex gap-x-[26px] items-center">
-          <h2 className="text-[#223263] capitalize">{data.fullname}</h2>
+          <h2 className="text-[#223263] capitalize">{data?.fullname}</h2>
           <div className="w-[1px] h-[23px] bg-black"></div>
           <p className="address-phone">
-            {"(+84) " + data.phonenumber.substring(1)}
+            {"(+84) " + data?.phonenumber.substring(1)}
           </p>
         </div>
         <p className="mt-8 text-[#9098B1] max-w-[85%] capitalize">
-          {data.address +
+          {data?.address +
             ", " +
-            data.ward.substring(data.ward.indexOf("_") + 1) +
+            data?.ward.substring(data?.ward.indexOf("_") + 1) +
             ", " +
-            data.district.substring(data.district.indexOf("_") + 1) +
+            data?.district.substring(data?.district.indexOf("_") + 1) +
             ", " +
-            data.province.substring(data.province.indexOf("_") + 1)}
+            data?.province.substring(data?.province.indexOf("_") + 1)}
         </p>
         <div className="mt-[54px] address-modify-container">
           <div onClick={handleSetAsDefault} className={`${theme.style} px-[10px] rounded-[5px]`}>

@@ -15,7 +15,7 @@ const Address = () => {
 
   //Get all address
   const getAllAddress = async () => {
-    console.log('huh')
+    console.log("huh");
     setLoading(true);
     try {
       const token = currentUser.token;
@@ -24,8 +24,14 @@ const Address = () => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result);
-      const index = result.data.findIndex((element) => element.setAsDefault === true);
-      handleSetData(index,result.data);
+      if (result.data[0] == null) {
+        setLoading(false);
+        return;
+      }
+      const index = result.data?.findIndex(
+        (element) => element?.setAsDefault === true
+      );
+      handleSetData(index, result.data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -44,7 +50,7 @@ const Address = () => {
   };
 
   const editAddress = (id) => {
-    const item = data.filter((r) => r.id === id)[0];
+    const item = data?.filter((r) => r.id === id)[0];
     setCurrItem(item);
     setAddOpen(true);
   };
@@ -54,12 +60,11 @@ const Address = () => {
   };
 
   //Sort addresses to move the default one to first
-  const handleSetData = (index,data) => {
+  const handleSetData = (index, data) => {
     const array = data;
-    array.splice(0, 0, data.splice(index, 1)[0]);
+    array.splice(0, 0, data?.splice(index, 1)[0]);
     setData(array);
   };
-
 
   useEffect(() => {
     if (currentUser) getAllAddress();
