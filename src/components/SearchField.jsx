@@ -16,7 +16,7 @@ const SearchField = () => {
   };
 
   return (
-    <div className="w-[277px] h-[50%]">
+    <div className="w-[18%] h-[50%] mr-2">
       <Form form={form} onFinish={handleSearch}>
         <Form.Item name={"search"}>
           <Input

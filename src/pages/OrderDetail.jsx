@@ -7,6 +7,7 @@ import checked from "../images/Checked.svg";
 import unChecked from "../images/Unchecked.svg";
 import passedLine from "../images/PassedLine.svg";
 import unpassedLine from "../images/UnpassedLine.svg";
+import canceledIcon from '../images/canceled.svg';
 import appApi from "../api/appApi";
 
 const OrderDetail = () => {
@@ -53,40 +54,60 @@ const OrderDetail = () => {
       </h1>
       {/* Status */}
       <div className="flex mt-[59px] gap-x-[82.44px] relative">
-        <div>
-          <img
-            src={order?.order.status >= 2 ? checked : unChecked}
-            alt="Status"
-            className="mx-auto"
-          />
-          <p className="text-[#9098B1] mt-5">Packing</p>
-        </div>
-        <div>
-          <img
-            src={order?.order.status >= 3 ? checked : unChecked}
-            alt="Status"
-            className="mx-auto"
-          />
-          <p className="text-[#9098B1] mt-5">Shipping</p>
-        </div>
-        <div>
-          <img
-            src={order?.order.status === 4 ? checked : unChecked}
-            alt="Status"
-            className="mx-auto"
-          />
-          <p className="text-[#9098B1] mt-5">Success</p>
-        </div>
-        <div className="absolute flex top-[20.7px] left-[20.7px] -z-10">
-          <img
-            src={order?.order.status >= 2 ? passedLine : unpassedLine}
-            alt="Status line"
-          />
-          <img
-            src={order?.order.status >= 3 ? passedLine : unpassedLine}
-            alt="Status line"
-          />
-        </div>
+        {order?.order.status !== 5 ? (
+          <>
+            <div>
+              <img
+                src={order?.order.status >= 2 ? checked : unChecked}
+                alt="Status"
+                className="mx-auto"
+              />
+              <p className="text-[#9098B1] mt-5">Packing</p>
+            </div>
+            <div>
+              <img
+                src={order?.order.status >= 3 ? checked : unChecked}
+                alt="Status"
+                className="mx-auto"
+              />
+              <p className="text-[#9098B1] mt-5">Shipping</p>
+            </div>
+            <div>
+              <img
+                src={order?.order.status === 4 ? checked : unChecked}
+                alt="Status"
+                className="mx-auto"
+              />
+              <p className="text-[#9098B1] mt-5">Success</p>
+            </div>
+            <div className="absolute flex top-[20.7px] left-[20.7px] -z-10">
+              <img
+                src={order?.order.status >= 2 ? passedLine : unpassedLine}
+                alt="Status line"
+              />
+              <img
+                src={order?.order.status >= 3 ? passedLine : unpassedLine}
+                alt="Status line"
+              />
+            </div>
+          </>
+        ) : (
+          <div>
+            <img
+              src={canceledIcon}
+              alt="Status"
+              className="mx-auto"
+            />
+            <p className="text-[#9098B1] mt-5">Canceled</p>
+          </div>
+        )}
+      </div>
+      {/* Address */}
+      <h2 className="order-detail-heading mt-[43px]">Receiver's  Information</h2>
+      <div className="mt-[14px] light-blue-border">
+        <h3 className="text-kaliablue">{order?.order.receiverName}</h3>
+        <p className="text-[#9098B1] mt-[15px]">{order?.order.address}</p>
+        <p className="text-[#9098B1] font-poppins mt-[16px]">{'(+84) '+order?.order.receiverPhone}</p>
       </div>
       {/* Product */}
       <h2 className="order-detail-heading mt-[43px]">Product</h2>
@@ -111,22 +132,26 @@ const OrderDetail = () => {
       {/* Payment Details */}
       <h2 className="order-detail-heading mt-[34px]">Payment Details</h2>
       <div className="flex flex-col gap-y-[21px] mt-[14px] light-blue-border">
-        {order ? <>
-          <div className="flex justify-between">
-            <h4 className="text-[#9098B1]">{`Items (${order?.numberOfItems})`}</h4>
-            <p className="text-kaliablue">
-              {"$" + (order?.order.total - order?.order.shippingFee)}
-            </p>
-          </div>
-          <div className="flex justify-between">
-            <h4 className="text-[#9098B1]">Shipping</h4>
-            <p className="text-kaliablue">{"$" + order?.order.shippingFee}</p>
-          </div>
-          <div className="flex justify-between">
-            <h4 className="text-kaliablue">Total Price</h4>
-            <p className="text-kaliayellow">{"$" + order?.order.total}</p>
-          </div>
-        </> : <Skeleton active/>}
+        {order ? (
+          <>
+            <div className="flex justify-between">
+              <h4 className="text-[#9098B1]">{`Items (${order?.numberOfItems})`}</h4>
+              <p className="text-kaliablue">
+                {"$" + (order?.order.total - order?.order.shippingFee)}
+              </p>
+            </div>
+            <div className="flex justify-between">
+              <h4 className="text-[#9098B1]">Shipping</h4>
+              <p className="text-kaliablue">{"$" + order?.order.shippingFee}</p>
+            </div>
+            <div className="flex justify-between">
+              <h4 className="text-kaliablue">Total Price</h4>
+              <p className="text-kaliayellow">{"$" + order?.order.total}</p>
+            </div>
+          </>
+        ) : (
+          <Skeleton active />
+        )}
       </div>
       <button
         className={`w-[232px] h-[71px] mt-5 rounded-10 text-[30px] text-white float-right ${
