@@ -8,7 +8,7 @@ import Quantity from "./Quantity";
 import DeleteIcon from "../images/Delete.svg";
 import { useEffect } from "react";
 
-const CartItem = ({ item, handleDelete, handleUpdate, updatePricing }) => {
+const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(item?.quantity);
@@ -25,8 +25,8 @@ const CartItem = ({ item, handleDelete, handleUpdate, updatePricing }) => {
           id: item.id,
         },
       });
-
       console.log(data);
+      getCart();
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -46,8 +46,8 @@ const CartItem = ({ item, handleDelete, handleUpdate, updatePricing }) => {
         routes.getUpdateCartBody(item.id, quantity),
         routes.getAccessTokenHeader(currentUser.token)
       );
-
       console.log(result);
+      getCart();
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -73,7 +73,6 @@ const CartItem = ({ item, handleDelete, handleUpdate, updatePricing }) => {
 
   useEffect(() => {
     onUpdate();
-    updatePricing();
   }, [quantity]);
 
   return (

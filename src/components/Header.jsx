@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "antd";
 import { logOut } from "../actions/auth";
+import { clearCart } from "../actions/cart";
 import Profile from "../images/Profile.svg";
 import CartButton from "./CartButton";
 import SearchField from "./SearchField";
@@ -35,6 +36,7 @@ const Header = () => {
       case "logout":
         localStorage.clear(); 
         dispatch(logOut()); 
+        dispatch(clearCart());
         navigate('/');
         return;
       default:
