@@ -53,7 +53,7 @@ const Header = () => {
         >
           KATLIA
         </h1>
-        <ul className="flex items-center">
+        <ul className="flex items-center justify-between w-[50%]">
           {navData.map((n, i) => (
             <li
               key={i}
