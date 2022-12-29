@@ -9,12 +9,14 @@ import passedLine from "../images/PassedLine.svg";
 import unpassedLine from "../images/UnpassedLine.svg";
 import canceledIcon from '../images/canceled.svg';
 import appApi from "../api/appApi";
+import RateProductModal from "../components/modals/RateProductModal";
 
 const OrderDetail = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { orderID } = useParams();
   const [order, setOrder] = useState();
   const [loading, setLoading] = useState(true);
+  const [rateOpen, setRateOpen] = useState(false);
 
   //Get order detail
   const getOrderDetail = async () => {
@@ -105,9 +107,11 @@ const OrderDetail = () => {
       {/* Address */}
       <h2 className="order-detail-heading mt-[43px]">Receiver's  Information</h2>
       <div className="mt-[14px] light-blue-border">
-        <h3 className="text-kaliablue">{order?.order.receiverName}</h3>
-        <p className="text-[#9098B1] mt-[15px]">{order?.order.address}</p>
-        <p className="text-[#9098B1] font-poppins mt-[16px]">{'(+84) '+order?.order.receiverPhone}</p>
+        {!loading ? <>
+          <h3 className="text-kaliablue">{order?.order.receiverName}</h3>
+          <p className="text-[#9098B1] mt-[15px]">{order?.order.address}</p>
+          <p className="text-[#9098B1] font-poppins mt-[16px]">{'(+84) '+order?.order.receiverPhone}</p>
+        </> : <Skeleton active/>}
       </div>
       {/* Product */}
       <h2 className="order-detail-heading mt-[43px]">Product</h2>
@@ -155,13 +159,16 @@ const OrderDetail = () => {
       </div>
       <button
         className={`w-[232px] h-[71px] mt-5 rounded-10 text-[30px] text-white float-right ${
-          order?.order.status < 4
+          order?.order.status !==4 || order?.order.isFeedback
             ? "bg-[#888888] cursor-not-allowed"
             : " bg-primary hover:bg-secondary"
         }`}
+        disabled={order?.order.status !==4 || order?.order.isFeedback}
+        onClick={()=>setRateOpen(true)}
       >
         Rate Products
       </button>
+      <RateProductModal open={rateOpen} handleCancel={()=>setRateOpen(false)}/>
     </div>
   );
 };
