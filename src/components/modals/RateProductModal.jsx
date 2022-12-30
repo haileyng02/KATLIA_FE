@@ -20,7 +20,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-const RateProductModal = ({ open, handleCancel }) => {
+const RateProductModal = ({ open, handleCancel, items }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
@@ -49,7 +49,13 @@ const RateProductModal = ({ open, handleCancel }) => {
     </div>
   );
   return (
-    <Modal open={open} onCancel={handleCancel} centered footer={null} width='50%'>
+    <Modal
+      open={open}
+      onCancel={handleCancel}
+      centered
+      footer={null}
+      width="50%"
+    >
       <div className="overflow-modal">
         <h1 className="font-inter font-semibold text-[30px]">RATE PRODUCT</h1>
         <p
@@ -69,9 +75,12 @@ const RateProductModal = ({ open, handleCancel }) => {
           </h3>
         </div>
         <h2 className="rate-title">Product Quality</h2>
-        <Rate/>
+        <Rate />
         <h2 className="rate-title mb-[23px]">Write Your Review</h2>
-        <CountingTextArea maxLength={1500} placeholder='Write your review here'/>
+        <CountingTextArea
+          maxLength={1500}
+          placeholder="Write your review here"
+        />
         <h2 className="rate-title">Add Photo</h2>
         <Upload
           name="avatar"
@@ -92,7 +101,7 @@ const RateProductModal = ({ open, handleCancel }) => {
           )}
         </Upload>
         <div className="row gap-x-[10px] mt-[20px]">
-          <Checkbox/>
+          <Checkbox />
           <div>
             <h2 className="font-inter font-semibold text-[20px]">
               Show username on your review

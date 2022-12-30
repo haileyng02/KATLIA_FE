@@ -168,7 +168,7 @@ const OrderDetail = () => {
       >
         Rate Products
       </button>
-      <RateProductModal open={rateOpen} handleCancel={()=>setRateOpen(false)}/>
+      <RateProductModal open={rateOpen} handleCancel={()=>setRateOpen(false)} items={order?.itemList}/>
     </div>
   );
 };
