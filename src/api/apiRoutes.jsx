@@ -304,3 +304,33 @@ export const GET_PROFILE = '/profile/getProfile'
 
 //UPDATE AVA
 export const UPDATE_AVA = '/profile/updateAva'
+
+//CHANGE PASSWORD
+export const CHANGE_PASSWORD = '/profile/changePassword'
+export const getChangePasswordBody = (
+  gender, 
+  fullName, 
+  phoneNumber, 
+  birthday, 
+  address, 
+  province, 
+  district, 
+  ward, 
+  note, 
+  oldPass, 
+  newPass, 
+  confirmPass
+  ) => ({
+  gender: gender,
+  fullName: fullName,
+  phoneNumber: phoneNumber,
+  birthday: birthday,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note,
+  oldPass: oldPass,
+  newPass, newPass,
+  confirmPass: confirmPass  
+})

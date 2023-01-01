@@ -150,6 +150,41 @@ const Profile = () => {
     setAvatar(objectUrl);
   };
 
+  //Change password
+  const changePassword = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.put(
+        routes.CHANGE_PASSWORD,
+        routes.getChangePasswordBody(
+          "MALE",
+          "Nguyen Huu Trung Kien",
+          "0338411557",
+          "2023-01-01T13:35:20.159Z",
+          "KTX khu B",
+          "Binh Duong",
+          "Di An",
+          "Dong Hoa",
+          "",
+          "654321",
+          "123456",
+          "123456"
+        ),
+        routes.getAccessTokenHeader(token)
+      );
+      console.log(result.data);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
   return (
     <div>
       <h1 className="account-title">Profile</h1>
