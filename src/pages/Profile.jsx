@@ -209,6 +209,30 @@ const Profile = () => {
     }
   }
 
+  //Get sale product by category id
+  const getSaleProductByCategoryId = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.SALE_PRODUCT_BY_CATEGORY_ID(1),
+        {
+          ...routes.getAccessTokenHeader(token),
+          ...routes.getSaleProductByCategoryIdParams(1)
+        }
+      );
+      console.log(result.data);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
   return (
     <div>
       <h1 className="account-title">Profile</h1>

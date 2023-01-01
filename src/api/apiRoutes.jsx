@@ -342,3 +342,11 @@ export const getSaleProductByGenderParams = (gender) => ({
     gender: gender
   }
 })
+
+//GET SALE PRODUCT BY CATEGORY ID
+export const SALE_PRODUCT_BY_CATEGORY_ID = (categoryId) => `/product/getSaleProductByCategoryId/${categoryId}`
+export const getSaleProductByCategoryIdParams = (categoryId) => ({
+  params: {
+    categoryId: categoryId
+  }
+})
