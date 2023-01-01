@@ -334,3 +334,11 @@ export const getChangePasswordBody = (
   newPass, newPass,
   confirmPass: confirmPass  
 })
+
+//GET SALE PRODUCT BY GENDER
+export const SALE_PRODUCT_BY_GENDER = (gender) => `/product/getSaleProductByGender/${gender}`
+export const getSaleProductByGenderParams = (gender) => ({
+  params: {
+    gender: gender
+  }
+})

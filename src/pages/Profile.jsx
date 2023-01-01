@@ -47,9 +47,9 @@ const Profile = () => {
     }
   };
 
-  useEffect(() => {
-    if (currentUser) getProfile();
-  }, [currentUser]);
+  // useEffect(() => {
+  //   if (currentUser) getProfile();
+  // }, [currentUser]);
 
   useEffect(() => {
     if (avatar) setLoading(false);
@@ -171,6 +171,30 @@ const Profile = () => {
           "123456"
         ),
         routes.getAccessTokenHeader(token)
+      );
+      console.log(result.data);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
+  //Get sale product by gender
+  const getSaleProductByGender = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.SALE_PRODUCT_BY_GENDER("men"),
+        {
+          ...routes.getAccessTokenHeader(token),
+          ...routes.getSaleProductByGenderParams("men")
+        }
       );
       console.log(result.data);
 
