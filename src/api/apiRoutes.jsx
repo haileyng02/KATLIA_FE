@@ -350,3 +350,11 @@ export const getSaleProductByCategoryIdParams = (categoryId) => ({
     categoryId: categoryId
   }
 })
+
+//GET FEEDBACKS FOR PRODUCT
+export const FEEDBACKS_FOR_PRODUCT = (id) => `/product/getFeedbacksForProduct/${id}`
+export const getFeedbacksForProductParamsId = (id) => ({
+  params: {
+    id: id
+  }
+})
