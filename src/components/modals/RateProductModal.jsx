@@ -20,7 +20,7 @@ const beforeUpload = (file) => {
   return isJpgOrPng && isLt2M;
 };
 
-const RateProductModal = ({ open, handleCancel }) => {
+const RateProductModal = ({ open, handleCancel, items }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const handleChange = (info) => {
@@ -75,10 +75,7 @@ const RateProductModal = ({ open, handleCancel }) => {
           </h3>
         </div>
         <h2 className="rate-title">Product Quality</h2>
-        <Rate
-          character={<StarFilled />
-          }
-        />
+        <Rate />
         <h2 className="rate-title mb-[23px]">Write Your Review</h2>
         <CountingTextArea
           maxLength={1500}
