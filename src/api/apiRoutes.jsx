@@ -358,3 +358,11 @@ export const getFeedbacksForProductParamsId = (id) => ({
     id: id
   }
 })
+
+//GET PRODUCTS FOR FEEDBACK 
+export const PRODUCTS_FOR_FEEDBACK = (orderId) => `/feedback/getProductsForFeedback/${orderId}`
+export const getProductsForFeedbackParamsId = (orderId) => ({
+  params: {
+    orderId: orderId
+  }
+})
