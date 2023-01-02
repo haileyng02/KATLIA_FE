@@ -366,3 +366,12 @@ export const getProductsForFeedbackParamsId = (orderId) => ({
     orderId: orderId
   }
 })
+
+//WRITE FEEDBACK
+export const WRITE_FEEDBACK = (orderId) => `/feedback/writeFeedback/${orderId}`
+export const getWriteFeedbackParamsId = (orderId) => ({
+  params: {
+    orderId: orderId
+  }
+})
+export const getWriteFeedbackBody = (feedbackArray) => feedbackArray
