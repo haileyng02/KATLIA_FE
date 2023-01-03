@@ -304,3 +304,74 @@ export const GET_PROFILE = '/profile/getProfile'
 
 //UPDATE AVA
 export const UPDATE_AVA = '/profile/updateAva'
+
+//CHANGE PASSWORD
+export const CHANGE_PASSWORD = '/profile/changePassword'
+export const getChangePasswordBody = (
+  gender, 
+  fullName, 
+  phoneNumber, 
+  birthday, 
+  address, 
+  province, 
+  district, 
+  ward, 
+  note, 
+  oldPass, 
+  newPass, 
+  confirmPass
+  ) => ({
+  gender: gender,
+  fullName: fullName,
+  phoneNumber: phoneNumber,
+  birthday: birthday,
+  address: address,
+  province: province,
+  district: district,
+  ward: ward,
+  note: note,
+  oldPass: oldPass,
+  newPass, newPass,
+  confirmPass: confirmPass  
+})
+
+//GET SALE PRODUCT BY GENDER
+export const SALE_PRODUCT_BY_GENDER = (gender) => `/product/getSaleProductByGender/${gender}`
+export const getSaleProductByGenderParams = (gender) => ({
+  params: {
+    gender: gender
+  }
+})
+
+//GET SALE PRODUCT BY CATEGORY ID
+export const SALE_PRODUCT_BY_CATEGORY_ID = (categoryId) => `/product/getSaleProductByCategoryId/${categoryId}`
+export const getSaleProductByCategoryIdParams = (categoryId) => ({
+  params: {
+    categoryId: categoryId
+  }
+})
+
+//GET FEEDBACKS FOR PRODUCT
+export const FEEDBACKS_FOR_PRODUCT = (id) => `/product/getFeedbacksForProduct/${id}`
+export const getFeedbacksForProductParamsId = (id) => ({
+  params: {
+    id: id
+  }
+})
+
+//GET PRODUCTS FOR FEEDBACK 
+export const PRODUCTS_FOR_FEEDBACK = (orderId) => `/feedback/getProductsForFeedback/${orderId}`
+export const getProductsForFeedbackParamsId = (orderId) => ({
+  params: {
+    orderId: orderId
+  }
+})
+
+//WRITE FEEDBACK
+export const WRITE_FEEDBACK = (orderId) => `/feedback/writeFeedback/${orderId}`
+export const getWriteFeedbackParamsId = (orderId) => ({
+  params: {
+    orderId: orderId
+  }
+})
+export const getWriteFeedbackBody = (feedbackArray) => feedbackArray
