@@ -375,3 +375,12 @@ export const getWriteFeedbackParamsId = (orderId) => ({
   }
 })
 export const getWriteFeedbackBody = (feedbackArray) => feedbackArray
+
+//UP IMAGE FOR FEEDBACK
+export const UP_IMAGE_FOR_FEEDBACk = '/feedback/upImageForFeedback'
+export const getUpImageForFeedbackParams = (orderId, productId) => ({
+  params: {
+    orderId: orderId,
+    productId: productId
+  }
+})
