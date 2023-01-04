@@ -8,7 +8,11 @@ import { DatePicker, Form, Radio, Skeleton, Spin } from "antd";
 import { useSelector } from "react-redux";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import AddressSelect from "../components/AddressSelect";
+import DefaultSelect from "../components/DefaultSelect";
+import provinceApi from "../api/provinceApi";
+import handleApiCallError from "../utils/handleApiCallError";
+import sortByName from "../utils/sortByName";
+import normalizeText from "../utils/normalizeText";
 
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,6 +21,88 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState();
   const [avatar, setAvatar] = useState();
+  const [province, setProvince] = useState([]);
+  const [district, setDistrict] = useState([]);
+  const [ward, setWard] = useState([]);
+
+  useEffect(() => {
+    fetchProvinces();
+    if (currItem) {
+      setCurrAddress(currItem);
+    }
+  }, [currItem]);
+
+  const setCurrAddress = async (currItem) => {
+    form.setFieldsValue({
+      province: currItem.province,
+    });
+
+    await fetchDistricts(currItem.province);
+    form.setFieldsValue({
+      district: currItem.district,
+    });
+
+    await fetchWards(currItem.district);
+    form.setFieldsValue({
+      ward: currItem.ward,
+    });
+  };
+
+  // Fetch province at first render\
+  const fetchProvinces = async () => {
+    try {
+      const response = await provinceApi.get("/p");
+      setProvince(sortByName(normalizeText(response.data)));
+    } catch (err) {
+      handleApiCallError(err);
+    }
+  };
+
+  // Fetch district after selected province
+  const fetchDistricts = async (province) => {
+    try {
+      const str = String(province);
+      const code = str.substring(0, str.indexOf("_"));
+      const response = await provinceApi.get(`p/${code}`, {
+        params: {
+          depth: 2,
+        },
+      });
+      setDistrict(sortByName(normalizeText(response.data.districts)));
+      setWard([]);
+    } catch (err) {
+      handleApiCallError(err);
+    }
+  };
+
+  // Fetch wards after selected district
+  const fetchWards = async (district) => {
+    try {
+      const str = String(district);
+      const code = str.substring(0, str.indexOf("_"));
+      const response = await provinceApi.get(`d/${code}`, {
+        params: {
+          depth: 2,
+        },
+      });
+
+      setWard(sortByName(normalizeText(response.data.wards)));
+    } catch (err) {
+      handleApiCallError(err);
+    }
+  };
+
+  const handleChangeProvince = (value) => {
+    if (value !== "default") {
+      fetchDistricts(value);
+    }
+  };
+
+  const handleChangeDistrict = (value) => {
+    if (value !== "default") {
+      fetchWards(value);
+    }
+  };
 
   const dateFormat = "DD/MM/YYYY";
 
@@ -173,7 +259,6 @@ const Profile = () => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -183,21 +268,17 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Get sale product by gender
   const getSaleProductByGender = async () => {
     try {
       const token = currentUser.token;
-      const result = await appApi.get(
-        routes.SALE_PRODUCT_BY_GENDER("men"),
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getSaleProductByGenderParams("men")
-        }
-      );
+      const result = await appApi.get(routes.SALE_PRODUCT_BY_GENDER("men"), {
+        ...routes.getAccessTokenHeader(token),
+        ...routes.getSaleProductByGenderParams("men"),
+      });
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -207,21 +288,17 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Get sale product by category id
   const getSaleProductByCategoryId = async () => {
     try {
       const token = currentUser.token;
-      const result = await appApi.get(
-        routes.SALE_PRODUCT_BY_CATEGORY_ID(1),
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getSaleProductByCategoryIdParams(1)
-        }
-      );
+      const result = await appApi.get(routes.SALE_PRODUCT_BY_CATEGORY_ID(1), {
+        ...routes.getAccessTokenHeader(token),
+        ...routes.getSaleProductByCategoryIdParams(1),
+      });
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -231,21 +308,17 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Get feedbacks for product
   const getFeedbacksForProduct = async () => {
     try {
       const token = currentUser.token;
-      const result = await appApi.get(
-        routes.FEEDBACKS_FOR_PRODUCT(694571),
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getFeedbacksForProductParamsId(694571)
-        }
-      );
+      const result = await appApi.get(routes.FEEDBACKS_FOR_PRODUCT(694571), {
+        ...routes.getAccessTokenHeader(token),
+        ...routes.getFeedbacksForProductParamsId(694571),
+      });
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -255,7 +328,7 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Get products for feedback
   const getProductsForFeedback = async () => {
@@ -265,11 +338,10 @@ const Profile = () => {
         routes.PRODUCTS_FOR_FEEDBACK("63a99f56c86322ace2ff6445"),
         {
           ...routes.getAccessTokenHeader(token),
-          ...routes.getProductsForFeedbackParamsId("63a99f56c86322ace2ff6445")
+          ...routes.getProductsForFeedbackParamsId("63a99f56c86322ace2ff6445"),
         }
       );
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -279,7 +351,7 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Write feedback
   const writeFeedback = async () => {
@@ -289,19 +361,19 @@ const Profile = () => {
         routes.WRITE_FEEDBACK("63a99f56c86322ace2ff6445"),
         routes.getWriteFeedbackBody([
           {
-            "productId": 636519,
-            "hideUsername": true,
-            "comment": "This is really amazing product, i like the design of product, I will buy it again!",
-            "rate": 5
-          }
+            productId: 636519,
+            hideUsername: true,
+            comment:
+              "This is really amazing product, i like the design of product, I will buy it again!",
+            rate: 5,
+          },
         ]),
         {
           ...routes.getAccessTokenHeader(token),
-          ...routes.getWriteFeedbackParamsId("63a99f56c86322ace2ff6445")
+          ...routes.getWriteFeedbackParamsId("63a99f56c86322ace2ff6445"),
         }
       );
       console.log(result.data);
-
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -311,7 +383,7 @@ const Profile = () => {
         console.log(err.message);
       }
     }
-  }
+  };
 
   //Up image for feedback
   const upImageForFeedback = async (file) => {
@@ -326,13 +398,15 @@ const Profile = () => {
         formData,
         {
           ...routes.getAccessTokenHeader(token),
-          ...routes.getUpImageForFeedbackParams("63a99f56c86322ace2ff6445", 636519)
+          ...routes.getUpImageForFeedbackParams(
+            "63a99f56c86322ace2ff6445",
+            636519
+          ),
         }
       );
       console.log(result.data);
-
     }
-  }
+  };
 
   return (
     <div>
@@ -354,7 +428,11 @@ const Profile = () => {
                       <Skeleton.Image
                         active
                         className="w-[150px] h-[150px]"
-                        style={{ borderRadius: 300, height: "150px",width:'150px' }}
+                        style={{
+                          borderRadius: 300,
+                          height: "150px",
+                          width: "150px",
+                        }}
                       />
                     )}
                     <img
@@ -395,16 +473,31 @@ const Profile = () => {
                 className="w-full h-[45px] px-4 font-normal text-[18px] text-red-400"
               />
             </Form.Item>
-            <AccountInput
-              name="address"
-              label={"Your address"}
-            />
-            <AddressSelect
-              form={form}
-              currItem={currItem}
-              containNote={false}
-              validate={false}
-            />
+            <AccountInput name="address" label={"Your address"} />
+            <div className="flex gap-x-[74px]">
+              <DefaultSelect
+                name="province"
+                custom={"flex-1"}
+                label="Province"
+                items={province}
+                handleChange={handleChangeProvince}
+              />
+              <DefaultSelect
+                name="district"
+                custom={"flex-1"}
+                label="District"
+                items={district}
+                handleChange={handleChangeDistrict}
+              />
+            </div>
+            <div className="flex gap-x-[74px]">
+              <DefaultSelect
+                name="ward"
+                custom={"flex-1"}
+                label="Ward"
+                items={ward}
+              />
+            </div>
             <button
               onClick={handleSave}
               className="w-[139px] h-[64px] mr-0 ml-auto default-button"

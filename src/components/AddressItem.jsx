@@ -65,7 +65,7 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
       );
       console.log(result);
       getAllAddress();
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -89,7 +89,8 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
           </p>
         </div>
         <p className="mt-8 text-[#9098B1] max-w-[85%] capitalize">
-          {data?.address +
+          {(data?.note ? `(${data?.note}) ` : '') +
+            data?.address +
             ", " +
             data?.ward.substring(data?.ward.indexOf("_") + 1) +
             ", " +
@@ -98,7 +99,10 @@ const AddressItem = ({ data, editAddress, currentUser, getAllAddress }) => {
             data?.province.substring(data?.province.indexOf("_") + 1)}
         </p>
         <div className="mt-[54px] address-modify-container">
-          <div onClick={handleSetAsDefault} className={`${theme.style} px-[10px] rounded-[5px]`}>
+          <div
+            onClick={handleSetAsDefault}
+            className={`${theme.style} px-[10px] rounded-[5px]`}
+          >
             <p>{theme.text}</p>
           </div>
           <div className="flex gap-x-[25px]">
