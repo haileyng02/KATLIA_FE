@@ -10,7 +10,7 @@ const AddAddressModal = ({
   currItem,
   currentUser,
   getAllAddress,
-  myDiv
+  myDiv,
 }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -144,17 +144,30 @@ const AddAddressModal = ({
   const onCancel = () => {
     handleCancel();
     form.resetFields();
-  }
+  };
 
   return (
     <Modal
       open={open}
       centered
       width={950}
-      footer={null}
+      footer={[
+        <button
+          onClick={handleCancel}
+          className="h-[40px] px-4 border-1 border-gray-400 rounded-[7px] hover:border-secondary hover:text-secondary"
+        >
+          Cancel
+        </button>,
+        <button
+          onClick={handleOk}
+          className="h-[40px] px-4 bg-primary hover:bg-secondary text-white rounded-[7px] ml-2 mr-[40px]"
+        >
+          {currItem ? "Confirm" : "Add Address"}
+        </button>,
+      ]}
       bodyStyle={{
-        paddingLeft: 100,
-        paddingRight: 100,
+        paddingLeft: 40,
+        paddingRight: 40,
         paddingTop: 30,
         paddingBottom: 30,
       }}
@@ -172,20 +185,6 @@ const AddAddressModal = ({
             checked={checked}
             setChecked={setChecked}
           />
-        </div>
-        <div className="flex gap-x-[162px] mt-6 justify-between h-[71px] text-[36px]">
-          <button
-            onClick={handleCancel}
-            className="flex-1 border-1 border-gray-400 rounded-[7px] hover:border-secondary hover:text-secondary"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleOk}
-            className="flex-1 bg-primary hover:bg-secondary text-white rounded-[7px]"
-          >
-            {currItem ? "Confirm" : "Add Address"}
-          </button>
         </div>
       </Spin>
     </Modal>
