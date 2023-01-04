@@ -1,28 +1,13 @@
-import React, { useState } from "react";
-import { Modal, Form, Upload, message, Checkbox, Rate, Divider } from "antd";
-import { LoadingOutlined, PlusOutlined, StarFilled } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { Modal, Form, Upload, Checkbox, Rate, Divider } from "antd";
+import { LoadingOutlined, PlusOutlined,  } from "@ant-design/icons";
 import CountingTextArea from "../CountingTextArea";
-
-const getBase64 = (img) => {
-  const reader = new FileReader();
-  reader.readAsDataURL(img);
-  return reader.result;
-};
 
 const RateProductModal = ({ open, handleCancel, items }) => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState(false);
+  const [images, setImages] = useState([]);
 
-  const handleChange = (info, i) => {
-    console.log(info);
-    console.log(i);
-    var temp = images;
-    temp[i] = URL.createObjectURL(info.file.originFileObj);
-    console.log(temp);
-    setImages(temp);
-  };
-  
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -36,18 +21,44 @@ const RateProductModal = ({ open, handleCancel, items }) => {
     </div>
   );
 
+  
+  const handleChange = (value, i) => {
+    if (i >= images.length) {
+      var temp = images;
+      temp[i] = value.file.originFileObj;
+      setImages(temp);
+    } else {
+      setImages(
+        images.map((image, index) =>
+          index === i ? value.file.originFileObj : image
+        )
+      );
+    }
+  };
+
   const handleUpload = ({ file, onSuccess }) => {
     setTimeout(() => {
       onSuccess("ok");
-      //   console.log(file);
     }, 0);
   };
 
   const handleOk = () => {
     form.validateFields().then((values) => {
-      console.log(form.getFieldsValue().feedbacks[0].image.file.originFileObj);
+      // console.log(images[0]);
+      // console.log(values);
+      handleUploadFeedbackImage(images[0])
     });
   };
+
+  const handleUploadFeedbackImage = (file) => {
+    if (file) {
+      //Call api upload
+    }
+  }
+
+  useEffect(() => {
+    // console.log(images)
+  }, [images]);
   return (
     <Modal
       open={open}
@@ -106,7 +117,10 @@ const RateProductModal = ({ open, handleCancel, items }) => {
                 index={i}
               />
               <h2 className="rate-title">Add Photo</h2>
-              <Form.Item name={["feedbacks", i, "image"]}>
+              <Form.Item
+                name={["feedbacks", i, "image"]}
+                getValueFromEvent={(value) => handleChange(value, i)}
+              >
                 <Upload
                   customRequest={handleUpload}
                   name="avatar"
@@ -116,14 +130,11 @@ const RateProductModal = ({ open, handleCancel, items }) => {
                   accept="image/*"
                   handleChange={(info) => handleChange(info, i)}
                 >
-                  {form.getFieldsValue().feedbacks &&
-                  form.getFieldsValue().feedbacks[i].image ? (
+                  {images[i] ? (
                     <img
-                      src={images[0]}
+                      src={URL.createObjectURL(images[i])}
                       alt="avatar"
-                      style={{
-                        width: "100%",
-                      }}
+                      className='aspect-square object-cover object-center'
                     />
                   ) : (
                     uploadButton

@@ -281,3 +281,7 @@ textarea.ant-input {
 .overflow-modal {
   @apply overflow-y-auto h-[70vh] px-4
 }
+
+.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
+  @apply rounded-none
+}
