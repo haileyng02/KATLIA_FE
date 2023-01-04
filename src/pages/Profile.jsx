@@ -47,9 +47,9 @@ const Profile = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (currentUser) getProfile();
-  // }, [currentUser]);
+  useEffect(() => {
+    if (currentUser) getProfile();
+  }, [currentUser]);
 
   useEffect(() => {
     if (avatar) setLoading(false);
