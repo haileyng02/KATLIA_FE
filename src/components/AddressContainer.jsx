@@ -6,14 +6,14 @@ import * as routes from "../api/apiRoutes";
 import AddressItem2 from "./AddressItem2";
 import AddAddressModal from "../components/AddAddressModal";
 
-const myDiv = document.getElementById("address-container");
-
 const AddressContainer = ({ setChosenAddress, chosenAddress }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [data, setData] = useState();
   const [addOpen, setAddOpen] = useState(false);
   const [currItem, setCurrItem] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const myDiv = document.getElementById("address-container");
 
   //Get all address
   const getAllAddress = async () => {
@@ -101,19 +101,23 @@ const AddressContainer = ({ setChosenAddress, chosenAddress }) => {
         id="address-container"
         className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4"
       >
-        {!loading ? data?.map((a, index) => {
-          return (
-            <AddressItem2
-              key={index}
-              data={a}
-              editAddress={() => editAddress(a.id)}
-              chosen={a?.id === chosenAddress?.id}
-              onClick={() => handleChooseAddress(a, index)}
-              currentUser={currentUser}
-              getAllAddress={getAllAddress}
-            />
-          );
-        }) : <Skeleton active/>}
+        {!loading ? (
+          data?.map((a, index) => {
+            return (
+              <AddressItem2
+                key={index}
+                data={a}
+                editAddress={() => editAddress(a.id)}
+                chosen={a?.id === chosenAddress?.id}
+                onClick={() => handleChooseAddress(a, index)}
+                currentUser={currentUser}
+                getAllAddress={getAllAddress}
+              />
+            );
+          })
+        ) : (
+          <Skeleton active />
+        )}
       </div>
       <AddAddressModal
         open={addOpen}

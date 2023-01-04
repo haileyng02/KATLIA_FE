@@ -58,6 +58,7 @@ const Cart = () => {
   };
 
   const handleUpdate = (id, quantity) => {
+    console.log('vl')
     const index = cart.cartItems.findIndex((obj) => obj.id === id);
     const temp = cart;
     temp.cartItems[index] = {
@@ -91,7 +92,6 @@ const Cart = () => {
   return (
     <div className="px-[150px] pt-[77px] text-[#22262A] ">
       <h1
-        onClick={getCart}
         className="text-[30px] leading-9 font-inter font-bold"
       >
         SHOPPING CART
