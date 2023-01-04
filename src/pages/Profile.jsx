@@ -310,48 +310,28 @@ const Profile = () => {
     }
   };
 
-  //Get feedbacks for product
-  const getFeedbacksForProduct = async () => {
-    try {
-      const token = currentUser.token;
-      const result = await appApi.get(routes.FEEDBACKS_FOR_PRODUCT(694571), {
-        ...routes.getAccessTokenHeader(token),
-        ...routes.getFeedbacksForProductParamsId(694571),
-      });
-      console.log(result.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
-
-  //Get products for feedback
-  const getProductsForFeedback = async () => {
-    try {
-      const token = currentUser.token;
-      const result = await appApi.get(
-        routes.PRODUCTS_FOR_FEEDBACK("63a99f56c86322ace2ff6445"),
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getProductsForFeedbackParamsId("63a99f56c86322ace2ff6445"),
-        }
-      );
-      console.log(result.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
+  // //Get products for feedback
+  // const getProductsForFeedback = async () => {
+  //   try {
+  //     const token = currentUser.token;
+  //     const result = await appApi.get(
+  //       routes.PRODUCTS_FOR_FEEDBACK("63a99f56c86322ace2ff6445"),
+  //       {
+  //         ...routes.getAccessTokenHeader(token),
+  //         ...routes.getProductsForFeedbackParamsId("63a99f56c86322ace2ff6445"),
+  //       }
+  //     );
+  //     console.log(result.data);
+  //   } catch (err) {
+  //     if (err.response) {
+  //       console.log(err.response.data);
+  //       console.log(err.response.status);
+  //       console.log(err.response.headers);
+  //     } else {
+  //       console.log(err.message);
+  //     }
+  //   }
+  // };
 
   return (
     <div>
