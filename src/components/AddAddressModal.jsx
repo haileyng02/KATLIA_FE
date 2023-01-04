@@ -16,8 +16,6 @@ const AddAddressModal = ({
   const [loading, setLoading] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  useEffect(() => {}, [currItem, form, open]);
-
   //Add address
   const addAddress = async (
     name,
@@ -92,7 +90,7 @@ const AddAddressModal = ({
         ),
         {
           ...routes.getAccessTokenHeader(token),
-          ...routes.getUpdateAddressIdParams("63a07f64900f9f3f53baa7a0"),
+          ...routes.getUpdateAddressIdParams(currItem.id),
         }
       );
       console.log(result);
