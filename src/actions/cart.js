@@ -19,12 +19,24 @@ export const deleteCartItem = (productId,quantity) => {
     };
 };
 
-export const updateCartItem = (productId,quantity) => {
+export const updateCartItem = (oldVal,newVal) => {
     return {
         type: "UPDATE_CART_ITEM",
-        payload: {productId,quantity},
+        payload: {oldVal,newVal},
     };
 };
+
+export const plusCart = () => {
+    return {
+        type: "PLUS_CART"
+    }
+}
+
+export const minusCart = () => {
+    return {
+        type: "MINUS_CART"
+    }
+}
 
 export const clearCart = () => {
     return {
