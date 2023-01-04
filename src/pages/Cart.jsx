@@ -58,7 +58,6 @@ const Cart = () => {
   };
 
   const handleUpdate = (id, quantity) => {
-    console.log('vl')
     const index = cart.cartItems.findIndex((obj) => obj.id === id);
     const temp = cart;
     temp.cartItems[index] = {
@@ -163,7 +162,8 @@ const Cart = () => {
             {/* Check out */}
             <button
               onClick={handleCheckOut}
-              className={`bg-primary hover:bg-secondary text-white w-full rounded-[5px] h-[60px] mt-[31px]`}
+              className={`${loading ? 'bg-[#CDCDCD]' : 'bg-primary hover:bg-secondary'} text-white w-full rounded-[5px] h-[60px] mt-[31px]`}
+              disabled={loading}
             >
               Check out
             </button>

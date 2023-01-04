@@ -39,7 +39,7 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
   };
 
   //Update Cart Item
-  const updateCartItemCall = async () => {
+  const updateCartItemCall = async (quantity) => {
     try {
       const result = await appApi.patch(
         routes.UPDATE_CART_ITEM,
@@ -65,15 +65,10 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
     deleteCartItemCall();
   };
 
-  const onUpdate = () => {
-    dispatch(updateCartItem(item.productId, quantity));
+  const onUpdate = (quantity) => {
     handleUpdate(item.id, quantity);
-    updateCartItemCall();
+    updateCartItemCall(quantity);
   };
-
-  useEffect(() => {
-    onUpdate();
-  }, [quantity]);
 
   return (
     <>
@@ -107,6 +102,8 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
             custom="text-[18px] h-[46px]"
             quantity={quantity}
             setQuantity={setQuantity}
+            isCart
+            onUpdate={onUpdate}
           />
         </td>
         <td className="cart-item text-right">
