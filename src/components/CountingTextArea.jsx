@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Form } from "antd";
 
-const CountingTextArea = ({ maxLength, placeholder }) => {
+const CountingTextArea = ({ maxLength, placeholder,index }) => {
   const [count, setCount] = useState(0);
   const handleOnChange = (e) => {
     setCount(e.target.value.length);
   };
   return (
     <div>
-      <Form.Item name={"textarea"}>
+      <Form.Item name={['feedbacks', index, 'textarea']}>
         <textarea
           maxLength={maxLength}
           placeholder={placeholder}
