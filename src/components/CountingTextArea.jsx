@@ -8,7 +8,7 @@ const CountingTextArea = ({ maxLength, placeholder,index }) => {
   };
   return (
     <div>
-      <Form.Item name={['feedbacks', index, 'textarea']}>
+      <Form.Item name={['feedbacks', index, 'textarea']} initialValue={''}>
         <textarea
           maxLength={maxLength}
           placeholder={placeholder}

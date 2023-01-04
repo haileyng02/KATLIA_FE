@@ -10,7 +10,7 @@ const ProductDetail = () => {
   return (
     <div className=" pt-[71px] font-inter">
       <MainProductContainer id={id}/>
-      <CustomerReviews/>
+      <CustomerReviews id={id}/>
       <hr className="black-line w-[50%] mt-[274px]" />
       {/* SIMILAR ITEMS */}
       <SimilarItems id={id} />
