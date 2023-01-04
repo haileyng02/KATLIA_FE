@@ -233,7 +233,6 @@ const AddAddressModal = ({
   };
 
   useEffect(() => {
-    console.log(open);
     if (!open) return;
     if (currItem) {
       form.setFieldsValue({
@@ -255,10 +254,6 @@ const AddAddressModal = ({
       default: value,
     });
   };
-
-  useEffect(() => {
-    console.log(open);
-  }, [open]);
 
   return (
     <Modal
