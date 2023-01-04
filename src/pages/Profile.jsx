@@ -353,61 +353,6 @@ const Profile = () => {
     }
   };
 
-  //Write feedback
-  const writeFeedback = async () => {
-    try {
-      const token = currentUser.token;
-      const result = await appApi.post(
-        routes.WRITE_FEEDBACK("63a99f56c86322ace2ff6445"),
-        routes.getWriteFeedbackBody([
-          {
-            productId: 636519,
-            hideUsername: true,
-            comment:
-              "This is really amazing product, i like the design of product, I will buy it again!",
-            rate: 5,
-          },
-        ]),
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getWriteFeedbackParamsId("63a99f56c86322ace2ff6445"),
-        }
-      );
-      console.log(result.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-        console.log(err.response.status);
-        console.log(err.response.headers);
-      } else {
-        console.log(err.message);
-      }
-    }
-  };
-
-  //Up image for feedback
-  const upImageForFeedback = async (file) => {
-    if (file) {
-      //Call api upload image
-      const token = currentUser.token;
-      const formData = new FormData();
-
-      formData.append("file", file);
-      const result = await appApi.patch(
-        routes.UP_IMAGE_FOR_FEEDBACk,
-        formData,
-        {
-          ...routes.getAccessTokenHeader(token),
-          ...routes.getUpImageForFeedbackParams(
-            "63a99f56c86322ace2ff6445",
-            636519
-          ),
-        }
-      );
-      console.log(result.data);
-    }
-  };
-
   return (
     <div>
       <h1 className="account-title">Profile</h1>
