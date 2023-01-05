@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { Input, Spin } from "antd";
 import AddressContainer from "../components/AddressContainer";
@@ -10,6 +10,7 @@ import paypalIcon from "../images/paypalIcon.svg";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import PurchaseSuccessModal from "../components/modals/PurchaseSuccessModal";
+import { clearCart } from "../actions/cart";
 
 const { TextArea } = Input;
 
@@ -33,6 +34,7 @@ const paymentMethods = [
 
 const DeliveryInformation = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const location = useLocation();
   const cart = location.state;
   const [chosenAddress, setChosenAddress] = useState();
@@ -62,6 +64,7 @@ const DeliveryInformation = () => {
       );
       console.log(result);
       setSuccessOpen(true);
+      dispatch(clearCart());
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -81,9 +84,7 @@ const DeliveryInformation = () => {
   return (
     <div className="px-[150px] pt-8 deli-info">
       <Spin size="large" spinning={loading}>
-        <h1 className="text-[30px] font-bold">
-          Delivery Information
-        </h1>
+        <h1 className="text-[30px] font-bold">Delivery Information</h1>
         <div className="flex mt-[40px] justify-between">
           {/* Left side */}
           <div className="w-[59%]">
