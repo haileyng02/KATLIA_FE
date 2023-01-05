@@ -17,7 +17,6 @@ const AddressContainer = ({ setChosenAddress, chosenAddress }) => {
 
   //Get all address
   const getAllAddress = async () => {
-    console.log("huh");
     setLoading(true);
     try {
       const token = currentUser.token;

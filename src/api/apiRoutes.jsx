@@ -308,7 +308,7 @@ export const UPDATE_AVA = '/profile/updateAva'
 //CHANGE PASSWORD
 export const CHANGE_PASSWORD = '/profile/changePassword'
 export const getChangePasswordBody = (
-  gender, 
+  {gender, 
   fullName, 
   phoneNumber, 
   birthday, 
@@ -319,7 +319,7 @@ export const getChangePasswordBody = (
   note, 
   oldPass, 
   newPass, 
-  confirmPass
+  confirmPass}
   ) => ({
   gender: gender,
   fullName: fullName,
