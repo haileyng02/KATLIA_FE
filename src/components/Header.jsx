@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "antd";
-import { logOut } from "../actions/auth";
-import { clearCart } from "../actions/cart";
 import Profile from "../images/Profile.svg";
 import CartButton from "./CartButton";
 import SearchField from "./SearchField";
+import logOutProgress from '../utils/logOutProgress'
 
 const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
 
@@ -34,10 +33,7 @@ const Header = () => {
         navigate("/account/profile");
         return;
       case "logout":
-        localStorage.clear(); 
-        dispatch(logOut()); 
-        dispatch(clearCart());
-        navigate('/');
+        logOutProgress(dispatch,navigate);
         return;
       default:
         return;

@@ -51,9 +51,9 @@ const DeliveryInformation = () => {
       const result = await appApi.put(
         routes.PURCHASE,
         routes.getPurchaseBody(
-          chosenAddress.name,
-          `${chosenAddress.phoneNumber}`,
-          chosenAddress.fullAddress,
+          chosenAddress.fullname,
+          `${chosenAddress.phonenumber}`,
+          chosenAddress.address,
           parseInt(paymentValue),
           noteValue,
           voucherValue
@@ -75,7 +75,6 @@ const DeliveryInformation = () => {
   };
 
   const handlePurchase = () => {
-    console.log(chosenAddress.phoneNumber);
     putPurchase();
   };
 
