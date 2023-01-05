@@ -24,6 +24,7 @@ const Header = () => {
     setCurrItem(navItem);
     let path = String(navItem).toLowerCase();
     if (navItem === "MEN" || navItem === "WOMEN") path = "products/"+navItem.toLowerCase()+'/all/page=1';
+    else if (navItem==='SALE') path='sale/men/all/page=1'
     navigate("/" + path);
   };
 

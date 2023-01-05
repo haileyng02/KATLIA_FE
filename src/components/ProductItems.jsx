@@ -50,7 +50,7 @@ const ProductItems = ({ loading, items }) => {
                 </div>
               ))
           : currentItems?.map((item, i) => (
-              <ProductThumbnail item={item} key={i} />
+              <ProductThumbnail item={item} key={i}/>
             ))}
       </div>
       {/* Pagination */}

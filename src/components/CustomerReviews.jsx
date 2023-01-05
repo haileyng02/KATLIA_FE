@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Rate } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
@@ -7,7 +6,6 @@ import FeedbackCategory from "./FeedbackCategory";
 import FeedbackContainer from "./FeedbackContainer";
 
 const CustomerReviews = ({ id }) => {
-  const { currentUser } = useSelector((state) => state.user);
   const [data, setData] = useState();
   const [feedbacks, setFeedbacks] = useState();
   const [currFilter, setCurrFilter] = useState("All");
@@ -47,9 +45,7 @@ const CustomerReviews = ({ id }) => {
   //Get feedbacks for product
   const getFeedbacksForProduct = async (id) => {
     try {
-      const token = currentUser.token;
       const result = await appApi.get(routes.FEEDBACKS_FOR_PRODUCT(id), {
-        ...routes.getAccessTokenHeader(token),
         ...routes.getFeedbacksForProductParamsId(id),
       });
       console.log(result.data);
@@ -66,10 +62,8 @@ const CustomerReviews = ({ id }) => {
     }
   };
   useEffect(() => {
-    if (currentUser) {
-      getFeedbacksForProduct(id);
-    }
-  }, [currentUser, id]);
+    getFeedbacksForProduct(id);
+  }, [id]);
 
   useEffect(() => {
     if (!data) return;
