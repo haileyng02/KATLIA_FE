@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DropDownIcon from "../images/DropDown.svg";
-import CloseIcon from "../images/CloseOutlined.svg";
+import { Select, Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import ProductItems from "./ProductItems";
-import { Select, Spin } from "antd";
+import DropDownIcon from "../images/DropDown.svg";
+import CloseIcon from "../images/CloseOutlined.svg";
+import noResultIcon from "../images/no-result.svg";
 
 const { Option } = Select;
 
@@ -307,7 +308,15 @@ const ProductsContainer = ({
           <img src={CloseIcon} alt="Close" />
         </div>
       </div>
-      <ProductItems loading={loading} items={items} />
+      {items != null && items.length === 0 ? (
+        <div className="w-full flex flex-col items-center justify-center h-[30vh]">
+          <img src={noResultIcon} alt="No result" />
+          <p className="font-inter font-light text-[13px] mt-[30px]">NO PRODUCTS WERE FOUND</p>
+          <p className="font-inter font-light text-[13px]">TRY REMOVE THE FILTER</p>
+        </div>
+      ) : (
+        <ProductItems loading={loading} items={items} />
+      )}
     </div>
   );
 };

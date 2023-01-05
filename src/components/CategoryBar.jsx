@@ -3,7 +3,7 @@ import { Skeleton } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 
-const CategoryBar = ({ categoryClick, currCategory, gender }) => {
+const CategoryBar = ({ categoryClick, currCategory, gender, header }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +61,7 @@ const CategoryBar = ({ categoryClick, currCategory, gender }) => {
   return (
     <div className="">
       {/* Menu Title */}
-      <h1 className=" text-[35px] leading-[44px] font-bold mb-[59px]">{[gender[0].toUpperCase(),...gender.substring(1)]}</h1>
+      <h1 className=" text-[35px] leading-[44px] font-bold mb-[59px]">{header || [gender[0].toUpperCase(),...gender.substring(1)]}</h1>
 
       {/* Side category bar */}
       <nav>
