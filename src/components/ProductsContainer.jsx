@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Select, Spin } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import ProductItems from "./ProductItems";
+import { getColors } from "../actions/colors";
 import DropDownIcon from "../images/DropDown.svg";
 import CloseIcon from "../images/CloseOutlined.svg";
 import noResultIcon from "../images/no-result.svg";
@@ -19,16 +21,19 @@ const ProductsContainer = ({
   getProductByGender,
   getProductByCategoryId,
 }) => {
-  const [colors, setColors] = useState();
+  const { colors } = useSelector((state) => state.colors);
+  const dispatch = useDispatch();
+  const [colorsData, setColors] = useState();
   const [sizes, setSizes] = useState();
   const [color, setColor] = useState();
   const [size, setSize] = useState();
 
-  //Get all colors
+  //Get all colorsData
   const getAllColors = async () => {
     try {
       const result = await appApi.get(routes.GET_ALL_COLORS);
       setColors(result.data);
+      dispatch(getColors(result.data));
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -41,7 +46,11 @@ const ProductsContainer = ({
   };
 
   useEffect(() => {
-    getAllColors();
+    if (colors) {
+      setColors(colors);
+    } else {
+      getAllColors();
+    }
     getAllSizes();
   }, []);
 
@@ -259,7 +268,7 @@ const ProductsContainer = ({
           <Select
             size="large"
             placeholder="Color"
-            loading={!colors}
+            loading={!colorsData}
             value={color}
             className="w-[201px] product-filter"
             onChange={handleColorChange}
@@ -270,7 +279,7 @@ const ProductsContainer = ({
                 .localeCompare((optionB?.label ?? "").toLowerCase())
             }
           >
-            {colors?.map((color, i) => (
+            {colorsData?.map((color, i) => (
               <Option key={i} value={color.colorId} label={color.color}>
                 <div className="row gap-x-[10px] font-inter font-[16px]">
                   <div

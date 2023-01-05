@@ -1,10 +1,8 @@
 import React from "react";
 import { Rate } from "antd";
 import dayjs from "dayjs";
-import defaultAva from "../images/feedback-default-ava.svg"
-
-const transparent =
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png";
+import defaultAva from "../images/feedback-default-ava.svg";
+import transparent from "../images/transparent.png";
 
 const Feedback = ({ feedback }) => {
   return (
@@ -19,7 +17,9 @@ const Feedback = ({ feedback }) => {
         />
         {/* Rate */}
         <div>
-          <h3 className="font-inter font-medium text-[14px]">{feedback.username}</h3>
+          <h3 className="font-inter font-medium text-[14px]">
+            {feedback.username}
+          </h3>
           <Rate value={feedback.rate} allowHalf disabled />
           <p className="font-inter text-[11px] text-[#9098B1] mt-[10px]">
             {dayjs(feedback.date).format("MMMM D, YYYY")}
