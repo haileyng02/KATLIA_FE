@@ -55,7 +55,7 @@ const DeliveryInformation = () => {
         routes.getPurchaseBody(
           chosenAddress.fullname,
           `${chosenAddress.phonenumber}`,
-          chosenAddress.address,
+          chosenAddress.address+', ' + chosenAddress.ward?.split('_')[1]+', ' + chosenAddress.district?.split('_')[1]+', ' + chosenAddress.province?.split('_')[1],
           parseInt(paymentValue),
           noteValue,
           voucherValue

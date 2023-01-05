@@ -26,18 +26,18 @@ const ChangePassword = () => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result.data);
-      openNotification({
+      dispatch(openNotification({
         type: "success",
         message: "Your password has been changed!",
         description:
-          "Your password has been changed! Please login again to the website.",
-      });
+          "Please re-login to the website.",
+      }))
       logOutProgress(dispatch,navigate);
     } catch (err) {
       form.setFields([
         {
           name: "current",
-          errors: ["This password is wrong"],
+          errors: [err.response.data.message],
         },
       ]);
       if (err.response) {
