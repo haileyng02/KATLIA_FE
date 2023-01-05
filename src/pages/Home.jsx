@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import mainPic1 from "../images/main-1.png";
 import mainPic2 from "../images/main-2.png";
 import mainArrow from "../images/shop-now-arrow.svg";
@@ -7,6 +8,12 @@ import ForMenFeatured from "../components/ForMenFeatured";
 import ForWomenFeatured from "../components/ForWomenFeatured";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleSaleClick = () => {
+    navigate('/sale/men/all/page=1')
+  }
+
   return (
     <div className="pt-[92px]">
       {/* Main */}
@@ -71,7 +78,7 @@ const Home = () => {
             <p className=" max-w-[350px] text-center">
               The hot sale period has now begun. Don’t miss the news
             </p>
-            <div className="w-[220px] h-20 mx-auto text-center items-center flex justify-center mt-11 border-1 border-black">
+            <div onClick={handleSaleClick} className="w-[220px] h-20 mx-auto text-center items-center flex justify-center mt-11 border-1 border-black cursor-pointer">
               SEE THE SALE
             </div>
           </div>

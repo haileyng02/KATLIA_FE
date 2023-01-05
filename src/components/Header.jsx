@@ -7,7 +7,7 @@ import CartButton from "./CartButton";
 import SearchField from "./SearchField";
 import logOutProgress from '../utils/logOutProgress'
 
-const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT"];
+const navData = ["MEN", "WOMEN", "SALE", "CONTACT", "ABOUT","M&M"];
 
 const items = [
   { label: "View Profile", key: "profile" },

@@ -12,6 +12,7 @@ import DeliveryInformation from './pages/DeliveryInformation';
 import About from './pages/About';
 import Search from './pages/Search';
 import Sale from './pages/Sale';
+import MixAndMatch from './pages/MixAndMatch';
 
 //Public routes
 const publicRoutes = [
@@ -28,6 +29,7 @@ const publicRoutes = [
     { path: '/reset-password/new-password', component: NewPassword },
     { path: '/search=:searchValue/page=:page', component: Search },
     { path: '/sale/:gender/:categoryPath/page=:page', component: Sale },
+    { path: '/m&m', component: MixAndMatch }
 ];
 
 //Private routes
