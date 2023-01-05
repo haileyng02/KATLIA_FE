@@ -262,6 +262,10 @@ textarea.ant-input {
   @apply flex items-center;
 }
 
+.between-row {
+  @apply flex items-center justify-between;
+}
+
 .product-filter.ant-select-single.ant-select-lg .ant-select-selector {
   @apply rounded-[5px]
 }
@@ -284,4 +288,8 @@ textarea.ant-input {
 
 .ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
   @apply rounded-none
+}
+
+.ant-rate{
+  @apply flex
 }
