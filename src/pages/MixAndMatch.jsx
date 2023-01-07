@@ -5,7 +5,12 @@ import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import MixItem from "../components/MixItem";
 import { getColors } from "../actions/colors";
-import { setMixItems, setMixGender, setMixColor, mixReset } from "../actions/mixmatch";
+import {
+  setMixItems,
+  setMixGender,
+  setMixColor,
+  mixReset,
+} from "../actions/mixmatch";
 import title from "../images/m&m-logo.svg";
 import arrowIcon from "../images/arrow.svg";
 import menImage from "../images/mix-men.png";
@@ -23,7 +28,13 @@ const MixAndMatch = () => {
   const [gender, setGender] = useState("men");
   const [colorId, setColorId] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState([{}, {}, {}, {}]);
+  const [items, setItems] = useState([
+    { loading: false },
+    { loading: false },
+    { loading: false },
+    { loading: false },
+  ]);
+  const [currIndex, setCurrIndex] = useState(0);
 
   //Get all colors
   const getAllColors = async () => {
@@ -45,6 +56,12 @@ const MixAndMatch = () => {
   //Mix and match
   const getMixAndMatch = async (gender, colorId) => {
     setLoading(true);
+    setItems([
+      { loading: false },
+      { loading: false },
+      { loading: false },
+      { loading: false },
+    ]);
     try {
       const result = await appApi.get(routes.MIX_AND_MATCH, {
         ...routes.getMixAndMatchParams(gender, colorId),
@@ -52,7 +69,7 @@ const MixAndMatch = () => {
       console.log(result.data);
       let newArray = [];
       for (let i = 1; i <= 4; i++) {
-        newArray[i] = result.data["item" + i].item;
+        newArray[i - 1] = result.data["item" + i].item;
       }
       setItems(newArray);
       dispatch(setMixItems(newArray));
@@ -75,8 +92,42 @@ const MixAndMatch = () => {
   const handleReset = () => {
     setGender("men");
     setColorId(0);
-    setItems([{}, {}, {}, {}]);
+    setItems([
+      { loading: false },
+      { loading: false },
+      { loading: false },
+      { loading: false },
+    ]);
     dispatch(mixReset());
+  };
+
+  const handleLoading = async () => {
+    if (loading) {
+      setItems(
+        items.map((item, i) =>
+          i === currIndex
+            ? { ...item, loading: true }
+            : { ...item, loading: false }
+        )
+      );
+      await new Promise((res) => setTimeout(res, 150));
+      switch (currIndex) {
+        case 0:
+          setCurrIndex(1);
+          break;
+        case 1:
+          setCurrIndex(3);
+          break;
+        case 2:
+          setCurrIndex(0);
+          break;
+        case 3:
+          setCurrIndex(2);
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   useEffect(() => {
@@ -97,6 +148,10 @@ const MixAndMatch = () => {
   useEffect(() => {
     dispatch(setMixColor(colorId));
   }, [colorId]);
+
+  useEffect(() => {
+    handleLoading();
+  }, [loading, currIndex]);
 
   return (
     <div className="flex mx-[150px] mt-8 h-[85vh] border-1 border-black rounded-10 relative">
@@ -160,7 +215,7 @@ const MixAndMatch = () => {
       <div className="flex-1 flex items-center justify-center relative">
         <div className="grid grid-cols-2 gap-x-[155px] gap-y-[44px]">
           {items.map((item, i) => (
-            <MixItem key={i} item={item} loading={loading} />
+            <MixItem key={i} item={item} loading={item.loading} />
           ))}
         </div>
         <img
