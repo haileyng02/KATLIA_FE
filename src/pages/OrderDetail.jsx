@@ -115,6 +115,15 @@ const OrderDetail = () => {
           <Skeleton active />
         )}
       </div>
+      {/* Note */}
+      <h2 className="order-detail-heading mt-[43px]">Note</h2>
+      <div className="mt-[14px] light-blue-border">
+        {!loading ? (
+          <p className="text-[#9098B1]">{order?.order.note}</p>
+        ) : (
+          <Skeleton active />
+        )}
+      </div>
       {/* Product */}
       <h2 className="order-detail-heading mt-[43px]">Product</h2>
       <div className="flex flex-col overflow-y-auto max-h-[380px] mt-5 gap-y-[14px]">

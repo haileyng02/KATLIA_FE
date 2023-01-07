@@ -162,9 +162,9 @@ const DeliveryInformation = () => {
               <p>{"$" + cart?.discount}</p>
             </div>
             <span className="h-[1px] bg-[#F6F7F8] self-stretch mt-7" />
-            <div className="flex justify-between mt-[29px] text-[#22262A]">
-              <h4>TOTAL</h4>
-              <p>{"$" + cart?.total}</p>
+            <div className="flex justify-between mt-[29px] text-[#22262A] font-semibold">
+              <h4 className="text-[25px]">TOTAL</h4>
+              <p className="text-[25px]">{"$" + cart?.total}</p>
             </div>
           </div>
         </div>
