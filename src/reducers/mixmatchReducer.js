@@ -1,5 +1,5 @@
 const initialState = {
-    mixItems: [{}, {}, {}, {}],
+    mixItems: [{loading:false}, {loading:false}, {loading:false}, {loading:false}],
     mixGender: 'men',
     mixColor: 0
 }
@@ -23,7 +23,7 @@ export const mixmatchReducer = (state = initialState, action) => {
             }
         case 'MIX_RESET':
             return {
-                mixItems: [{}, {}, {}, {}],
+                mixItems: [{loading:false}, {loading:false}, {loading:false}, {loading:false}],
                 mixGender: 'men',
                 mixColor: 0
             }
