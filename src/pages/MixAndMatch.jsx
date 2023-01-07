@@ -15,6 +15,7 @@ import title from "../images/m&m-logo.svg";
 import arrowIcon from "../images/arrow.svg";
 import menImage from "../images/mix-men.png";
 import womenImage from "../images/mix-women.png";
+import otherImage from "../images/mix-other.png";
 
 const { Option } = Select;
 
@@ -143,6 +144,20 @@ const MixAndMatch = () => {
 
   useEffect(() => {
     dispatch(setMixGender(gender));
+    setItems([
+      { loading: false },
+      { loading: false },
+      { loading: false },
+      { loading: false },
+    ]);
+    dispatch(
+      setMixItems([
+        { loading: false },
+        { loading: false },
+        { loading: false },
+        { loading: false },
+      ])
+    );
   }, [gender]);
 
   useEffect(() => {
@@ -169,6 +184,10 @@ const MixAndMatch = () => {
             {
               value: "women",
               label: "Women",
+            },
+            {
+              value: "other",
+              label: "Other",
             },
           ]}
           onChange={setGender}
@@ -219,7 +238,13 @@ const MixAndMatch = () => {
           ))}
         </div>
         <img
-          src={gender === "men" ? menImage : womenImage}
+          src={
+            gender === "men"
+              ? menImage
+              : gender === "women"
+              ? womenImage
+              : otherImage
+          }
           alt="men"
           className="absolute h-[67%]"
         />
