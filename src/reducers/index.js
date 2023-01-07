@@ -3,12 +3,14 @@ import authReducer from './authReducer'
 import notificationReducer from "./notificationReducer";
 import cartReducer from './cartReducer';
 import colorsReducer from './colorsReducer';
+import mixmatchReducer from "./mixmatchReducer";
 
 const allReducers = combineReducers({
   user: authReducer,
   notification: notificationReducer,
   cart: cartReducer,
-  colors: colorsReducer
+  colors: colorsReducer,
+  mixmatch: mixmatchReducer
 });
 
 export default allReducers;

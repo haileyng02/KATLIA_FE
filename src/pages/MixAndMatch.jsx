@@ -5,18 +5,25 @@ import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import MixItem from "../components/MixItem";
 import { getColors } from "../actions/colors";
+import { setMixItems, setMixGender, setMixColor, mixReset } from "../actions/mixmatch";
 import title from "../images/m&m-logo.svg";
 import arrowIcon from "../images/arrow.svg";
-import menImage from '../images/mix-men.png';
-import womenImage from '../images/mix-women.png';
+import menImage from "../images/mix-men.png";
+import womenImage from "../images/mix-women.png";
 
 const { Option } = Select;
 
 const MixAndMatch = () => {
   const dispatch = useDispatch();
   const { colors } = useSelector((state) => state.colors);
+  const { mixItems, mixGender, mixColor } = useSelector(
+    (state) => state.mixmatch
+  );
   const [colorsData, setColorsData] = useState();
-  const [gender,setGender] = useState('men');
+  const [gender, setGender] = useState("men");
+  const [colorId, setColorId] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [items, setItems] = useState([{}, {}, {}, {}]);
 
   //Get all colors
   const getAllColors = async () => {
@@ -35,19 +42,67 @@ const MixAndMatch = () => {
     }
   };
 
+  //Mix and match
+  const getMixAndMatch = async (gender, colorId) => {
+    setLoading(true);
+    try {
+      const result = await appApi.get(routes.MIX_AND_MATCH, {
+        ...routes.getMixAndMatchParams(gender, colorId),
+      });
+      console.log(result.data);
+      let newArray = [];
+      for (let i = 1; i <= 4; i++) {
+        newArray[i] = result.data["item" + i].item;
+      }
+      setItems(newArray);
+      dispatch(setMixItems(newArray));
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+    setLoading(false);
+  };
+
+  const handleMix = () => {
+    getMixAndMatch(gender, colorId);
+  };
+
+  const handleReset = () => {
+    setGender("men");
+    setColorId(0);
+    setItems([{}, {}, {}, {}]);
+    dispatch(mixReset());
+  };
+
   useEffect(() => {
     if (colors) {
       setColorsData(colors);
     } else {
       getAllColors();
     }
+    setItems(mixItems);
+    setGender(mixGender);
+    setColorId(mixColor);
   }, []);
 
+  useEffect(() => {
+    dispatch(setMixGender(gender));
+  }, [gender]);
+
+  useEffect(() => {
+    dispatch(setMixColor(colorId));
+  }, [colorId]);
+
   return (
-    <div className="flex mx-[150px] mt-8 h-[85vh] border-1 border-black rounded-10">
+    <div className="flex mx-[150px] mt-8 h-[85vh] border-1 border-black rounded-10 relative">
       {/* Select */}
       <div className="flex flex-col basis-[28.5%] bg-[#C85A275E] px-[47px] pt-[25px] h-full rounded-10">
-        <img src={title} alt="MIX & MATCH" className="max-w-[248px]"/>
+        <img src={title} alt="MIX & MATCH" className="max-w-[248px]" />
         <h2 className="text-[25px] mt-[8.5vh]">Choose gender:</h2>
         <Select
           defaultValue="men"
@@ -62,6 +117,7 @@ const MixAndMatch = () => {
             },
           ]}
           onChange={setGender}
+          value={gender}
           className="w-[81%] h-[40px] mt-[1.5vh]"
         />
         <h2 className="text-[25px] mt-[4.5vh]">Choose color:</h2>
@@ -70,6 +126,8 @@ const MixAndMatch = () => {
           placeholder="Color"
           defaultValue={0}
           loading={!colorsData}
+          onChange={setColorId}
+          value={colorId}
           className="w-[81%] h-[40px] mt-[1.5vh]"
           filterSort={(optionA, optionB) =>
             (optionA?.label ?? "")
@@ -90,7 +148,10 @@ const MixAndMatch = () => {
             </Option>
           ))}
         </Select>
-        <button className="px-[15px] h-[65px] w-fit rounded-[20px] bg-[#C85A275E] border-[2px] border-secondary mt-[64px] row justify-center gap-x-[16px]">
+        <button
+          onClick={handleMix}
+          className="px-[15px] h-[65px] w-fit rounded-[20px] bg-[#C85A275E] border-[2px] border-secondary hover:bg-secondary mt-[64px] row justify-center gap-x-[16px]"
+        >
           <p className="text-[25px] text-white">START MIXING</p>
           <img src={arrowIcon} alt="Arrow" />
         </button>
@@ -98,13 +159,23 @@ const MixAndMatch = () => {
       {/* Result */}
       <div className="flex-1 flex items-center justify-center relative">
         <div className="grid grid-cols-2 gap-x-[155px] gap-y-[44px]">
-          <MixItem />
-          <MixItem />
-          <MixItem />
-          <MixItem />
+          {items.map((item, i) => (
+            <MixItem key={i} item={item} loading={loading} />
+          ))}
         </div>
-        <img src={gender==='men' ? menImage : womenImage} alt='men' className="absolute h-[67%]"/>
+        <img
+          src={gender === "men" ? menImage : womenImage}
+          alt="men"
+          className="absolute h-[67%]"
+        />
       </div>
+      {/* Reset */}
+      <p
+        onClick={handleReset}
+        className="text-[15px] text-[#1565C0] underline absolute right-[27px] top-[15px] cursor-pointer hover:brightness-125"
+      >
+        Reset
+      </p>
     </div>
   );
 };
