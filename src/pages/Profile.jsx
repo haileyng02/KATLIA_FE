@@ -259,6 +259,30 @@ const Profile = () => {
   //   }
   // };
 
+  //Mix and match
+  const getMixAndMatch = async () => {
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(
+        routes.MIX_AND_MATCH,
+        {
+          ...routes.getAccessTokenHeader(token),
+          ...routes.getMixAndMatchParams("men", 1)
+        }
+      );
+      console.log(result.data);
+
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+  }
+
   return (
     <div>
       <h1 className="account-title">Profile</h1>

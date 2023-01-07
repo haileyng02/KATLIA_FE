@@ -384,3 +384,12 @@ export const getUpImageForFeedbackParams = (orderId, productId) => ({
     productId: productId
   }
 })
+
+//MIX AND MATCH
+export const MIX_AND_MATCH = '/mix/mixAndMatch'
+export const getMixAndMatchParams = (gender, colorId) => ({
+  params: {
+    gender: gender,
+    colorId: colorId
+  }
+})
