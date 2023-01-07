@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Skeleton, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import transparent from "../images/transparent.png";
 
 const MixItem = ({ item, loading }) => {
