@@ -17,7 +17,7 @@ const Order = () => {
         routes.GET_ORDER_HISTORY,
         routes.getAccessTokenHeader(token)
       );
-      console.log(result);
+      console.log(result.data)
       setOrders([...result.data]);
     } catch (err) {
       if (err.response) {

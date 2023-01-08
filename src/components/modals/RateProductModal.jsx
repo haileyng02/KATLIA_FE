@@ -10,10 +10,9 @@ import { openNotification } from "../../actions/notification";
 const RateProductModal = ({
   open,
   handleCancel,
-  items,
   currentUser,
   orderId,
-  getOrderDetail
+  getOrderDetail,
 }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
@@ -21,6 +20,7 @@ const RateProductModal = ({
   const [images, setImages] = useState([]);
   const [imagesDone, setImagesDone] = useState(0);
   const [writeDone, setwriteDone] = useState(false);
+  const [items,setItems] = useState();
 
   const uploadButton = (
     <div>
@@ -34,6 +34,28 @@ const RateProductModal = ({
       </div>
     </div>
   );
+
+  //Get products for feedback
+  const getProductsForFeedback = async () => {
+    setLoading(true);
+    try {
+      const token = currentUser.token;
+      const result = await appApi.get(routes.PRODUCTS_FOR_FEEDBACK(orderId), {
+        ...routes.getAccessTokenHeader(token),
+        ...routes.getProductsForFeedbackParamsId(orderId),
+      });
+      setItems(result.data);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+        console.log(err.response.status);
+        console.log(err.response.headers);
+      } else {
+        console.log(err.message);
+      }
+    }
+    setLoading(false);
+  };
 
   //Write feedback
   const writeFeedback = async (feedbackArray) => {
@@ -156,6 +178,10 @@ const RateProductModal = ({
   };
 
   useEffect(() => {
+    if (orderId) getProductsForFeedback();
+  }, [orderId]);
+
+  useEffect(() => {
     if (imagesDone === images.length && writeDone) {
       setLoading(false);
       onCancel();
@@ -218,7 +244,7 @@ const RateProductModal = ({
                     className="w-[42px] h-[67px] object-fit object-center"
                   />
                   <h3 className="font-inter font-semibold text-[18px]">
-                    Basic Knit Sweater
+                    {item.name}
                   </h3>
                 </div>
                 <h2 className="rate-title">Product Quality</h2>
