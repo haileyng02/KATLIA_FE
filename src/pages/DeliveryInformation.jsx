@@ -10,6 +10,7 @@ import paypalIcon from "../images/paypalIcon.svg";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import PurchaseSuccessModal from "../components/modals/PurchaseSuccessModal";
+import ErrorModal from "../components/modals/ErrorModal";
 import { clearCart } from "../actions/cart";
 
 const { TextArea } = Input;
@@ -42,6 +43,7 @@ const DeliveryInformation = () => {
   const [paymentValue, setPaymentValue] = useState(0);
   const [voucherValue, setVoucherValue] = useState("");
   const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   //Put Purchase
@@ -55,7 +57,13 @@ const DeliveryInformation = () => {
         routes.getPurchaseBody(
           chosenAddress.fullname,
           `${chosenAddress.phonenumber}`,
-          chosenAddress.address+', ' + chosenAddress.ward?.split('_')[1]+', ' + chosenAddress.district?.split('_')[1]+', ' + chosenAddress.province?.split('_')[1],
+          chosenAddress.address +
+            ", " +
+            chosenAddress.ward?.split("_")[1] +
+            ", " +
+            chosenAddress.district?.split("_")[1] +
+            ", " +
+            chosenAddress.province?.split("_")[1],
           parseInt(paymentValue),
           noteValue,
           voucherValue
@@ -78,7 +86,11 @@ const DeliveryInformation = () => {
   };
 
   const handlePurchase = () => {
-    putPurchase();
+    if (!chosenAddress) {
+      setErrorOpen(true);
+    } else {
+      putPurchase();
+    }
   };
 
   return (
@@ -178,6 +190,11 @@ const DeliveryInformation = () => {
         }}
         open={successOpen}
         handleCancel={() => setSuccessOpen(false)}
+      />
+      <ErrorModal
+        text="Please choose or add an address"
+        open={errorOpen}
+        handleCancel={() => setErrorOpen(false)}
       />
     </div>
   );

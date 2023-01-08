@@ -101,6 +101,8 @@ const AddressContainer = ({ setChosenAddress, chosenAddress }) => {
         className="grid grid-flow-col auto-cols-[370px] overflow-x-auto gap-x-[29px] pb-4"
       >
         {!loading ? (
+          data &&
+          data[0] != null &&
           data?.map((a, index) => {
             return (
               <AddressItem2

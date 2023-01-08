@@ -48,23 +48,23 @@ const AddressItem2 = ({
     >
       <p
         className={`${
-          data.setAsDefault ? "text-[#F9AF5E]" : "text-transparent"
+          data?.setAsDefault ? "text-[#F9AF5E]" : "text-transparent"
         } underline underline-offset-4 font-inter mb-2`}
       >
         Default
       </p>
-      <h3 className="text-[#223263] capitalize">{data.fullname}</h3>
+      <h3 className="text-[#223263] capitalize">{data?.fullname}</h3>
       <p className="text-[#9098B1] mt-[17px] capitalize">
         {(data?.note ? `(${data?.note}) ` : "") +
-          data.address +
+          data?.address +
           ", " +
-          data.ward.substring(data.ward.indexOf("_") + 1) +
+          data?.ward.substring(data?.ward.indexOf("_") + 1) +
           ", " +
-          data.district.substring(data.district.indexOf("_") + 1) +
+          data?.district.substring(data?.district.indexOf("_") + 1) +
           ", " +
-          data.province.substring(data.province.indexOf("_") + 1)}
+          data?.province.substring(data?.province.indexOf("_") + 1)}
       </p>
-      <p className="address-phone mt-4">{"(+84) " + data.phonenumber}</p>
+      <p className="address-phone mt-4">{"(+84) " + data?.phonenumber}</p>
       <div
         className={`flex items-center ${
           !chosen ? "justify-between" : "justify-end"
