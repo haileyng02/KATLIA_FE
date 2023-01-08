@@ -94,12 +94,19 @@ const AddAddressModal = ({
 
   const handleChangeProvince = (value) => {
     if (value !== "default") {
+      form.setFieldsValue({
+        district: null,
+        ward: null
+      });
       fetchDistricts(value);
     }
   };
 
   const handleChangeDistrict = (value) => {
     if (value !== "default") {
+      form.setFieldsValue({
+        ward: null
+      });
       fetchWards(value);
     }
   };
