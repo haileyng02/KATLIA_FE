@@ -140,7 +140,7 @@ const RateProductModal = ({
         values.feedbacks.map((value, i) => {
           return {
             productId: items[i].productId,
-            hideUsername: value.hideUsername,
+            hideUsername: !value.showUsername,
             comment: value.textarea,
             rate: value.rate,
           };
@@ -150,7 +150,7 @@ const RateProductModal = ({
         values.feedbacks.map((value, i) => {
           return {
             productId: items[i].productId,
-            hideUsername: value.hideUsername,
+            hideUsername: !value.showUsername,
             comment: value.textarea,
             rate: value.rate,
           };
@@ -292,7 +292,7 @@ const RateProductModal = ({
                 </Form.Item>
                 <div className="row gap-x-[10px] mt-[20px]">
                   <Form.Item
-                    name={["feedbacks", i, "hideUsername"]}
+                    name={["feedbacks", i, "showUsername"]}
                     valuePropName="checked"
                     initialValue={false}
                   >
