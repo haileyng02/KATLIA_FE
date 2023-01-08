@@ -9,7 +9,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { signIn } from "./actions/auth";
-import MessengerCustomerChat from "react-messenger-customer-chat";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,8 +64,6 @@ function App() {
           })}
         </Routes>
       </div>
-      <MessengerCustomerChat pageId="100089354018303" appId="858996148651686" />
-      ,
       <Footer />
     </div>
   );
