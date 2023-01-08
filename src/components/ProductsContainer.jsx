@@ -321,7 +321,6 @@ const ProductsContainer = ({
         <div className="w-full flex flex-col items-center justify-center h-[30vh]">
           <img src={noResultIcon} alt="No result" />
           <p className="font-inter font-light text-[13px] mt-[30px]">NO PRODUCTS WERE FOUND</p>
-          <p className="font-inter font-light text-[13px]">TRY REMOVE THE FILTER</p>
         </div>
       ) : (
         <ProductItems loading={loading} items={items} />

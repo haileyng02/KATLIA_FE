@@ -163,6 +163,10 @@ const OrderDetail = () => {
               <h4 className="text-kaliablue">Total Price</h4>
               <p className="text-kaliayellow">{"$" + order?.order.total}</p>
             </div>
+            <div className="flex justify-between">
+              <h4 className="text-kaliablue">Payment Method</h4>
+              <p>{order?.order.payment}</p>
+            </div>
           </>
         ) : (
           <Skeleton active />

@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
-import { deleteCartItem, updateCartItem } from "../actions/cart";
+import { deleteCartItem } from "../actions/cart";
 import Quantity from "./Quantity";
 import DeleteIcon from "../images/Delete.svg";
-import { useEffect } from "react";
 
 const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
   const { currentUser } = useSelector((state) => state.user);
@@ -95,7 +94,18 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
             <h2 className="cart-item ml-[68px] text-left">{item?.name}</h2>
           </div>
         </td>
-        <td className="cart-item">{"$" + item?.unit}</td>
+        <td>
+          {item?.unitSale ? (
+            <>
+              <p className="cart-item line-through text-primary">
+                {"$" + item?.unit}
+              </p>
+              <p className="cart-item">{"$" + item?.unitSale}</p>
+            </>
+          ) : (
+            <p className="cart-item">{"$" + item?.unit}</p>
+          )}
+        </td>
         {/* Quantity */}
         <td className="w-[125px]">
           <Quantity
@@ -106,8 +116,19 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
             onUpdate={onUpdate}
           />
         </td>
-        <td className="cart-item text-right">
-          {"$" + (item?.unit * quantity).toFixed(2)}
+        <td>
+          {item?.unitSale ? (
+            <>
+              <p className="cart-item text-right line-through text-primary">
+                {"$" + (item?.unit * quantity).toFixed(2)}
+              </p>
+              <p className="cart-item text-right">{"$" + (item?.unitSale * quantity).toFixed(2)}</p>
+            </>
+          ) : (
+            <p className="cart-item text-right">
+              {"$" + (item?.unit * quantity).toFixed(2)}
+            </p>
+          )}
         </td>
       </tr>
       {/* <tr className="text-[16px] text-[#FF0202]">
