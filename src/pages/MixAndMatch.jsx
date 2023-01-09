@@ -26,7 +26,7 @@ const MixAndMatch = () => {
     (state) => state.mixmatch
   );
   const [colorsData, setColorsData] = useState();
-  const [gender, setGender] = useState("men");
+  const [gender, setGender] = useState();
   const [colorId, setColorId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([
@@ -137,27 +137,31 @@ const MixAndMatch = () => {
     } else {
       getAllColors();
     }
-    setItems(mixItems);
     setGender(mixGender);
     setColorId(mixColor);
   }, []);
 
   useEffect(() => {
+    if (!gender) return;
     dispatch(setMixGender(gender));
-    setItems([
-      { loading: false },
-      { loading: false },
-      { loading: false },
-      { loading: false },
-    ]);
-    dispatch(
-      setMixItems([
+    if (!items[0].name) {
+      setItems(mixItems);
+    } else {
+      setItems([
         { loading: false },
         { loading: false },
         { loading: false },
         { loading: false },
-      ])
-    );
+      ]);
+      dispatch(
+        setMixItems([
+          { loading: false },
+          { loading: false },
+          { loading: false },
+          { loading: false },
+        ])
+      );
+    }
   }, [gender]);
 
   useEffect(() => {
