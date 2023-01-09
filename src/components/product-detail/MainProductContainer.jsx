@@ -7,7 +7,7 @@ import ColorIcon from "../ColorIcon";
 import ImagesContainer from "../product-detail/ImagesContainer";
 import * as routes from "../../api/apiRoutes";
 import appApi from "../../api/appApi";
-import {addToCart} from '../../actions/cart'
+import { addToCart } from "../../actions/cart";
 import CartIcon from "../../images/Cart2.svg";
 
 const MainProductContainer = ({ id }) => {
@@ -20,19 +20,6 @@ const MainProductContainer = ({ id }) => {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    getProductDetail(id);
-    window.scrollTo(0, 0);
-  }, [id]);
-
-  useEffect(() => {
-    setCurrentColor(item?.colorList[0]);
-  }, [item]);
-
-  useEffect(() => {
-    setCurrentSize(currentColor?.details[0].size);
-  }, [currentColor]);
-
   //Get Product Detail
   const getProductDetail = async (id) => {
     setLoading(true);
@@ -42,7 +29,7 @@ const MainProductContainer = ({ id }) => {
         routes.getProductDetail(id)
       );
       setItem(data.data);
-      console.log(data.data)
+      console.log(data.data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -62,7 +49,12 @@ const MainProductContainer = ({ id }) => {
 
       const result = await appApi.post(
         routes.ADD_ITEM_TO_CART,
-        routes.getAddCartBody(parseInt(id), currentColor.id, currentSize, quantity),
+        routes.getAddCartBody(
+          parseInt(id),
+          currentColor.id,
+          currentSize,
+          quantity
+        ),
         routes.getAccessTokenHeader(token)
       );
       console.log(result);
@@ -79,7 +71,7 @@ const MainProductContainer = ({ id }) => {
 
   const handleAddToCart = () => {
     if (currentUser != null) {
-      dispatch(addToCart(item,quantity))
+      dispatch(addToCart(item, quantity));
       addItemToCart();
     } else {
       navigate("/signin");
@@ -93,6 +85,24 @@ const MainProductContainer = ({ id }) => {
   const sizeOnClick = (size) => {
     setCurrentSize(size);
   };
+
+  useEffect(() => {
+    getProductDetail(id);
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  useEffect(() => {
+    setCurrentColor(item?.colorList[0]);
+  }, [item]);
+
+  useEffect(() => {
+    setCurrentSize(currentColor?.details[0]);
+  }, [currentColor]);
+
+  useEffect(() => {
+    console.log(currentSize);
+    console.log(quantity);
+  }, [quantity]);
 
   return (
     <div className="px-[150px] flex items-start justify-between">
@@ -123,17 +133,19 @@ const MainProductContainer = ({ id }) => {
                   <div
                     key={i}
                     className={`w-[64px] h-[66px]  flex cursor-pointer ${
-                      currentSize === s.size
+                      currentSize?.size === s.size
                         ? "bg-primary"
                         : "bg-[#D9D9D9] hover:border-2 hover:border-primary hover:border-solid"
                     }`}
-                    onClick={() => sizeOnClick(s.size)}
+                    onClick={() => sizeOnClick(s)}
                   >
                     <h3
                       className={`${
                         s.size === "ONESIZE" ? "text-[14px]" : "text-[18px]"
                       } leading-[42px] m-auto ${
-                        currentSize === s.size ? "text-white" : "text-nav-item "
+                        currentSize?.size === s.size
+                          ? "text-white"
+                          : "text-nav-item "
                       }`}
                     >
                       {s.size}
@@ -144,14 +156,29 @@ const MainProductContainer = ({ id }) => {
             </div>
             <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
               {/* Quantity */}
-              <Quantity custom="w-[124px] h-[50px]" quantity={quantity} setQuantity={setQuantity}/>
+              <Quantity
+                custom="w-[124px] h-[50px]"
+                quantity={quantity}
+                setQuantity={setQuantity}
+              />
               {/* Add To Cart */}
               <div
                 onClick={handleAddToCart}
+                disabled={currentSize && quantity>currentSize.quantity}
                 className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer"
               >
-                <img src={CartIcon} alt="Cart" className="h-[17px] w-[17px]" />
-                <h3 className=" text-secondary">Add To Cart</h3>
+                {(currentSize && quantity <= currentSize.quantity) ? (
+                  <>
+                    <img
+                      src={CartIcon}
+                      alt="Cart"
+                      className="h-[17px] w-[17px]"
+                    />
+                    <h3 className=" text-secondary">Add To Cart</h3>
+                  </>
+                ) : (
+                  <p>OUT OF STOCK</p>
+                )}
               </div>
             </div>
           </div>
