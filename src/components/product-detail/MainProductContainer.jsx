@@ -52,7 +52,7 @@ const MainProductContainer = ({ id }) => {
         routes.getAddCartBody(
           parseInt(id),
           currentColor.id,
-          currentSize,
+          currentSize.size,
           quantity
         ),
         routes.getAccessTokenHeader(token)
@@ -164,7 +164,7 @@ const MainProductContainer = ({ id }) => {
               {/* Add To Cart */}
               <div
                 onClick={handleAddToCart}
-                disabled={currentSize && quantity>currentSize.quantity}
+                // disabled={currentSize && quantity>currentSize.quantity}
                 className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer"
               >
                 {(currentSize && quantity <= currentSize.quantity) ? (
