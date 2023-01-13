@@ -25,7 +25,6 @@ const Cart = () => {
         routes.GET_CART,
         routes.getAccessTokenHeader(token)
       );
-      console.log(result.data);
       if (result.data.message==="No item in cart") {
         setCart({cartItems:[]});
         return;

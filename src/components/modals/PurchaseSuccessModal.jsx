@@ -17,10 +17,6 @@ const PurchaseSuccessModal = ({ open, handleCancel, data }) => {
     handleCancel();
   };
 
-  useEffect(()=>{
-    console.log(data)
-  },[data])
-
   return (
     <Modal open={open} onCancel={handleViewOrders} centered footer={null}>
       <div className="flex flex-col items-center">

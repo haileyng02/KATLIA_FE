@@ -57,13 +57,7 @@ const DeliveryInformation = () => {
         routes.getPurchaseBody(
           chosenAddress.fullname,
           `${chosenAddress.phonenumber}`,
-          chosenAddress.address +
-            ", " +
-            chosenAddress.ward?.split("_")[1] +
-            ", " +
-            chosenAddress.district?.split("_")[1] +
-            ", " +
-            chosenAddress.province?.split("_")[1],
+          getFullAddress(chosenAddress),
           parseInt(paymentValue),
           noteValue,
           voucherValue
@@ -92,6 +86,15 @@ const DeliveryInformation = () => {
       putPurchase();
     }
   };
+
+  const getFullAddress = (value) =>
+    value.address +
+    ", " +
+    value.ward?.split("_")[1] +
+    ", " +
+    value.district?.split("_")[1] +
+    ", " +
+    value.province?.split("_")[1];
 
   return (
     <div className="px-[150px] pt-8 deli-info">
@@ -183,9 +186,9 @@ const DeliveryInformation = () => {
       </Spin>
       <PurchaseSuccessModal
         data={{
-          name: chosenAddress?.name,
-          phone: chosenAddress?.phoneNumber,
-          address: chosenAddress?.fullAddress,
+          name: chosenAddress?.fullname,
+          phone: chosenAddress?.phonenumber,
+          address: chosenAddress && getFullAddress(chosenAddress),
           amount: cart?.total,
         }}
         open={successOpen}
