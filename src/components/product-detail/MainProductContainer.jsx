@@ -162,12 +162,16 @@ const MainProductContainer = ({ id }) => {
                 setQuantity={setQuantity}
               />
               {/* Add To Cart */}
-              <div
+              <button
                 onClick={handleAddToCart}
-                // disabled={currentSize && quantity>currentSize.quantity}
-                className="flex bg-[#EBF6FF] rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer"
+                disabled={currentSize && quantity > currentSize.quantity}
+                className={`flex rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer ${
+                  currentSize && quantity <= currentSize.quantity
+                    ? "bg-[#EBF6FF]"
+                    : "text-white bg-[#CDCDCD] cursor-not-allowed"
+                }`}
               >
-                {(currentSize && quantity <= currentSize.quantity) ? (
+                {currentSize && quantity <= currentSize.quantity ? (
                   <>
                     <img
                       src={CartIcon}
@@ -179,7 +183,7 @@ const MainProductContainer = ({ id }) => {
                 ) : (
                   <p>OUT OF STOCK</p>
                 )}
-              </div>
+              </button>
             </div>
           </div>
         </>
