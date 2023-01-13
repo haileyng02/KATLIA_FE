@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 import successIcon from "../../images/success.svg";
+import { useEffect } from "react";
 
 const PurchaseSuccessModal = ({ open, handleCancel, data }) => {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ const PurchaseSuccessModal = ({ open, handleCancel, data }) => {
     navigate("/account/order");
     handleCancel();
   };
+
+  useEffect(()=>{
+    console.log(data)
+  },[data])
 
   return (
     <Modal open={open} onCancel={handleViewOrders} centered footer={null}>

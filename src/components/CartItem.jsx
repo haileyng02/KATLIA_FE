@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tooltip } from "antd";
 import appApi from "../api/appApi";
@@ -11,6 +11,7 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(item?.quantity);
+  const [error, setError] = useState("");
 
   //Delete Cart Item
   const deleteCartItemCall = async () => {
@@ -24,7 +25,6 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
           id: item.id,
         },
       });
-      console.log(data);
       getCart();
     } catch (err) {
       if (err.response) {
@@ -45,7 +45,6 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
         routes.getUpdateCartBody(item.id, quantity),
         routes.getAccessTokenHeader(currentUser.token)
       );
-      console.log(result);
       getCart();
     } catch (err) {
       if (err.response) {
@@ -68,6 +67,14 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
     handleUpdate(item.id, quantity);
     updateCartItemCall(quantity);
   };
+
+  useEffect(() => {
+    if (quantity < item.instock) {
+      if (error !== "") {
+        setError("");
+      }
+    }
+  }, [quantity]);
 
   return (
     <>
@@ -114,6 +121,8 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
             setQuantity={setQuantity}
             isCart
             onUpdate={onUpdate}
+            instock={item?.instock}
+            setError={setError}
           />
         </td>
         <td>
@@ -122,7 +131,9 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
               <p className="cart-item text-right line-through text-primary">
                 {"$" + (item?.unit * quantity).toFixed(2)}
               </p>
-              <p className="cart-item text-right">{"$" + (item?.unitSale * quantity).toFixed(2)}</p>
+              <p className="cart-item text-right">
+                {"$" + (item?.unitSale * quantity).toFixed(2)}
+              </p>
             </>
           ) : (
             <p className="cart-item text-right">
@@ -131,10 +142,12 @@ const CartItem = ({ item, handleDelete, handleUpdate, getCart }) => {
           )}
         </td>
       </tr>
-      {/* <tr className="text-[16px] text-[#FF0202]">
-        <td></td>
-        <td colSpan={4}>Item has reached its maximum quantity</td>
-      </tr> */}
+      {error !== "" && (
+        <tr className="text-[16px] text-[#FF0202]">
+          <td></td>
+          <td colSpan={4}>{error}</td>
+        </tr>
+      )}
     </>
   );
 };
