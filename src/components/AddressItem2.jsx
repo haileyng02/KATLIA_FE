@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Spin, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import WarningModal from "./modals/WarningModal";
@@ -55,8 +55,8 @@ const AddressItem2 = ({
       </p>
       <h3 className="text-[#223263] capitalize">{data?.fullname}</h3>
       <p className="text-[#9098B1] mt-[17px] capitalize">
-        {(data?.note ? `(${data?.note}) ` : "") +
-          data?.address +
+        <span className="normal-case">{data?.note ? `(${data?.note}) ` : ""}</span>
+        {data?.address +
           ", " +
           data?.ward.substring(data?.ward.indexOf("_") + 1) +
           ", " +

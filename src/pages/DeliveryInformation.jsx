@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import { Input, Spin } from "antd";
+import appApi from "../api/appApi";
+import * as routes from "../api/apiRoutes";
+import { clearCart } from "../actions/cart";
 import AddressContainer from "../components/AddressContainer";
 import ProductThumbnail3 from "../components/ProductThumbnail3";
+import PurchaseSuccessModal from "../components/modals/PurchaseSuccessModal";
+import ErrorModal from "../components/modals/ErrorModal";
+import toTitleCase from '../utils/toTitleCase';
 import codIcon from "../images/codIcon.svg";
 import cardIcon from "../images/cardIcon.svg";
 import paypalIcon from "../images/paypalIcon.svg";
-import appApi from "../api/appApi";
-import * as routes from "../api/apiRoutes";
-import PurchaseSuccessModal from "../components/modals/PurchaseSuccessModal";
-import ErrorModal from "../components/modals/ErrorModal";
-import { clearCart } from "../actions/cart";
 
 const { TextArea } = Input;
 
@@ -88,7 +89,8 @@ const DeliveryInformation = () => {
   };
 
   const getFullAddress = (value) =>
-    value.address +
+    (value.note ? `(${value.note}) ` : "") +
+    toTitleCase(value.address) +
     ", " +
     value.ward?.split("_")[1] +
     ", " +
