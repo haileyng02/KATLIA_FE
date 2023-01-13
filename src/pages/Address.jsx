@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal, Skeleton } from "antd";
+import { Skeleton } from "antd";
 import appApi from "../api/appApi";
 import * as routes from "../api/apiRoutes";
 import AddressItem from "../components/AddressItem";
 import AddAddressModal from "../components/AddAddressModal";
+import noAddressIcon from '../images/no-address.svg';
 
 const Address = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -75,15 +76,22 @@ const Address = () => {
       <h1 className="account-title">Address</h1>
       <div className="mt-[30px] flex flex-col gap-y-[22px]">
         {!loading ? (
-          data?.map((a, i) => (
-            <AddressItem
-              key={i}
-              data={a}
-              editAddress={() => editAddress(a.id)}
-              currentUser={currentUser}
-              getAllAddress={getAllAddress}
-            />
-          ))
+          data ? (
+            data?.map((a, i) => (
+              <AddressItem
+                key={i}
+                data={a}
+                editAddress={() => editAddress(a.id)}
+                currentUser={currentUser}
+                getAllAddress={getAllAddress}
+              />
+            ))
+          ) : (
+            <div className="flex flex-col items-center justify-center h-[35vh]">
+              <img src={noAddressIcon} alt='No address'/>
+              <p className="font-inter font-light text-13 mt-5">YOU HAVEN'T ADDED ANY ADDRESS</p>
+            </div>
+          )
         ) : (
           <Skeleton active className="mb-6" />
         )}
