@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FeaturedThumbnail from "../components/FeaturedThumbnail";
 import getTop4 from "../api/getTop4";
 import forMenPic from "../images/home_for-men.png";
 
 const ForMenFeatured = () => {
   const [items, setItems] = useState();
+  const { menItems } = useSelector((state) => state.featured);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getTop4("men", setItems);
+    if (menItems) {
+      setItems(menItems);
+    } else {
+      getTop4("men", setItems,dispatch);
+    }
   }, []);
 
   return (
