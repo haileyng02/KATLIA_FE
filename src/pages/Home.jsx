@@ -10,9 +10,9 @@ import ForWomenFeatured from "../components/ForWomenFeatured";
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleSaleClick = () => {
-    navigate('/sale/men/all/page=1')
-  }
+  const navigateToSale = () => {
+    navigate("/sale/men/all/page=1");
+  };
 
   return (
     <div className="pt-[92px]">
@@ -57,7 +57,10 @@ const Home = () => {
             </p>
             {/* SHOP NOW */}
             <div className=" mt-[30px] relative">
-              <h3 className="text-20 leading-[25px] underline text-center">
+              <h3
+                onClick={navigateToSale}
+                className="text-20 leading-[25px] underline text-center cursor-pointer"
+              >
                 SHOP NOW
               </h3>
               <img
@@ -78,7 +81,10 @@ const Home = () => {
             <p className=" max-w-[350px] text-center">
               The hot sale period has now begun. Don’t miss the news
             </p>
-            <div onClick={handleSaleClick} className="w-[220px] h-20 mx-auto text-center items-center flex justify-center mt-11 border-1 border-black cursor-pointer">
+            <div
+              onClick={navigateToSale}
+              className="w-[220px] h-20 mx-auto text-center items-center flex justify-center mt-11 border-1 border-black cursor-pointer"
+            >
               SEE THE SALE
             </div>
           </div>
