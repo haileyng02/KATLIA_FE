@@ -84,7 +84,6 @@ body {
   @apply h-[34px] border-1 border-black70 text-black70 rounded-5 px-[10px] text-15 hover:border-black hover:text-black;
 }
 
-
 .confirm-button {
   @apply h-[34px] bg-primary rounded-5 px-[10px] text-15 text-white ml-5 hover:bg-secondary;
 }
@@ -126,10 +125,9 @@ th {
   @apply text-black font-normal;
 }
 
-.ant-picker .ant-picker-input >input{
-  @apply text-[18px]
+.ant-picker .ant-picker-input > input {
+  @apply text-[18px];
 }
-
 
 .my-select-container .ant-select .ant-select-selector {
   @apply border-black border-1 rounded-[10px] w-full h-[45px];
@@ -147,8 +145,8 @@ th {
   @apply flex items-center;
 }
 
-.ant-form input[type="file"]{
-  display: none
+.ant-form input[type="file"] {
+  display: none;
 }
 
 .ant-form label {
@@ -276,29 +274,49 @@ textarea.ant-input {
 }
 
 .product-filter.ant-select-single.ant-select-lg .ant-select-selector {
-  @apply rounded-[5px]
+  @apply rounded-[5px];
 }
 
-.product-filter.ant-select:not(:where(.css-dev-only-do-not-override-1ykeo0l).ant-select-customize-input) .ant-select-selector {
- @apply border-black
+.product-filter.ant-select:not(
+    :where(.css-dev-only-do-not-override-1ykeo0l).ant-select-customize-input
+  )
+  .ant-select-selector {
+  @apply border-black;
 }
 
 .product-filter.ant-select .ant-select-selection-placeholder {
-  @apply text-black
+  @apply text-black;
 }
 
 .rate-title {
-  @apply font-inter font-semibold mt-[20px]
+  @apply font-inter font-semibold mt-[20px];
 }
 
 .overflow-modal {
-  @apply overflow-y-auto h-[70vh] px-4
+  @apply overflow-y-auto h-[70vh] px-4;
 }
 
-.ant-upload-wrapper.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select {
-  @apply rounded-none
+.ant-upload-wrapper.ant-upload-picture-card-wrapper
+  .ant-upload.ant-upload-select {
+  @apply rounded-none;
 }
 
-.ant-rate{
-  @apply flex
+.ant-rate {
+  @apply flex;
+}
+
+:where(.css-dev-only-do-not-override-1ykeo0l)[class^="ant-message"]
+  [class^="ant-message"],
+:where(.css-dev-only-do-not-override-1ykeo0l)[class*=" ant-message"]
+  [class^="ant-message"],
+:where(.css-dev-only-do-not-override-1ykeo0l)[class^="ant-message"]
+  [class*=" ant-message"],
+:where(.css-dev-only-do-not-override-1ykeo0l)[class*=" ant-message"]
+  [class*=" ant-message"] {
+  @apply flex items-center mx-auto;
+}
+
+:where(.css-dev-only-do-not-override-1ykeo0l)[class^="ant-spin"],
+:where(.css-dev-only-do-not-override-1ykeo0l)[class*=" ant-spin"] {
+  @apply font-inter
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Skeleton } from "antd";
+import { Skeleton, message, Spin } from "antd";
 import Quantity from "../Quantity";
 import ColorIcon from "../ColorIcon";
 import ImagesContainer from "../product-detail/ImagesContainer";
@@ -14,10 +14,12 @@ const MainProductContainer = ({ id }) => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
   const [item, setItem] = useState();
   const [currentColor, setCurrentColor] = useState();
   const [currentSize, setCurrentSize] = useState();
   const [loading, setLoading] = useState(true);
+  const [addLoading,setAddLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
   //Get Product Detail
@@ -44,6 +46,7 @@ const MainProductContainer = ({ id }) => {
 
   // Add Item To Cart
   const addItemToCart = async () => {
+    setAddLoading(true);
     try {
       const token = currentUser.token;
 
@@ -58,8 +61,17 @@ const MainProductContainer = ({ id }) => {
         routes.getAccessTokenHeader(token)
       );
       console.log(result);
+      dispatch(addToCart(item, quantity));
+      messageApi.open({
+        type: "success",
+        content: "Product added to cart!",
+      });
     } catch (err) {
       if (err.response) {
+        messageApi.open({
+          type: "error",
+          content: err.response.data.message,
+        });
         console.log(err.response.data);
         console.log(err.response.status);
         console.log(err.response.headers);
@@ -67,11 +79,11 @@ const MainProductContainer = ({ id }) => {
         console.log(err.message);
       }
     }
+    setAddLoading(false);
   };
 
   const handleAddToCart = () => {
     if (currentUser != null) {
-      dispatch(addToCart(item, quantity));
       addItemToCart();
     } else {
       navigate("/signin");
@@ -105,97 +117,100 @@ const MainProductContainer = ({ id }) => {
   }, [quantity]);
 
   return (
-    <div className="px-[150px] flex items-start justify-between">
-      {!loading ? (
-        <>
-          <ImagesContainer currentColor={currentColor} />
-          <div className="mt-[10vh] w-[35%]">
-            <h1 className=" font-bold">{item?.name}</h1>
-            <p className=" leading-6 mt-7">{item?.description}</p>
-            <div className="flex mt-6 gap-x-12">
-              {item?.colorList?.map((c, i) => (
-                <ColorIcon
-                  key={i}
-                  color={c}
-                  current={currentColor?.id === c.id}
-                  colorOnClick={(c) => colorOnClick(c)}
-                />
-              ))}
-            </div>
-            <p className="leading-6 mt-7 capitalize">
-              {currentColor?.name.toLowerCase()}
-            </p>
-            <p className="leading-6 mt-9">{item?.price + "$"}</p>
-            <div className="flex mt-9 gap-x-[23px]">
-              {currentColor?.details.map((s, i) => {
-                if (s.size === "ONESIZE" && i !== 0) return null;
-                return (
-                  <div
+    <Spin spinning={addLoading}>
+      <div className="px-[150px] flex items-start justify-between">
+        {!loading ? (
+          <>
+            <ImagesContainer currentColor={currentColor} />
+            <div className="mt-[10vh] w-[35%]">
+              <h1 className=" font-bold">{item?.name}</h1>
+              <p className=" leading-6 mt-7">{item?.description}</p>
+              <div className="flex mt-6 gap-x-12">
+                {item?.colorList?.map((c, i) => (
+                  <ColorIcon
                     key={i}
-                    className={`w-[64px] h-[66px]  flex cursor-pointer ${
-                      currentSize?.size === s.size
-                        ? "bg-primary"
-                        : "bg-[#D9D9D9] hover:border-2 hover:border-primary hover:border-solid"
-                    }`}
-                    onClick={() => sizeOnClick(s)}
-                  >
-                    <h3
-                      className={`${
-                        s.size === "ONESIZE" ? "text-[14px]" : "text-[18px]"
-                      } leading-[42px] m-auto ${
+                    color={c}
+                    current={currentColor?.id === c.id}
+                    colorOnClick={(c) => colorOnClick(c)}
+                  />
+                ))}
+              </div>
+              <p className="leading-6 mt-7 capitalize">
+                {currentColor?.name.toLowerCase()}
+              </p>
+              <p className="leading-6 mt-9">{item?.price + "$"}</p>
+              <div className="flex mt-9 gap-x-[23px]">
+                {currentColor?.details.map((s, i) => {
+                  if (s.size === "ONESIZE" && i !== 0) return null;
+                  return (
+                    <div
+                      key={i}
+                      className={`w-[64px] h-[66px]  flex cursor-pointer ${
                         currentSize?.size === s.size
-                          ? "text-white"
-                          : "text-nav-item "
+                          ? "bg-primary"
+                          : "bg-[#D9D9D9] hover:border-2 hover:border-primary hover:border-solid"
                       }`}
+                      onClick={() => sizeOnClick(s)}
                     >
-                      {s.size}
-                    </h3>
-                  </div>
-                );
-              })}
+                      <h3
+                        className={`${
+                          s.size === "ONESIZE" ? "text-[14px]" : "text-[18px]"
+                        } leading-[42px] m-auto ${
+                          currentSize?.size === s.size
+                            ? "text-white"
+                            : "text-nav-item "
+                        }`}
+                      >
+                        {s.size}
+                      </h3>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
+                {/* Quantity */}
+                <Quantity
+                  custom="w-[124px] h-[50px]"
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                />
+                {/* Add To Cart */}
+                <button
+                  onClick={handleAddToCart}
+                  disabled={currentSize && quantity > currentSize.quantity}
+                  className={`flex rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer ${
+                    currentSize && quantity <= currentSize.quantity
+                      ? "bg-[#EBF6FF]"
+                      : "text-white bg-[#CDCDCD] cursor-not-allowed"
+                  }`}
+                >
+                  {currentSize && quantity <= currentSize.quantity ? (
+                    <>
+                      <img
+                        src={CartIcon}
+                        alt="Cart"
+                        className="h-[17px] w-[17px]"
+                      />
+                      <h3 className=" text-secondary">Add To Cart</h3>
+                    </>
+                  ) : (
+                    <p>OUT OF STOCK</p>
+                  )}
+                </button>
+              </div>
             </div>
-            <div className="flex mt-16 max-h-[49px] gap-x-[82px]">
-              {/* Quantity */}
-              <Quantity
-                custom="w-[124px] h-[50px]"
-                quantity={quantity}
-                setQuantity={setQuantity}
-              />
-              {/* Add To Cart */}
-              <button
-                onClick={handleAddToCart}
-                disabled={currentSize && quantity > currentSize.quantity}
-                className={`flex rounded-[5px] items-center px-[21px] gap-x-[15px] cursor-pointer ${
-                  currentSize && quantity <= currentSize.quantity
-                    ? "bg-[#EBF6FF]"
-                    : "text-white bg-[#CDCDCD] cursor-not-allowed"
-                }`}
-              >
-                {currentSize && quantity <= currentSize.quantity ? (
-                  <>
-                    <img
-                      src={CartIcon}
-                      alt="Cart"
-                      className="h-[17px] w-[17px]"
-                    />
-                    <h3 className=" text-secondary">Add To Cart</h3>
-                  </>
-                ) : (
-                  <p>OUT OF STOCK</p>
-                )}
-              </button>
+          </>
+        ) : (
+          <>
+            <div className="w-[47%]">
+              <Skeleton.Image active style={{ width: "100%", height: "80vh" }} />
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="w-[47%]">
-            <Skeleton.Image active style={{ width: "100%", height: "80vh" }} />
-          </div>
-          <Skeleton className="mt-[10vh] w-[40%]" />
-        </>
-      )}
-    </div>
+            <Skeleton className="mt-[10vh] w-[40%]" />
+          </>
+        )}
+        {contextHolder}
+      </div>
+    </Spin>
   );
 };
 
